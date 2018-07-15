@@ -5,11 +5,17 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
+import { createStore ,applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
-import store from './src/redux/store';
 import BaseTab from './src/pages/baseTab'
 import Splash from './src/pages/Splash'
 import { StackNavigator } from 'react-navigation';
+
+import store from './src/redux/store';
+//redux持久化存储
+import {persistStore, persistCombineReducers} from 'redux-persist';
+import { PersistGate } from 'redux-persist/es/integration/react';
+
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 const TransitionConfiguration = () => ({
@@ -22,6 +28,7 @@ const TransitionConfiguration = () => ({
   },
 });
 
+
 export const ProfileRoutes = StackNavigator({
   Home: {screen :Splash},
   BaseTab:{ screen: BaseTab},
@@ -31,9 +38,12 @@ export const ProfileRoutes = StackNavigator({
 
 export default class App extends Component {
   render() {
+    const { persistor } = configureStore();
     return (
       <Provider store={store}>
-        <ProfileRoutes/>
+        <PersistGate loading={null} persistor={persistor}>
+          <ProfileRoutes/>
+        </PersistGate>
       </Provider>
     );
   }
