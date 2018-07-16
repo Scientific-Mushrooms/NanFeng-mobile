@@ -28,73 +28,14 @@ export default class _Swiper extends Component {
   render(){
     const { navigate } = this.props.navigation;
     return (
-      <Swiper 
-      style={styles.wrapper} 
-      autoplay={true} 
-      autoplayTimeout={2.4}
-      loop={false}
-      scrollEnabled={false}
-      activeDot={<View style={{backgroundColor:'white', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
-      <ImageBackground
-          style={{flex:1}}
-          source={require('../../resource/Back_changed.png')}
-          resizeMode="cover">        
-            <View animation="fadeInLeft" style={styles.center} useNativeDriver>
-                <Text style={styles.text}>番茄工作法</Text>
-                <Text style={styles.text}>规划你的时间</Text>
-                <View animation="fadeInUp" useNativeDriver>
-                  <Image style={{height:(thisWidth-100)*1.8}} source={require('../../resource/swiper1.png')} resizeMode="contain"/>
-                </View>
-            </View>     
-        </ImageBackground>
-        <ImageBackground
-          style={{flex:1}}
-          source={require('../../resource/Back_changed.png')}
-          resizeMode="cover">
-            <View animation="fadeInLeft" delay={2500} style={styles.center} useNativeDriver>
-                <Text style={styles.text}>时间线上</Text>
-                <Text style={styles.text}>留下你的墨迹</Text>
-                <View animation="fadeInRight" delay={2300} useNativeDriver>
-                  <Image style={{height:(thisWidth-120)*1.8}} source={require('../../resource/swiper2.png')} resizeMode="contain"/>
-                </View>
-            </View>
-        </ImageBackground>
-        <ImageBackground
-          style={{flex:1}}
-          source={require('../../resource/Back_changed.png')}
-          resizeMode="cover">
-            <View animation="fadeInDown" delay={5000} style={styles.center} useNativeDriver>
-              <Text style={styles.text}>完整社区体验</Text>
-              <Text style={styles.text}>营造专注氛围</Text>
-              <View animation="fadeInUp" delay={4900} useNativeDriver>
-                  <Image style={{height:(thisWidth-120)*1.8}} source={require('../../resource/swiper3.png')} resizeMode="contain"/>
-              </View>
-            </View>
-        </ImageBackground>
-        <ImageBackground
-          style={{flex:1}}
-          source={require('../../resource/Back_changed.png')}
-          resizeMode="cover">
-          <View style={styles.center}>
-            <Text style={styles.text_large}>时墨</Text>
-            <Text style={styles.text}></Text>
-            <Text style={styles.text}>让世界看到</Text>
-            <Text style={styles.text}>你的专注</Text>
-          </View>
-          <View style={styles.center}>
-            <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigate('Signin')}>
-                <Text style={styles.btText}>注册以获得完整功能</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigate('BaseTab')}>
-                <Text style={styles.btText}>体验离线功能</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </Swiper>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigate('BaseTab')}>
+            <Text style={styles.btText}>第一次进入所显示的页面</Text>
+            <Text style={styles.btText}>点击进入下一级导航</Text>
+        </TouchableOpacity>   
+      </View>
     );
   }
 

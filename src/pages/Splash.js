@@ -8,10 +8,11 @@ import {
 
 import {Dimensions,PixelRatio} from 'react-native';
 import {createAnimatableComponent, View,} from 'react-native-animatable'
+import { connect } from 'react-redux';
 
 let {WIDTH,HEIGHT} = Dimensions.get("window");
 //应用开启时的加载页面
-export default class Splash extends Component {
+class Splash extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,9 +35,9 @@ export default class Splash extends Component {
     componentDidMount() {
         const { navigation } = this.props
         this.timer = setTimeout(() => {
-            /*if(this.state.check!="false")
+            if(this.props.ifFirst.first)
                 this.props.navigation.navigate('Swiper');
-            else*/
+            else
                 this.props.navigation.navigate('BaseTab');
         }, 2000)
     }
@@ -64,6 +65,10 @@ export default class Splash extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    ifFirst: state.ifFirst
+})
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -78,3 +83,5 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
 });
+
+export default connect(mapStateToProps)(Splash);

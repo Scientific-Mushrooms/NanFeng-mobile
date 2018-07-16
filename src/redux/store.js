@@ -8,7 +8,7 @@ const preloadedState = {
         factor: 1
     },
     ifFirst:{
-        first:true
+        first:false
     }
 }
 
