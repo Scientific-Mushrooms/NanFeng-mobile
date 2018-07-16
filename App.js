@@ -5,16 +5,13 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import { createStore ,applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 import BaseTab from './src/pages/baseTab'
 import Swiper from './src/pages/Swiper'
 import Splash from './src/pages/Splash'
 import { StackNavigator } from 'react-navigation';
 
-import store from './src/redux/store';
 //redux持久化存储
-import {persistStore, persistCombineReducers} from 'redux-persist';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import configureStore from './src/redux/configureStore'
 
@@ -41,7 +38,7 @@ export const ProfileRoutes = StackNavigator({
 
 export default class App extends Component {
   render() {
-    const { persistor } = configureStore();
+    const {store, persistor } = configureStore();
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>

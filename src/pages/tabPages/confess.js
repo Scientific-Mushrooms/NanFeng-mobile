@@ -6,26 +6,25 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { increase, decrease, reset } from '../../redux/action';
+import { setFirst } from '../../redux/action';
 
 class Confess extends Component {
-  _onPressReset() {
-    this.props.dispatch(reset());
-  }
-
-  _onPressInc() {
-    this.props.dispatch(increase());
-  }
-
-  _onPressDec() {
-    this.props.dispatch(decrease());
+  ifFirstReset() {
+    this.props.dispatch(setFirst());
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.counter}>confess</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.ifFirstReset.bind(this)}>
+            <Text style={styles.btText}>点击重置redux状态</Text>
+            <Text style={styles.btText}>以测试redux-persist</Text>
+        </TouchableOpacity> 
       </View>
+      
     );
   }
 }

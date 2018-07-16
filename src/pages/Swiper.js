@@ -32,7 +32,7 @@ export default class _Swiper extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigate('BaseTab')}>
-            <Text style={styles.btText}>第一次进入所显示的页面</Text>
+            <Text style={styles.btText}>第一次使用App所显示的页面</Text>
             <Text style={styles.btText}>点击进入下一级导航</Text>
         </TouchableOpacity>   
       </View>
