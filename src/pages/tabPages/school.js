@@ -4,25 +4,69 @@ import {
   Text,
   View,
   Alert,
+  ImageBackground,
   TouchableOpacity, 
-  Dimensions
+  Dimensions,
+  FlatList
 } from 'react-native';
 import { connect } from 'react-redux';
 import {UltimateListView} from "react-native-ultimate-listview";
 import ListItem from "../../components/ListItem"
+import HorizonItem from "../../components/HorizontalListItem"
 
 const { width, height } = Dimensions.get('window')
 class School extends Component {
 
   constructor(props) {
     super(props)
+    renderHorizonList=this.renderHorizonList.bind(this)
     this.state = {
       layout: 'grid',
-      data:[]
+      horizonData:[],
+      gridData:[],
+      refreshing: false,
     }
   }
 
-  sleep = (time) => new Promise(resolve => setTimeout(() => resolve(), time));
+
+  componentWillMount() {
+    //防止卡死的多次请求，故性能可能会有点差
+    //待优化
+    fetch('http://118.25.56.186/data/', {
+        method: 'GET',
+        headers: {
+              'Content-Type': 'application/json'
+        }
+        }).then((response) => response.json())
+        .then((response) => {
+            var json = response;
+            this.state.horizonData=json;
+        })
+        .catch((error) => {
+            if (error) {
+                console.log('error', error);
+            }
+        });
+  }
+
+  onFetch_Horizon=()=>{
+    fetch('http://118.25.56.186/data', {
+      method: 'GET',
+      headers: {
+            'Content-Type': 'application/json'
+      }
+      }).then((response) => response.json())
+      .then((response) => {
+          var json = response;
+          this.state.horizonData=json;
+      })
+      .catch((error) => {
+          if (error) {
+              console.log('error', error);
+          }
+      });
+  }
+
 
   onFetch = async(page = 1, startFetch, abortFetch) => {
     fetch('http://118.25.56.186/data', {
@@ -35,9 +79,9 @@ class School extends Component {
           let pageLimit = 40;
           var json = response;
           this.setState({
-            data: json,
+            gridData: json,
           });
-          let rowData =this.state.data
+          let rowData =this.state.gridData
           startFetch(rowData, pageLimit);
         })
         .catch((error) => {
@@ -50,13 +94,49 @@ class School extends Component {
 
   renderItem = (item, index, separator) => {
     return(
-    <ListItem like={index} com={index-1} text={item.content} kind="美景"/>
+      <ListItem 
+      like={index} 
+      com={index-1} 
+      text={item.content} 
+      kind="美景"/>
     );
   };
 
-  onPress = (index, item) => {
-      Alert.alert(index, `You're pressing on ${item}`);
+  renderHorizonItem({item}){
+    return(
+      <HorizonItem/>
+    );
   };
+
+  renderEmptyView() {
+    return(
+      <ImageBackground source={require("../../assets/blank.png")}/>
+    )
+  }
+
+  renderHorizonList(){
+    return(
+      <View>
+        <FlatList 
+        horizontal
+        renderItem={this.renderHorizonItem} 
+        onRefresh={this.onFetch_Horizon} 
+        refreshing={this.state.refreshing}
+        data={this.state.horizonData} 
+      />
+      </View>
+    );
+  }
+
+  renderHeaderView() {
+    return(
+      <View>
+        <Text style={styles.title}>最近的校园活动</Text>
+          {renderHorizonList()}
+        <Text style={styles.title}>TA的校园见闻</Text>
+      </View>
+    )
+  }
 
   render() {
     return (
@@ -68,12 +148,12 @@ class School extends Component {
           numColumns={2} //to use grid layout, simply set gridColumn > 1
 
              //----Extra Config----
-             //header={this.renderHeaderView}
+          header={this.renderHeaderView}
              //paginationFetchingView={this.renderPaginationFetchingView}           
              //paginationFetchingView={this.renderPaginationFetchingView}
              //paginationAllLoadedView={this.renderPaginationAllLoadedView}
              //paginationWaitingView={this.renderPaginationWaitingView}
-             //emptyView={this.renderEmptyView}
+          emptyView={this.renderEmptyView}
              //separator={this.renderSeparatorView}
            />
     );
@@ -86,6 +166,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#F5FCFF',
+    },
+    title:{
+      color:'black',
+      fontWeight:'bold',
+      fontSize:20,
+      margin:10,
     },
     welcome: {
       fontSize: 20,

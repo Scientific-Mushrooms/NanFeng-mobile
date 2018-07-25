@@ -45,8 +45,9 @@ const text="abcdefghijklmnopqrstuvwxyz";
 
 const styles = StyleSheet.create({
   container: {
-    margin:5,
-    width:Dimensions.get('window').width/2-10,
+    marginVertical:5,
+    marginLeft:8,
+    width:Dimensions.get('window').width/2-8,
     borderRadius:5,
     backgroundColor: '#FFFFFF',
   },

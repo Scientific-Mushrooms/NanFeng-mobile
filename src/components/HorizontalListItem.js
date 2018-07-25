@@ -1,59 +1,51 @@
 
 import React, {Component} from 'react';
-import {StyleSheet, Text,ImageBackground,Dimensions} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {View,StyleSheet, Text,ImageBackground,Dimensions} from 'react-native';
 
 export default class HorizontalListItem extends Component {
 
-  handleText(str){
-    if(str.length>10){
-      return str.substr(0,10)+"...";
-    }else{
-      return str;
-    }
-  }
-
   render() {
     return (
-      <ImageBackground style={styles.container} source={require('./src/resource/img_intro_4.png')} resizeMode="cover">
+      <View style={styles.container}>
+      <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
         <Text style={styles.text_on_image}>标签</Text>
         <Text style={styles.title}>标题</Text>
-        <Text style={styles.description}>{this.handleText(text)}</Text>
-        <LinearGradient 
-          colors={['#FFFFFF','#000000']} 
-          style={{height:150,width:Dimensions.get('window').width,opacity:1}}
-          start={{x: 0, y: 0.1}} end={{x: 0, y: 0.9}}>
-        </LinearGradient>
+        <Text style={styles.description}>副标题</Text>
       </ImageBackground>
+      </View>
     );
   }
 }
 
-const text="简述：ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems:'flex-start',
-    justifyContent: 'flex-end',
-    backgroundColor: '#F5FCFF',
+    marginVertical:5,
+    marginLeft:10,
+    width:Dimensions.get('window').width-20,
+    borderRadius:5,
+    backgroundColor: '#FFFFFF',
+  },
+  imageContainer:{
+    alignItems:"flex-start",
+    justifyContent:"flex-end"
   },
   text_on_image:{
     textAlign:'center',
     textAlignVertical:'center',
-    backgroundColor:'#C0DADF',
-    borderRadius:20,
-    fontSize: 20,
+    backgroundColor:'#EEEEEE',
+    borderRadius:8,
+    fontSize: 13,
     margin: 10,
-    padding:10,
+    paddingHorizontal:10,
+    paddingVertical:5,
   },
   description:{
+    color:"white",
     fontSize: 35,
-    margin: 10,
   },
   title:{
+    color:'white',
     fontSize: 50,
     textAlign: 'left',
-    margin: 10,
   },
 });
