@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Alert,
+  Image,
   ImageBackground,
   TouchableOpacity, 
   Dimensions,
@@ -92,6 +93,50 @@ class School extends Component {
       });   
   };
 
+  render() {
+    return (
+      <View style={{flex:1,backgroundColor:'white'}}>
+      <UltimateListView
+          ref={(ref) => this.listView = ref}             
+          onFetch={this.onFetch} 
+          refreshableMode="basic" //basic or advanced
+          item={this.renderItem}  //this takes two params (item, index)
+          numColumns={2} //to use grid layout, simply set gridColumn > 1
+
+             //----Extra Config----
+          header={this.renderHeaderView}
+             //paginationFetchingView={this.renderPaginationFetchingView}           
+             //paginationFetchingView={this.renderPaginationFetchingView}
+             //paginationAllLoadedView={this.renderPaginationAllLoadedView}
+             //paginationWaitingView={this.renderPaginationWaitingView}
+          emptyView={this.renderEmptyView}
+             //separator={this.renderSeparatorView}
+           />
+      </View>
+    );
+  }
+
+  renderHeaderView() {
+    return(
+      <View>
+        <Text style={styles.title}>自习 研讨 组队</Text>
+        <View style={styles.container}>
+          <TouchableOpacity style={styles.imgButton}>
+            <ImageBackground style={styles.imageContainer} resizeMode="contain" source={require('../../assets/鼓楼.png')}>
+            </ImageBackground>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.imgButton}>
+            <ImageBackground style={styles.imageContainer} resizeMode="contain" source={require('../../assets/仙林.png')}>
+            </ImageBackground>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.title}>最近的校园活动</Text>
+          {renderHorizonList()}
+        <Text style={styles.title}>TA的校园见闻</Text>
+      </View>
+    )
+  }
+
   renderItem = (item, index, separator) => {
     return(
       <ListItem 
@@ -127,45 +172,19 @@ class School extends Component {
       </View>
     );
   }
-
-  renderHeaderView() {
-    return(
-      <View>
-        <Text style={styles.title}>最近的校园活动</Text>
-          {renderHorizonList()}
-        <Text style={styles.title}>TA的校园见闻</Text>
-      </View>
-    )
-  }
-
-  render() {
-    return (
-      <UltimateListView
-          ref={(ref) => this.listView = ref}             
-          onFetch={this.onFetch} 
-          refreshableMode="basic" //basic or advanced
-          item={this.renderItem}  //this takes two params (item, index)
-          numColumns={2} //to use grid layout, simply set gridColumn > 1
-
-             //----Extra Config----
-          header={this.renderHeaderView}
-             //paginationFetchingView={this.renderPaginationFetchingView}           
-             //paginationFetchingView={this.renderPaginationFetchingView}
-             //paginationAllLoadedView={this.renderPaginationAllLoadedView}
-             //paginationWaitingView={this.renderPaginationWaitingView}
-          emptyView={this.renderEmptyView}
-             //separator={this.renderSeparatorView}
-           />
-    );
-  }
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      flexDirection:'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      backgroundColor: 'white',
+    },
+    imgButton:{
+      margin:10,
+      backgroundColor:"white"
     },
     title:{
       color:'black',
@@ -182,6 +201,15 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       color: '#333333',
       marginBottom: 5,
+    },
+    imageContainer: {
+      flex: 1,
+      width:Dimensions.get('window').width/2-20,
+      height:(Dimensions.get('window').width/2-20)/4*3,
+      borderRadius:5,
+      alignItems:'flex-end',
+      justifyContent: 'flex-end',
+      backgroundColor: '#FFF',
     },
   });
 
