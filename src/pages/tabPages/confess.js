@@ -35,8 +35,14 @@ class Confess extends Component {
 
             <View style={styles.container}>
 
-                <Button onPress={() => this.refs.modal2.open()} style={styles.btn}>Position top</Button>
-                <Modal style={styles.modalbox} backdrop={true}  position={"top"} ref={"modal2"} entry={"top"} >
+                <Button onPress={() => this.refs.modalBox.open()} style={styles.btn}>Position top</Button>
+                <Modal style={styles.modalBox}
+                       backdrop={true} //背景默认黑色50%透明度
+                       position={"top"}  //悬停位置
+                       ref={"modalBox"}
+                       entry={"top"} //从上端进入
+                       animationDuration={400}//动画速度
+                    >
                     <Text style={[styles.text, {color: "white"}]}>Modal on top</Text>
                 </Modal>
 
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
         color: "white",
         padding: 10
     },
-    modalbox: {
+    modalBox: {
         justifyContent: 'center',
         alignItems: 'center',
         height: 230,
