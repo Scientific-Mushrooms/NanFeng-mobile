@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import {UltimateListView} from "react-native-ultimate-listview";
+import ListItem from "../../components/ListItem"
 
 const { width, height } = Dimensions.get('window')
 class School extends Component {
@@ -49,12 +50,7 @@ class School extends Component {
 
   renderItem = (item, index, separator) => {
     return(
-    <TouchableOpacity>
-        <View style={{ margin: 0.5, width: width / 2, paddingBottom: 15 }}>
-          <Text >ID: {index}</Text>
-          <Text>{item.author.name}</Text>
-        </View>
-    </TouchableOpacity>
+    <ListItem like={index} com={index-1} text={item.content} kind="美景"/>
     );
   };
 

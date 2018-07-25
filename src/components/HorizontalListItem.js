@@ -1,24 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
 
 import React, {Component} from 'react';
 import {StyleSheet, Text,ImageBackground,Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default class View2 extends Component {
+export default class HorizontalListItem extends Component {
 
-handleText(str){
-  if(str.length>10){
-    return str.substr(0,10)+"...";
-  }else{
-    return str;
+  handleText(str){
+    if(str.length>10){
+      return str.substr(0,10)+"...";
+    }else{
+      return str;
+    }
   }
-}
 
   render() {
     return (
