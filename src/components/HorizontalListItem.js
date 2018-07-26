@@ -19,6 +19,7 @@ export default class HorizontalListItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    elevation:15,
     marginVertical:5,
     marginLeft:10,
     width:Dimensions.get('window').width-20,
