@@ -17,7 +17,7 @@ export default class ListItem extends Component {
     if(this.props.kind!=null)
       kind=this.props.kind
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container}>
         <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
           <Text style={styles.text_on_image}>{kind}</Text>
         </ImageBackground>
@@ -36,25 +36,23 @@ export default class ListItem extends Component {
           </TouchableOpacity>
           <Text style={styles.num}>{this.props.com}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
 
-const text="abcdefghijklmnopqrstuvwxyz";
-
 const styles = StyleSheet.create({
   container: {
-    elevation:10,
+    flex:1,
+    elevation:3,
     marginVertical:5,
-    marginLeft:8,
+    marginHorizontal:4,
     width:Dimensions.get('window').width/2-8,
     borderRadius:5,
     backgroundColor: '#FFFFFF',
   },
   imageContainer: {
-    flex: 1,
-    width:Dimensions.get('window').width/2-10,
+    width:Dimensions.get('window').width/2-8,
     height:Dimensions.get('window').width/2,
     borderRadius:5,
     alignItems:'flex-end',

@@ -19,7 +19,7 @@ export default class HorizontalListItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    elevation:15,
+    elevation:3,
     marginVertical:5,
     marginLeft:10,
     width:Dimensions.get('window').width-20,
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   imageContainer:{
+    borderRadius:5,
     alignItems:"flex-start",
     justifyContent:"flex-end"
   },
