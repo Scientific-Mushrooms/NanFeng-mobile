@@ -17,10 +17,12 @@ export default class ListItem extends Component {
     if(this.props.kind!=null)
       kind=this.props.kind
     return (
-      <TouchableOpacity style={styles.container}>
-        <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
-          <Text style={styles.text_on_image}>{kind}</Text>
-        </ImageBackground>
+      <View style={styles.container}>
+        <TouchableOpacity activeOpacity={0.6}>
+          <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
+            <Text style={styles.text_on_image}>{kind}</Text>
+          </ImageBackground>
+        </TouchableOpacity>
         <Text style={styles.description}>{this.handleText(this.props.text)}</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -36,7 +38,7 @@ export default class ListItem extends Component {
           </TouchableOpacity>
           <Text style={styles.num}>{this.props.com}</Text>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   }
 }

@@ -1,18 +1,18 @@
 
 import React, {Component} from 'react';
-import {View,StyleSheet, Text,ImageBackground,Dimensions} from 'react-native';
+import {View,StyleSheet, Text,ImageBackground,TouchableOpacity,Dimensions} from 'react-native';
 
 export default class HorizontalListItem extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity activeOpacity={0.8} style={styles.container}>
       <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
         <Text style={styles.text_on_image}>标签</Text>
         <Text style={styles.title}>标题</Text>
         <Text style={styles.description}>副标题</Text>
       </ImageBackground>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
