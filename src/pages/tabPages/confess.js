@@ -6,23 +6,27 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-import {
-    StackNavigator,
-} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import ConfessHome from './confessPages/ConfessHome';
 import Page1 from './confessPages/Page1';
-import {connect} from "react-redux";
-import {notFirst} from "../../redux/action";
-// StackNavigator配置，默认显示MianVC页面
-const ConfessNavigator = StackNavigator(
-    {
-        ConfessHome: {screen: ConfessHome },
-        Page1: {screen: Page1},
-    },
-    {
-        initialRouteName: 'ConfessHome',//默认路由，就是第一个要显示的页面
+
+const ConfessNavigator = StackNavigator({
+    ConfessHome: {screen: ConfessHome },
+    Page1: {screen: Page1},
+    },{
+    transitionConfig:  TransitionConfiguration,
     }
 );
+
+const TransitionConfiguration = () => ({
+    screenInterpolator: (sceneProps) => {
+      const { scene } = sceneProps;
+      const { route } = scene;
+      const params = route.params || {};
+      const transition = params.transition || 'forHorizontal';
+      return CardStackStyleInterpolator[transition](sceneProps);
+    },
+  });
 
 class Confess extends Component {
 
@@ -30,16 +34,10 @@ class Confess extends Component {
         header: null,
     };
 
-
     render() {
-        return (
-            <ConfessNavigator />
-        );
+        return (<ConfessNavigator />);
     }
 }
-const mapStateToProps = state => ({
-    ifFirst: state.ifFirst
-})
 
 
 const styles = StyleSheet.create({
@@ -79,4 +77,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(mapStateToProps)(Confess);
+export default Confess;
