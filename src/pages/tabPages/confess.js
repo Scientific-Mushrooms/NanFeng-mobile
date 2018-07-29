@@ -4,15 +4,21 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TouchableHighlight,
+    Image,
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
 import { setFirst } from '../../redux/action';
+import { StackNavigator } from 'react-navigation';
+import Page1 from './confessPages/test1';
 
-class Confess extends Component {
 
+class ConfessHome extends Component {
+
+    static navigationOptions = {
+        title: 'ConfessHome',
+    };
 
     constructor() {
         super();
@@ -31,37 +37,57 @@ class Confess extends Component {
 
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
 
-            <View style={styles.container}>
+            <View style={{flex: 1, backgroundColor: 'rgb(240,240,240)'}}>
 
-                <Button onPress={() => this.refs.modalBox.open()} style={styles.btn}>Position top</Button>
-                <Modal style={styles.modalBox}
-                       backdrop={true} //背景默认黑色50%透明度
-                       position={"top"}  //悬停位置
-                       ref={"modalBox"}
-                       entry={"top"} //从上端进入
-                       animationDuration={400}//动画速度
+                <View style={styles.header}>
+
+                    <View style={styles.center}>
+                        <Text style={{color: '#585858',fontSize:20}}
+                              onPress={() => this.refs.modalBox.open()}
+                        >全部动态</Text>
+                    </View>
+
+                </View>
+
+                <View style={styles.container}>
+                    <Modal style={styles.modalBox}
+                           backdrop={true} //背景默认黑色50%透明度
+                           position={"top"}  //悬停位置
+                           ref={"modalBox"}
+                           entry={"top"} //从上端进入
+                           animationDuration={400}//动画速度
                     >
-                    <Text style={[styles.text, {color: "white"}]}>Modal on top</Text>
-                </Modal>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => navigate('Page1')}>
+                        <Text style={[styles.text, {color: "black"}]}>Page1</Text>
+                        </TouchableOpacity>
+                        <Text style={[styles.text, {color: "black"}]}>Page2</Text>
+                    </Modal>
 
-                <Text style={styles.counter}>confess</Text>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={this.ifFirstReset.bind(this)}>
-                    <Text style={styles.btText}>点击重置redux状态</Text>
-                    <Text style={styles.btText}>以测试redux-persist</Text>
-                </TouchableOpacity>
+                    <Text style={styles.counter}>confess</Text>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={this.ifFirstReset.bind(this)}>
+                        <Text style={styles.btText}>点击重置redux状态</Text>
+                        <Text style={styles.btText}>以测试redux-persist</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
 
         );
     }
 }
 
+
 const mapStateToProps = state => ({
     counter: state.counter
 })
+
 
 const styles = StyleSheet.create({
     container: {
@@ -92,12 +118,41 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 230,
-        backgroundColor: "#3B5998"
+        backgroundColor: 'rgb(240,240,240)'
     },
     text: {
         color: "black",
+        marginTop: 30,
+        marginBottom: 30,
         fontSize: 22
-    }
+    },
+
+    //头部
+    header: {
+        flexDirection: 'row',
+        height: 50,
+        borderBottomWidth:2,
+        borderColor:'rgb(230,230,230)',
+        backgroundColor:'rgb(248,248,248)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    center: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
 });
 
-export default connect(mapStateToProps)(Confess);
+const Navigator=StackNavigator(
+    {
+        Home:{screen:ConfessHome},
+        Page1:{screen:Page1},
+        //Page2:{screen:test2},
+    }
+);
+
+
+
+
+export default connect(mapStateToProps)(ConfessHome);
