@@ -164,6 +164,7 @@ class School extends Component {
       <View>
         <FlatList 
         horizontal
+        showsHorizontalScrollIndicator={false}
         renderItem={this.renderHorizonItem} 
         onRefresh={this.onFetch_Horizon} 
         refreshing={this.state.refreshing}

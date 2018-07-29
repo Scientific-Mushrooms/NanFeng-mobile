@@ -44,8 +44,7 @@ export default class ListItem extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex:1,
+  container: {//no flex:1 here
     elevation:3,
     marginVertical:5,
     marginHorizontal:4,
