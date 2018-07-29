@@ -24,15 +24,7 @@ const ConfessNavigator = StackNavigator(
     }
 );
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-    },
-});
-
-class CN extends Component {
+class Confess extends Component {
 
     static navigationOptions = {
         header: null,
