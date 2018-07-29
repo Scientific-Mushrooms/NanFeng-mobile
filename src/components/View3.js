@@ -7,17 +7,9 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, TextInput,View,ImageBackground,Image,TouchableOpacity,Dimensions,Alert} from 'react-native';
+import {StyleSheet, Text, TextInput,View,Image,TouchableOpacity,Dimensions,Alert,FlatList} from 'react-native';
 
 export default class View3 extends Component {
-
-  handleText(str){
-  if(str.length>5){
-    return str.substr(0,5)+"...";
-  }else{
-    return str;
-  }
-}
 
   render() {
     return (
@@ -51,20 +43,27 @@ export default class View3 extends Component {
           <Image source={require('./src/resource/ic_feed_like.png')} style={styles.icon2}/>
           <Text style={styles.comment}>11人觉得很赞</Text>
         </View>
-        <View style={styles.container2}>
+        <View style={styles.container4}>
           <Image source={require('./src/resource/ic_news_collect.png')} style={styles.icon2}/>
           <Text style={styles.comment}>2条评论回复</Text>
         </View>
+        <FlatList
+        data={[{name:'用户AB',content:'AJKSLDAHJKD..'},{name:'用户BCD',content:'JKAIS。'},{name:'用户CRFG',content:'IOUJK。。'},{name:'用户DJKL',content:'UIO。'},]}
+        renderItem={({item}) => 
+        <View style={styles.container2}>
+          <Text style={styles.username_friends}>{item.name+':'}</Text>
+          <Text style={styles.content_friends}>{item.content}</Text>
+        </View>
+        }/>
         <TextInput style={styles.input} placeholder='评论...'></TextInput>
       </View>
     );
   }
 }
 
-const text="abcdefghijklmnopqrstuvwxyz";
-
 const styles = StyleSheet.create({
   container: {
+    elevation:3,
     backgroundColor: '#FFFFFF',
   },
   container2: {
@@ -76,6 +75,18 @@ const styles = StyleSheet.create({
     marginLeft:3,
     marginTop:10,
     marginBottom:0,
+  },
+  username_friends:{
+    marginLeft:15,
+    marginTop:5,
+    marginRight:5,
+    color:"#268BD2",
+    fontSize:13,
+  },
+  content_friends:{
+    marginTop:5,
+    color:"#000000",
+    fontSize:13,
   },
   picture:{
     width:60,
@@ -101,7 +112,10 @@ const styles = StyleSheet.create({
   icon2:{
     width:20,
     height:20,
-    margin:5,
+    marginLeft:15,
+    marginTop:5,
+    marginBottom:5,
+    marginRight:5,
   },
   comment:{
     color:'#000000'
@@ -120,5 +134,12 @@ const styles = StyleSheet.create({
     fontSize:20,
     margin:10,
     color:'#000000',
+  },
+  container4:{
+    flexDirection:'row',
+    borderRadius:20,
+    borderBottomColor:'#CCCCCC',
+    borderBottomWidth:1,
+    alignItems:'center',
   },
 });
