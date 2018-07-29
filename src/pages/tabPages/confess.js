@@ -1,67 +1,54 @@
 import React, { Component } from 'react';
 import {
+    AppRegistry,
     StyleSheet,
     Text,
     View,
-    TouchableOpacity,
-    TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
-import Modal from 'react-native-modalbox';
-import Button from 'react-native-button';
-import { connect } from 'react-redux';
-import { setFirst } from '../../redux/action';
-
-class Confess extends Component {
-
-
-    constructor() {
-        super();
-        this.state = {
-            isOpen: false,
-            isDisabled: false,
-            swipeToClose: true,
-            sliderValue: 0.3
-        };
-    }//mb初始设置
-
-    ifFirstReset() {
-        this.props.dispatch(setFirst());
+import {
+    StackNavigator,
+} from 'react-navigation';
+import ConfessHome from './confessPages/ConfessHome';
+import Page1 from './confessPages/Page1';
+import {connect} from "react-redux";
+import {notFirst} from "../../redux/action";
+// StackNavigator配置，默认显示MianVC页面
+const ConfessNavigator = StackNavigator(
+    {
+        ConfessHome: {screen: ConfessHome },
+        Page1: {screen: Page1},
+    },
+    {
+        initialRouteName: 'ConfessHome',//默认路由，就是第一个要显示的页面
     }
+);
 
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F5FCFF',
+    },
+});
+
+class CN extends Component {
+
+    static navigationOptions = {
+        header: null,
+    };
 
 
     render() {
         return (
-
-            <View style={styles.container}>
-
-                <Button onPress={() => this.refs.modalBox.open()} style={styles.btn}>Position top</Button>
-                <Modal style={styles.modalBox}
-                       backdrop={true} //背景默认黑色50%透明度
-                       position={"top"}  //悬停位置
-                       ref={"modalBox"}
-                       entry={"top"} //从上端进入
-                       animationDuration={400}//动画速度
-                    >
-                    <Text style={[styles.text, {color: "white"}]}>Modal on top</Text>
-                </Modal>
-
-                <Text style={styles.counter}>confess</Text>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={this.ifFirstReset.bind(this)}>
-                    <Text style={styles.btText}>点击重置redux状态</Text>
-                    <Text style={styles.btText}>以测试redux-persist</Text>
-                </TouchableOpacity>
-            </View>
-
+            <ConfessNavigator />
         );
     }
 }
-
 const mapStateToProps = state => ({
-    counter: state.counter
+    ifFirst: state.ifFirst
 })
+
 
 const styles = StyleSheet.create({
     container: {
