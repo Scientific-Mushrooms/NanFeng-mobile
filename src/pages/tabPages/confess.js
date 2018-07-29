@@ -49,4 +49,42 @@ const mapStateToProps = state => ({
     ifFirst: state.ifFirst
 })
 
-export default connect(mapStateToProps)(CN);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5,
+    },
+
+    //mb用样式
+    btn: {
+        margin: 10,
+        backgroundColor: "#3B5998",
+        color: "white",
+        padding: 10
+    },
+    modalBox: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 230,
+        backgroundColor: "#3B5998"
+    },
+    text: {
+        color: "black",
+        fontSize: 22
+    }
+});
+
+export default connect(mapStateToProps)(Confess);
