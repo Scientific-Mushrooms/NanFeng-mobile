@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
+  Image,
   StyleSheet,
   AsyncStorage,
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import {TabNavigator,TabBarBottom} from 'react-navigation';  
+import TabNavigator from 'react-native-tab-navigator'
 import Confess from './tabPages/confess';
 import Course from './tabPages/course';
 import School from './tabPages/school';
@@ -14,7 +15,7 @@ import {notFirst} from '../redux/action';
 
 //自定义一个底部导航器
 //导航器包含三个页面
-const Tab = TabNavigator(  
+/*const Tab = TabNavigator(  
   {  
     Confess:{  
       screen:Confess,  
@@ -78,13 +79,19 @@ const Tab = TabNavigator(
           },  
       }  
     }  
-  );  
+  );  */
 
 const mapStateToProps = state => ({
   ifFirst: state.ifFirst
 })
 
 class BaseTab extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        selectedTab:'Confess'
+    }
+  }
 
   static navigationOptions = {
     header: null,
@@ -97,9 +104,53 @@ class BaseTab extends Component {
 
   render() {
     return (
-      <Tab />
+    <TabNavigator tabBarStyle={{color:'white'}}>
+      <TabNavigator.Item
+        title='南大助手'
+        renderIcon={() => <Image style={styles.icon} source={require('../assets/confessTab.png')} />}  
+        renderSelectedIcon={() => <Image style={styles.icon} source={require('../assets/confessTabSelected.png')} />}
+        onPress={()=>{this.setState({selectedTab:'Confess'})}}
+        selected={this.state.selectedTab === 'Confess'}
+        selectedTitleStyle={styles.selectedTabText}  
+      >
+        <Confess navigation={this.props.navigator} />
+      </TabNavigator.Item>
+
+      <TabNavigator.Item
+        title='南大课程'
+        renderIcon={() => <Image style={styles.icon} source={require('../assets/courseTab.png')} />}  
+        renderSelectedIcon={() => <Image style={styles.icon} source={require('../assets/courseTabSelected.png')} />}
+        onPress={()=>{this.setState({selectedTab:'Course'})}}
+        selected={this.state.selectedTab === 'Course'}
+        selectedTitleStyle={styles.selectedTabText}  
+      >
+        <Course navigation={this.props.navigation} />
+      </TabNavigator.Item>
+
+      <TabNavigator.Item
+        title='南大生活'
+        renderIcon={() => <Image style={styles.icon} source={require('../assets/schoolTab.png')} />}  
+        renderSelectedIcon={() => <Image style={styles.icon} source={require('../assets/schoolTabSelected.png')} />}
+        onPress={()=>{this.setState({selectedTab:'School'})}}
+        selected={this.state.selectedTab === 'School'} 
+        selectedTitleStyle={styles.selectedTabText}  
+      >
+        <School navigation={this.props.navigation} />
+      </TabNavigator.Item>
+
+    </TabNavigator>
     );
   }
+}
+
+const styles={
+  icon:{
+    width:25,
+    height:25
+  },
+  selectedTabText:{
+    color:'Black'
+  },
 }
 
 export default connect(mapStateToProps)(BaseTab);

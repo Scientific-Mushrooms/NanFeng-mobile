@@ -104,12 +104,12 @@ class School extends Component {
           item={this.renderItem}  //this takes two params (item, index)
           numColumns={2} //to use grid layout, simply set gridColumn > 1
 
-             //----Extra Config----
+          //----Extra Config----
           header={this.renderHeaderView}
-             //paginationFetchingView={this.renderPaginationFetchingView}           
-             //paginationFetchingView={this.renderPaginationFetchingView}
-             //paginationAllLoadedView={this.renderPaginationAllLoadedView}
-             //paginationWaitingView={this.renderPaginationWaitingView}
+          //paginationFetchingView={this.renderPaginationFetchingView}           
+          //paginationFetchingView={this.renderPaginationFetchingView}
+          //paginationAllLoadedView={this.renderPaginationAllLoadedView}
+          //paginationWaitingView={this.renderPaginationWaitingView}
           emptyView={this.renderEmptyView}
              //separator={this.renderSeparatorView}
           />
