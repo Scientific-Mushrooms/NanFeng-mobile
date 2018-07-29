@@ -10,6 +10,7 @@ import {
   Dimensions,
   FlatList
 } from 'react-native';
+import { Icon } from 'native-base';
 import { connect } from 'react-redux';
 import {UltimateListView} from "react-native-ultimate-listview";
 import ListItem from "../../components/ListItem"
@@ -96,7 +97,7 @@ class School extends Component {
   render() {
     return (
       <View style={{flex:1,backgroundColor:'white'}}>
-      <UltimateListView
+        <UltimateListView
           ref={(ref) => this.listView = ref}             
           onFetch={this.onFetch} 
           refreshableMode="basic" //basic or advanced
@@ -111,7 +112,15 @@ class School extends Component {
              //paginationWaitingView={this.renderPaginationWaitingView}
           emptyView={this.renderEmptyView}
              //separator={this.renderSeparatorView}
-           />
+          />
+          <View style={styles.absolute}>
+            <TouchableOpacity activeOpacity={0.5} style={styles.button}>
+              <Image 
+              style={{width:20,height:20,marginRight:10}} 
+              source={require("../../assets/img_add.png")}/>
+              <Text style={{fontSize:15,fontWeight:'bold',color:'black'}}>写见闻</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
@@ -131,7 +140,7 @@ class School extends Component {
           </TouchableOpacity>
         </View>
         <Text style={styles.title}>最近的校园活动</Text>
-          {renderHorizonList()}
+        {renderHorizonList()}
         <Text style={styles.title}>TA的校园见闻</Text>
       </View>
     )
@@ -182,6 +191,23 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
+    },
+    button:{
+      elevation:3,
+      opacity:0.8,
+      flexDirection:'row',
+      justifyContent:'center',
+      alignItems: 'center',
+      borderRadius:15,
+      backgroundColor:'white',
+      padding:10,
+    },
+    absolute:{
+      position: 'absolute',
+      bottom:10,
+      width:Dimensions.get('window').width,
+      justifyContent:'center',
+      alignItems: 'center',
     },
     imgButton:{
       margin:10,
