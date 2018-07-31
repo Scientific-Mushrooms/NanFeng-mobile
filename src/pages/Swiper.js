@@ -33,6 +33,7 @@ export default class _Swiper extends Component {
           style={styles.button}
           onPress={() => navigate('BaseTab')}>
             <Text style={styles.btText}>第一次使用App所显示的页面</Text>
+            <Text style={styles.btText}>或者测试二级导航的页面</Text>
             <Text style={styles.btText}>点击进入下一级导航</Text>
         </TouchableOpacity>   
       </View>
@@ -64,8 +65,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     button: {
-        height: 50,
-        width: 280,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,

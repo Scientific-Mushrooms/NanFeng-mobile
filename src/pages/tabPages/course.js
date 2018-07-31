@@ -22,9 +22,16 @@ class Course extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text>courses</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigate('Swiper')}>
+          <Text style={styles.btText}>点击进入新页面</Text>
+          <Text style={styles.btText}>以测试二级导航</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -39,7 +46,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      backgroundColor: 'white',
     },
     welcome: {
       fontSize: 20,

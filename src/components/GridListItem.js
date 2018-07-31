@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from '../../../AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/react'
 import { StyleSheet, View, Alert, TouchableOpacity, Image, TouchableHighlight, Dimensions } from 'react-native'
 import { Button, ListItem, Left, Right, Body, Thumbnail, Text, Icon } from 'native-base'
 
