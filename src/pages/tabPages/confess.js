@@ -47,7 +47,8 @@ const ConfessNavigator = StackNavigator(
     {
         initialRouteName: 'ConfessHome',//默认路由，就是第一个要显示的页面
         transitionConfig: TransitionConfiguration,
-
+    }
+)
 
 
 
