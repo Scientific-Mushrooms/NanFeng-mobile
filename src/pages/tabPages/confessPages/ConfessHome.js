@@ -58,7 +58,10 @@ class ConfessHome extends Component {
                     >
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => navigate('Page1')}>
+                            onPress={() => {
+                                this.refs.modalBox.close();//转跳前关闭上一级modalBox
+                                navigate('Page1');
+                            }}>
                         <Text style={[styles.text, {color: "black"}]}>Page1</Text>
                         </TouchableOpacity>
                         <Text style={[styles.text, {color: "black"}]}>Page2</Text>
