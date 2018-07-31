@@ -18,7 +18,7 @@ export default class ListItem extends Component {
       kind=this.props.kind
     return (
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.6}>
+        <TouchableOpacity activeOpacity={0.6} onPress={this.props.onPress}>
           <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
             <Text style={styles.text_on_image}>{kind}</Text>
           </ImageBackground>

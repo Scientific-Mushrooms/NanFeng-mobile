@@ -21,6 +21,7 @@ class School extends Component {
 
   constructor(props) {
     super(props)
+    navigation=this.props.navigation
     renderHorizonList=this.renderHorizonList.bind(this)
     this.state = {
       layout: 'grid',
@@ -94,6 +95,10 @@ class School extends Component {
       });   
   };
 
+  handlePress(){
+    navigation.navigate("ScrollView")
+  }
+
   render() {
     return (
       <View style={{flex:1,backgroundColor:'white'}}>
@@ -149,6 +154,7 @@ class School extends Component {
   renderItem = (item, index, separator) => {
     return(
       <ListItem 
+      onPress={this.handlePress}
       like={index} 
       com={index-1} 
       text={item.content} 

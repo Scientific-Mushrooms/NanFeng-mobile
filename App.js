@@ -6,9 +6,10 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Provider } from 'react-redux';
-import BaseTab from './src/pages/baseTab'
+import BaseTab from './src/pages/BaseTab'
 import Swiper from './src/pages/Swiper'
 import Splash from './src/pages/Splash'
+import ScrollView from './src/pages/schoolPages/ScrollView'
 import { StackNavigator } from 'react-navigation';
 
 //redux持久化存储
@@ -32,6 +33,7 @@ export const ProfileRoutes = StackNavigator({
   Home: {screen :Splash},
   Swiper:{screen:Swiper},
   BaseTab:{ screen: BaseTab},
+  ScrollView:{ screen: ScrollView},
   }, {
     transitionConfig: TransitionConfiguration,
 });
