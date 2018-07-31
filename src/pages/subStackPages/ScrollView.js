@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from 'react-native';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
@@ -36,6 +37,7 @@ class ScrollView extends Component {
 
   render() {
     const { onScroll = () => {} } = this.props;
+    const { navigate }=this.props.navigation
     return (
       <ListView
         ref="ListView"
@@ -69,7 +71,10 @@ class ScrollView extends Component {
             )}
 
             renderForeground={() => (
-              <View key="parallax-header" style={ styles.parallaxHeader }>
+              <TouchableOpacity 
+              key="parallax-header" 
+              style={ styles.parallaxHeader }
+              onPress={()=>navigate('ImageView',{imgsrc:require("../../assets/upload1.jpg")})}>
                 {/*avatar here*/}
                 <Text style={ styles.sectionSpeakerText }>
                   Talks by Rich Hickey
@@ -77,7 +82,7 @@ class ScrollView extends Component {
                 <Text style={ styles.sectionTitleText }>
                   CTO of Cognitec, Creator of Clojure
                 </Text>
-              </View>
+              </TouchableOpacity>
             )}
 
             renderStickyHeader={() => (
