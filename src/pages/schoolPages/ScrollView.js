@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Lightbox from 'react-native-lightbox';
 
 class ScrollView extends Component {
   constructor(props) {

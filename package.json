@@ -31,6 +31,7 @@
     "react-native-svg-charts": "^5.0.0",
     "react-native-swiper": "^1.5.13",
     "react-native-tab-navigator": "^0.3.4",
+    "react-native-transformable-image": "0.0.18",
     "react-native-ultimate-listview": "^3.3.0",
     "react-navigation": "^1.5.12",
     "react-redux": "^5.0.7",

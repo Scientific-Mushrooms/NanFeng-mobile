@@ -15,9 +15,9 @@ let {WIDTH,HEIGHT} = Dimensions.get("window");
 class Splash extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-                check:false,
-        };
+        /*this.state = {
+            check:false,
+        };*/
       }
       /*componentWillMount(){
         AsyncStorage.getItem("ifFirst")

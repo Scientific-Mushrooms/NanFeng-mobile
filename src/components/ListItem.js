@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   },
   description:{
     fontSize: 15,
+    marginTop:5,
     marginHorizontal: 5,
   },
   num:{
