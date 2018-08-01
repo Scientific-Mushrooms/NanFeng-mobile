@@ -6,8 +6,8 @@ export default class Profile extends Component {
     return (
       <View style={{backgroundColor:'white'}}>
         <ImageBackground
-                style={{height: 230, alignItems: 'center', backgroundColor: 'transparent',flexDirection:'row',justifyContent:'space-between'}}
-                source={require('./src/resource/bg.png')}
+                style={{height: 230, alignItems: 'center', backgroundColor: 'transparent',flexDirection:'row',}}
+                source={require('../resource/bg.png')}
                 >
                 <TouchableOpacity
                     activeOpacity={0.75}
@@ -15,10 +15,10 @@ export default class Profile extends Component {
                     >
                         <Image
                         style={{width: 100, height: 100,margin:20,}}
-                        source={require('./src/resource/my_avatar.png')}
+                        source={require('../resource/my_avatar.png')}
                         />
                     </TouchableOpacity>
-                <View style={{margin:30}}>
+                <View>
                   <Text style={{color:'white',fontSize:30,}}>尚未登录</Text>
                   <Text style={{color:'white',}}>点击头像来登录</Text>
                 </View>
@@ -26,24 +26,24 @@ export default class Profile extends Component {
         <View style={styles.cellContainer}>
                     <ProfileStaticCell
                         title="统计"
-                        imageName={require('./src/resource/statistic.png')}
+                        imageName={require('../resource/statistic.png')}
                         anima='fadeInLeft'
                     />
                     <ProfileStaticCell
                         title="排名"
-                        imageName={require('./src/resource/ranking.png')}
+                        imageName={require('../resource/ranking.png')}
                         anima='fadeInLeft'
                         delay={50}
                     />
                     <ProfileStaticCell
                         title="分享"
-                        imageName={require('./src/resource/upload.png')}
+                        imageName={require('../resource/upload.png')}
                         anima='fadeInLeft'
                         delay={100}
                     />
                     <ProfileStaticCell
                         title="重置"
-                        imageName={require('./src/resource/refresh.png')}
+                        imageName={require('../resource/refresh.png')}
                         anima='fadeInLeft'
                         delay={150}
                     />
@@ -70,7 +70,7 @@ const ProfileStaticCell = ({
           <Image style={{width: 30, height: 30, marginHorizontal: 15}} source={imageName}/>
           <View style={[styles.cellStyle, style || style]}>
               <Text style={{color: 'black',fontSize:16}}>{title}</Text>
-              <Image style={{width: 30, height: 30}} source={require('./src/resource/ic_my_right.png')}/>
+              <Image style={{width: 30, height: 30}} source={require('../resource/ic_my_right.png')}/>
           </View>
       </TouchableOpacity>
       </View>
