@@ -17,20 +17,27 @@ class ImageView extends Component {
   }
   
   static navigationOptions = {
-    header: null,
+    headerTitle:
+    <View style={{flex: 1,flexDirection: 'column',alignItems: 'center'}}>
+        <Text style={{color: 'white',fontSize:20}}>图片详情</Text>
+    </View>,
+    headerRight:
+      <View style={{flex: 1,flexDirection: 'column',alignItems: 'flex-end',marginRight:10}}>
+        <TouchableOpacity
+        activeOpacity={0.75}
+        style={{flexDirection:'row',alignItems: 'center'}}>
+          <Text style={{color: '#686868',fontSize:20}}>保存</Text>
+        </TouchableOpacity>
+      </View>,
+    headerStyle:{backgroundColor:'black'},
+    headerTintColor:'white',
   };
 
   render() {
     return(
     <View style={{flex:1,backgroundColor:'black'}}>
-        <TouchableOpacity style={{flex:1}}>
-            <Image 
-            source={require('../../assets/cancel.png')} 
-            style={styles.icon} 
-            resizeMode='contain'/>
-        </TouchableOpacity>
         <Image
-            onTransformGestureReleased={(object)=>this.handleScale}
+            onTransformGestureReleased={(object)=>this.handleScale(object)}
             style={{width: Dimensions.get('window').width,height:Dimensions.get('window').height*19/20}}
             source={this.props.navigation.state.params.imgsrc}
         />
@@ -38,7 +45,6 @@ class ImageView extends Component {
   }
 
   handleScale=(object)=>{
-      Alsert.alert(object.scale)
       if(object.scale<1){
           return false
       }else
@@ -52,5 +58,5 @@ const styles={
     margin:5,
     width:Dimensions.get('window').width/20
   },
-  }
+}
 export default ImageView;
