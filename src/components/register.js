@@ -16,22 +16,27 @@ export default class Login extends Component {
   constructor(props) {
         super(props);
         this.regist=this.regist.bind(this);
-        navigation=this.props.navigation;
         this.state = {
             conceal:true,
             name:"",
             password:"",
+            show_or_hide:'show',
         };
-    }
-
-  render() {
-    return this._render_later();
   }
 
-  _render_later() {
+  _conceal(){
+    if(this.state.conceal){
+      this.setState({show_or_hide:'hide'});
+    }else{
+      this.setState({show_or_hide:'show'});
+    }
+    this.setState({conceal:!this.state.conceal});
+  }
+
+  render() {
     return (
     <View style={styles.container}>
-    <Text style={styles.welcome}>登录南风</Text>
+    <Text style={styles.welcome}>欢迎注册南风！</Text>
     <Text style={styles.tip}>请输入您的邮箱和密码。</Text>
       <View
         style={styles.inputBox}>
@@ -42,7 +47,6 @@ export default class Login extends Component {
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({name:text})}/>
       </View>
-
       <View
         style={styles.inputBox}>
         <Image source={require('./src/resource/ic_my_photos.png')} style={styles.icon}/>
@@ -52,13 +56,20 @@ export default class Login extends Component {
           secureTextEntry={this.state.conceal}
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({password:text})}/>
+          <TouchableOpacity
+          style={{marginRight:10}}
+          onPress={this._conceal.bind(this)}
+          activeOpacity={0.75}>
+          <Text style={{borderLeftWidth:1,paddingLeft:5,borderColor:'#AAAAAA',}}>
+          {this.state.show_or_hide}</Text>
+          </TouchableOpacity>
       </View>
       <TouchableOpacity
         style={styles.button}
         onPress={this.regist}
         activeOpacity={0.75}>
         <Text
-          style={styles.btText}>登录</Text>
+          style={styles.btText}>注册</Text>
       </TouchableOpacity>
       <View style={styles.texts}>
         <Text style={styles.add_line}>                             </Text>
@@ -80,6 +91,12 @@ export default class Login extends Component {
         
       </View>
     <Toast ref="logininfo" position='top' opacity={0.6}/>
+    <View style={styles.texts}>
+      <Text style={styles.text3}>已拥有账号？ </Text>
+      <TouchableOpacity>
+        <Text style={styles.other}>登录</Text>
+      </TouchableOpacity>
+    </View>
     <Text>By signing up. I agree to Explain Everything's.</Text>
     <TouchableOpacity>
         <Text style={styles.text2}>Terms of Service and Pravicy Policy.</Text>
@@ -89,13 +106,39 @@ export default class Login extends Component {
   }
 
   regist() {
-    if ((this.state.name=="")){
-      this.refs.logininfo.show("请填写邮箱")
-    }else if(this.state.password==""){
-      this.refs.logininfo.show("请填写密码")
-    }
-    else{
-      this.refs.logininfo.show("登录成功")
+    if ((this.state.name=="")||(this.state.password=="")){
+        this.refs.logininfo.show("请将信息填写完整")
+    }else{
+      fetch('http://118.25.56.186/signup', {
+        method: 'POST',
+        headers: {
+              'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+              name:this.state.name,
+              password:this.state.password,
+              repassword:this.state.password,
+              avatar:this.state.avatarid
+              })
+        }).then((response) => response.json())
+        .then((jsonData) => {
+            let loginreturn = jsonData.status;
+            let description = jsonData.description;
+            if (loginreturn=="fail"){
+              if (description=="username has been used")
+                this.refs.logininfo.show("此邮箱已被注册");
+            }
+            else{
+              AsyncStorage.clear();
+              AsyncStorage.setItem('ifFirst',"false"); 
+              AsyncStorage.setItem('user',this.state.name); 
+              AsyncStorage.setItem('logined',"true");
+              this.refs.logininfo.show("注册成功");
+              this.timer = setTimeout(() => {
+                this.props.navigation.replace('Home');
+              }, 1000)
+            }
+        })
     }
   }
 }
@@ -139,7 +182,7 @@ const styles = StyleSheet.create({
     height:Dimensions.get('window').height,
   },
   input: {
-    width: 200,
+    width: 195,
     height: 40,
     fontSize:15,
     color: '#686868',
