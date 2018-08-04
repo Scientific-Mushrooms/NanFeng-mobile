@@ -9,7 +9,9 @@ import { Provider } from 'react-redux';
 import BaseTab from './src/pages/BaseTab'
 import Swiper from './src/pages/Swiper'
 import Splash from './src/pages/Splash'
-import ScrollView from './src/pages/schoolPages/ScrollView'
+import ScrollView from './src/pages/subStackPages/ScrollView'
+import ImageView from './src/pages/subStackPages/ImageView'
+
 import { StackNavigator } from 'react-navigation';
 
 //redux持久化存储
@@ -34,6 +36,7 @@ export const ProfileRoutes = StackNavigator({
   Swiper:{screen:Swiper},
   BaseTab:{ screen: BaseTab},
   ScrollView:{ screen: ScrollView},
+  ImageView:{ screen: ImageView},
   }, {
     transitionConfig: TransitionConfiguration,
 });
