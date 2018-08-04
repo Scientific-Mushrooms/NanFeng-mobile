@@ -14,6 +14,25 @@ import Page1 from './confessPages/Page1';
 import {connect} from "react-redux";
 import {notFirst} from "../../redux/action";
 
+export const MyCustomTransition = (index, position) => {
+    const opacity = position.interpolate({
+        inputRange: [index - 1, index - 0.99, index],
+        outputRange: [0, 1, 1],
+    });
+    const translateX = 0;
+    const translateY = position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: ([0, 0, 0]),
+    });
+
+    return {
+        opacity,
+        transform: [
+            { translateX },
+            { translateY }
+        ],
+    };
+};//自定义无动画
 
 const TransitionConfiguration = () =>({
     transitionSpec: {
@@ -21,21 +40,28 @@ const TransitionConfiguration = () =>({
         easing: Easing.out(Easing.poly(4)),
         timing: Animated.timing,
     },
-    screenInterpolator: sceneProps => {
+    screenInterpolator: (sceneProps) => {
         const { layout, position, scene } = sceneProps;
-        const { index } = scene;
-        const height = layout.initHeight;
+        const { index, route } = scene;
+        const params = route.params || {};
+        const transition = params.transition || 'default';
+        const realHeight = layout.initHeight;
         const translateY = position.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [realHeight, 0, 0],//outputRange: [height, 0, 0], height改为0，删去动画效果
+        })
+
+        const translateY0 = position.interpolate({
             inputRange: [index - 1, index, index + 1],
             outputRange: [0, 0, 0],//outputRange: [height, 0, 0], height改为0，删去动画效果
         })
-
         const opacity = position.interpolate({
             inputRange: [index - 1, index - 0.99, index],
             outputRange: [0, 1, 1],
         })
 
-        return { opacity, transform: [{ translateY }] }
+        return {'default':{ opacity, transform: [{ translateY }] },
+            '0':MyCustomTransition(index,position)}[transition]
     },
 });
 

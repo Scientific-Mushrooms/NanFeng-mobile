@@ -149,7 +149,7 @@ const styles={
     height:25
   },
   selectedTabText:{
-    color:'Black'
+    color:'black'
   },
 }
 

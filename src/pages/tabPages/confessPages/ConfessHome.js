@@ -60,7 +60,7 @@ class ConfessHome extends Component {
                             style={styles.button}
                             onPress={() => {
                                 this.refs.modalBox.close();//转跳前关闭上一级modalBox
-                                navigate('Page1');
+                                navigate('Page1',{ transition:'0' });
                             }}>
                         <Text style={[styles.text, {color: "black"}]}>Page1</Text>
                         </TouchableOpacity>
