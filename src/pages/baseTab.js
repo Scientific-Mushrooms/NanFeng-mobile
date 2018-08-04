@@ -4,6 +4,7 @@ import {
   StyleSheet,
   AsyncStorage,
 } from 'react-native';
+import Drawer from 'react-native-drawer';
 
 import { connect } from 'react-redux';
 import TabNavigator from 'react-native-tab-navigator'
@@ -12,6 +13,7 @@ import Course from './tabPages/course';
 import School from './tabPages/school';
 import TabBarItem  from '../components/TabBarItem'
 import {notFirst} from '../redux/action';
+import Profile from "./Profile"
 
 //自定义一个底部导航器
 //导航器包含三个页面
@@ -104,6 +106,10 @@ class BaseTab extends Component {
 
   render() {
     return (
+    <Drawer
+    ref={(ref) => this._drawer = ref}
+    content={<Profile />}
+    >
     <TabNavigator tabBarStyle={{color:'white'}}>
       <TabNavigator.Item
         title='南大助手'
@@ -113,7 +119,7 @@ class BaseTab extends Component {
         selected={this.state.selectedTab === 'Confess'}
         selectedTitleStyle={styles.selectedTabText}  
       >
-        <Confess navigation={this.props.navigator} />
+        <Confess navigation={this.props.navigator}/>
       </TabNavigator.Item>
 
       <TabNavigator.Item
@@ -137,8 +143,8 @@ class BaseTab extends Component {
       >
         <School navigation={this.props.navigation} />
       </TabNavigator.Item>
-
     </TabNavigator>
+    </Drawer>
     );
   }
 }

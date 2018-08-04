@@ -15,7 +15,7 @@ export default class Profile extends Component {
           >
             <Image
               style={{width: 100, height: 100,margin:20,}}
-              source={require('../resource/my_avatar.png')}
+              source={require('../assets/my_avatar.png')}
             />
           </TouchableOpacity>
           <View>
@@ -70,7 +70,7 @@ const ProfileStaticCell = ({
           <Image style={{width: 30, height: 30, marginHorizontal: 15}} source={imageName}/>
           <View style={[styles.cellStyle, style || style]}>
               <Text style={{color: 'black',fontSize:16}}>{title}</Text>
-              <Image style={{width: 30, height: 30}} source={require('../resource/ic_my_right.png')}/>
+              <Image style={{width: 30, height: 30}} source={require('../assets/ic_my_right.png')}/>
           </View>
       </TouchableOpacity>
       </View>

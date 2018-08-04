@@ -67,7 +67,7 @@ const TransitionConfiguration = () =>({
 
 const ConfessNavigator = StackNavigator(
     {
-        ConfessHome: {screen: ConfessHome },
+        ConfessHome: {screen: ConfessHome},
         Page1: {screen: Page1},
     },
     {
