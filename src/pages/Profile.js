@@ -6,48 +6,48 @@ export default class Profile extends Component {
     return (
       <View style={{backgroundColor:'white'}}>
         <ImageBackground
-                style={{height: 230, alignItems: 'center', backgroundColor: 'transparent',flexDirection:'row',}}
-                source={require('../resource/bg.png')}
-                >
-                <TouchableOpacity
-                    activeOpacity={0.75}
-                    style={styles.loginContainer}
-                    >
-                        <Image
-                        style={{width: 100, height: 100,margin:20,}}
-                        source={require('../resource/my_avatar.png')}
-                        />
-                    </TouchableOpacity>
-                <View>
-                  <Text style={{color:'white',fontSize:30,}}>尚未登录</Text>
-                  <Text style={{color:'white',}}>点击头像来登录</Text>
-                </View>
+        style={{height: 230, alignItems: 'center', backgroundColor: 'transparent',flexDirection:'row',}}
+        source={require('../assets/bg.png')}
+        >
+          <TouchableOpacity
+          activeOpacity={0.75}
+          style={styles.loginContainer}
+          >
+            <Image
+              style={{width: 100, height: 100,margin:20,}}
+              source={require('../resource/my_avatar.png')}
+            />
+          </TouchableOpacity>
+          <View>
+            <Text style={{color:'white',fontSize:30,}}>尚未登录</Text>
+            <Text style={{color:'white',}}>点击头像来登录</Text>
+          </View>
         </ImageBackground>
         <View style={styles.cellContainer}>
-                    <ProfileStaticCell
-                        title="统计"
-                        imageName={require('../resource/statistic.png')}
-                        anima='fadeInLeft'
-                    />
-                    <ProfileStaticCell
-                        title="排名"
-                        imageName={require('../resource/ranking.png')}
-                        anima='fadeInLeft'
-                        delay={50}
-                    />
-                    <ProfileStaticCell
-                        title="分享"
-                        imageName={require('../resource/upload.png')}
-                        anima='fadeInLeft'
-                        delay={100}
-                    />
-                    <ProfileStaticCell
-                        title="重置"
-                        imageName={require('../resource/refresh.png')}
-                        anima='fadeInLeft'
-                        delay={150}
-                    />
-                </View>
+          <ProfileStaticCell
+            title="统计"
+            imageName={require('../assets/statistic.png')}
+            anima='fadeInLeft'
+          />
+          <ProfileStaticCell
+            title="排名"
+            imageName={require('../assets/ranking.png')}
+            anima='fadeInLeft'
+            delay={50}
+          />
+          <ProfileStaticCell
+            title="分享"
+            imageName={require('../assets/upload.png')}
+            anima='fadeInLeft'
+            delay={100}
+          />
+          <ProfileStaticCell
+            title="重置"
+            imageName={require('../assets/refresh.png')}
+            anima='fadeInLeft'
+            delay={150}
+            />
+          </View>
       </View>
     );
   }

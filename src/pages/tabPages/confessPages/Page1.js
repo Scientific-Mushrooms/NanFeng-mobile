@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     ListView,
     RefreshControl,
-    Image
+    Image,
+    Dimensions
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
@@ -46,7 +47,11 @@ class ConfessHome extends Component {
             <View style={{flex: 1, backgroundColor: 'rgb(240,240,240)'}}>
 
                 <View style={styles.header}>
-                    <View style={styles.side}/>
+                    <View style={styles.side}>
+                        <TouchableOpacity>
+                            <Image source={require("../../../assets/profile.png")} style={styles.icon}/>
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.center}>
                         <Text style={{color: '#585858', fontSize: 20}}
                               onPress={() => this.refs.modalBox.open()}
@@ -199,6 +204,12 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5,
     },
+    
+    icon:{
+        marginLeft:15,
+        width:Dimensions.get('window').height/15-25,
+        height:Dimensions.get('window').height/15-25
+    },
 
     //mb用样式
     btn: {
@@ -223,7 +234,7 @@ const styles = StyleSheet.create({
     //头部
     header: {
         flexDirection: 'row',
-        height: 50,
+        height: Dimensions.get('window').height/15,
         borderBottomWidth:2,
         borderColor:'rgb(230,230,230)',
         backgroundColor:'rgb(248,248,248)',
@@ -236,9 +247,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     side:{
-        width:30,
-        marginRight:20,
-        alignItems: 'center',
+        flex:1,
+        justifyContent: 'center',
     },
 
     //底部
