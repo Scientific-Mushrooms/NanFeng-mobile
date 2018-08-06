@@ -91,8 +91,8 @@ class BaseTab extends Component {
   constructor(props){
     super(props);
     this.state = {
-        selectedTab:'Confess'
-    }
+        selectedTab:'Confess',
+    };
   }
 
   static navigationOptions = {
@@ -119,7 +119,7 @@ class BaseTab extends Component {
         selected={this.state.selectedTab === 'Confess'}
         selectedTitleStyle={styles.selectedTabText}  
       >
-        <Confess navigation={this.props.navigator}/>
+        <Confess navigation={this.props.navigation}/>
       </TabNavigator.Item>
 
       <TabNavigator.Item
