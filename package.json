@@ -26,6 +26,7 @@
     "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-popover": "^0.2.0",
     "react-native-progress": "^3.4.0",
+    "react-native-search-header": "^0.2.7",
     "react-native-slider": "^0.11.0",
     "react-native-storage": "^0.2.2",
     "react-native-svg": "^6.3.1",

@@ -39,7 +39,7 @@ class Confess extends Component {
     }
 
     render() {
-        //const {navigate} = this.props.navigation;
+        const {navigate} = this.props.navigation;
         return (
 
             <View style={{flex: 1, backgroundColor: 'rgb(240,240,240)'}}>
@@ -56,7 +56,7 @@ class Confess extends Component {
                         >{this.state.currentTag}</Text>
                     </View>
                     <View style={styles.right}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{navigate('Search', { transition: 'forVertical' });}}>
                             <Image source={require("../../assets/ic_search.png")} style={styles.icon}/>
                         </TouchableOpacity>
                     </View>

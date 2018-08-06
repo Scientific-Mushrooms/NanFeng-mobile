@@ -12,6 +12,7 @@ import Splash from './src/pages/Splash'
 import ScrollView from './src/pages/subStackPages/ScrollView'
 import ImageView from './src/pages/subStackPages/ImageView';
 import Confess from './src/pages/tabPages/confess';
+import Search from './src/pages/tabPages/search'
 
 import { StackNavigator } from 'react-navigation';
 
@@ -88,6 +89,7 @@ export const ProfileRoutes = StackNavigator({
     ScrollView:{ screen: ScrollView},
     ImageView:{ screen: ImageView},
     Confess:{screen:Confess},
+    Search:{screen:Search},
 }, {
     transitionConfig: TransitionConfiguration,
 });
