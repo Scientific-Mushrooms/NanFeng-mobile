@@ -13,6 +13,7 @@ import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 import ActionButton from 'react-native-action-button';
 import { connect } from 'react-redux';
+import View3 from '../../components/View3'
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -72,14 +73,14 @@ class Confess extends Component {
                     >
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => {this.setState({currentTag:'全部动态'});
+                            onPress={() => {this.setState({currentTag:'全部动态',dataSource: ds.cloneWithRows(['内容1', '内容2', '内容3', '内容4', '内容5', '内容6'])});
                                 this.refs.modalBox.close();//关闭modalBox
                             }}>
                             <Text style={[styles.text, {color: "black"}]}>{this.state.Tags[0]}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => {this.setState({currentTag:'TagA',isOpen:false});
+                            onPress={() => {this.setState({currentTag:'TagA',dataSource: ds.cloneWithRows(['内容2', '内容4', '内容6'])});
                                 this.refs.modalBox.close();//关闭modalBox
                             }}>
                             <Text style={[styles.text, {color: "black"}]}>{this.state.Tags[1]}</Text>
@@ -89,7 +90,6 @@ class Confess extends Component {
 
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
                         <ListView
-                            style={{width: '90%'}}
                             dataSource={this.state.dataSource}
                             renderRow={this._renderRow.bind(this)}
                             refreshControl={
@@ -140,7 +140,7 @@ class Confess extends Component {
     _renderRow(rowData) {
         return (
             // 实例化Item
-            <View style={{
+            /*<View style={{
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: 'white',
@@ -148,7 +148,11 @@ class Confess extends Component {
                 marginTop: 15
             }}>
                 <Text>{rowData}</Text>
+            </View>*/
+            <View style={{marginTop:12}}>
+                <View3/>
             </View>
+
 
         )
     }
@@ -158,7 +162,7 @@ class Confess extends Component {
         setTimeout(() => {
             this.setState({
                 isRefreshing: false,
-                dataSource: ds.cloneWithRows(['内容0', '内容1', '内容2', '内容3', '内容4', '内容5']),
+                dataSource: ds.cloneWithRows(['内容0', '内容1', '内容2', '内容3', '内容4', '内容5', '内容6']),
             });
         }, 3000);
     }
@@ -170,7 +174,7 @@ class Confess extends Component {
         setTimeout(() => {
             this.setState({
                 loadingMore: false,
-                dataSource: ds.cloneWithRows([ '内容1', '内容2', '内容3', '内容4', '内容5', '内容6']),
+                dataSource: ds.cloneWithRows([ '内容1', '内容2', '内容3', '内容4', '内容5', '内容6', '内容7']),
                 isLoadAll: true
             });
         }, 2000);
