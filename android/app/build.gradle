@@ -98,7 +98,6 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true
         applicationId "com.nf"
         minSdkVersion 16
         targetSdkVersion 22
