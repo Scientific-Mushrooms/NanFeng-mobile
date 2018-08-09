@@ -6,9 +6,7 @@ import {
     View,
     Image,
     TouchableOpacity,
-    Dimensions,
-    Alert,
-    FlatList} from 'react-native';
+    Dimensions,} from 'react-native';
 
 class NewPost extends Component{
 

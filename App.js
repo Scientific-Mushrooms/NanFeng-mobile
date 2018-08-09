@@ -14,6 +14,8 @@ import ImageView from './src/pages/subStackPages/ImageView';
 import Confess from './src/pages/tabPages/confess';
 import Search from './src/pages/tabPages/search';
 import NewPost from './src/pages/tabPages/newPost';
+import Notification from './src/pages/tabPages/notification';
+import Chat from './src/pages/tabPages/chat'
 
 import { StackNavigator } from 'react-navigation';
 
@@ -92,6 +94,8 @@ export const ProfileRoutes = StackNavigator({
     Confess:{screen:Confess},
     Search:{screen:Search},
     NewPost:{screen:NewPost},
+    Notification:{screen:Notification},
+    Chat:{screen:Chat},
 }, {
     transitionConfig: TransitionConfiguration,
 });

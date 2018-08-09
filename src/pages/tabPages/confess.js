@@ -10,9 +10,7 @@ import {
     Dimensions
 } from 'react-native';
 import Modal from 'react-native-modalbox';
-import Button from 'react-native-button';
 import ActionButton from 'react-native-action-button';
-import { connect } from 'react-redux';
 import View3 from '../../components/View3'
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -121,6 +119,7 @@ class Confess extends Component {
                         <ActionButton.Item buttonColor='#3498db' title="消息"
                                            style={{justifyContent: 'center', alignItems: 'center'}}
                                            onPress={() => {
+                                               navigate('Notification');
                                            }}>
                             <Text style={styles.actionButtonIcon}>P</Text>
                         </ActionButton.Item>
@@ -154,8 +153,6 @@ class Confess extends Component {
             <View style={{marginTop:12}}>
                 <View3/>
             </View>
-
-
         )
     }
 
@@ -180,17 +177,6 @@ class Confess extends Component {
                 isLoadAll: true
             });
         }, 2000);
-    }
-    _renderFooter(){
-        if (this.state.isLoadAll) {
-            return (<View style={styles.footer}>
-                <Text style={styles.footerTitle}>{ '已加载全部'}</Text>
-            </View>);
-        }else if (!this.state.isLoadAll&&this.state.loadingMore) {
-            return (<View style={styles.footer}>
-                <Text style={styles.footerTitle}>{ '正在加载更多……'}</Text>
-            </View>);
-        }
     }
 }
 
