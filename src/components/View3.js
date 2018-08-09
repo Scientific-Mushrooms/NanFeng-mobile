@@ -27,7 +27,7 @@ export default class View3 extends Component {
                     <TouchableOpacity
                         activeOpacity={0.75}
                         onPress={() => {Alert.alert('icon1')}}>
-                        <Image source={require('../assets/ic_homepage_like.png')} style={styles.icon}/>
+                        <Image source={require('../assets/ic_like.png')} style={styles.icon}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         activeOpacity={0.75}
@@ -37,11 +37,11 @@ export default class View3 extends Component {
                     <TouchableOpacity
                         activeOpacity={0.75}
                         onPress={() => {Alert.alert('icon3')}}>
-                        <Image source={require('../assets/ic_photo_share.png')} style={styles.icon}/>
+                        <Image source={require('../assets/ic_share.png')} style={styles.icon}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container2}>
-                    <Image source={require('../assets/ic_homepage_like.png')} style={styles.icon2}/>
+                    <Image source={require('../assets/ic_like.png')} style={styles.icon2}/>
                     <Text style={styles.comment}>11人觉得很赞</Text>
                 </View>
                 <View style={styles.container4}>
