@@ -1,13 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {StyleSheet, Text, TextInput,View,Image,TouchableOpacity,Dimensions,Alert,FlatList} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+    Image,
+    TouchableOpacity,
+    Dimensions,
+    Alert,
+    FlatList} from 'react-native';
 
 export default class View3 extends Component {
 

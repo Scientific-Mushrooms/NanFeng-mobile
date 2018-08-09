@@ -113,7 +113,9 @@ class Confess extends Component {
                     <ActionButton buttonColor="rgba(231,76,60,1)" position='right' verticalOrientation='up'
                                   offsetY={75}>
                         <ActionButton.Item buttonColor='#9b59b6' title="发布"
-                                           onPress={() => console.log("notes tapped!")}>
+                                           onPress={() => {
+                                               navigate('NewPost');
+                                           }}>
                             <Text style={styles.actionButtonIcon}>N</Text>
                         </ActionButton.Item>
                         <ActionButton.Item buttonColor='#3498db' title="消息"
