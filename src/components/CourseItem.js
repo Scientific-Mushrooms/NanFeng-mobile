@@ -1,18 +1,30 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View,Image,} from 'react-native';
 
-export default class ListItem extends Component{
+export default class CourseItem extends Component{
     render(){
         return(
             <View style={styles.container}>
-                <Image source={require('../assets/ic_feed_like.png')} style={{marginLeft:5}}/>
+                <Image source={this.props.img} style={{marginLeft:5}}/>
                 <View style={{margin:5}}>
-                    <Text style={styles.title}>西方行政学说史</Text>
+                    <Text style={styles.title}>{this.props.course_name}</Text>
                     <View style={{flexDirection:'row'}}>
-                        <Text style={styles.description}>06040300</Text>
-                        <Text style={styles.description}>政府管理学院</Text>
-                        <Text style={styles.description}>核心</Text>
-                        <Text style={styles.description}>2.0</Text>
+                        <View style={{marginRight:15,alignItems:'center'}}>
+                            <Text style={styles.description2}>编号</Text>
+                            <Text style={styles.description}>{this.props.id}</Text>
+                        </View>
+                        <View style={{marginRight:15,alignItems:'center'}}>
+                            <Text style={styles.description2}>授课学院</Text>
+                            <Text style={styles.description}>{this.props.college}</Text>
+                        </View>
+                        <View style={{marginRight:15,alignItems:'center'}}>
+                            <Text style={styles.description2}>类型</Text>
+                            <Text style={styles.description}>{this.props.type}</Text>
+                        </View>
+                        <View style={{marginRight:15,alignItems:'center'}}>
+                            <Text style={styles.description2}>学分</Text>
+                            <Text style={styles.description}>{this.props.credit}</Text>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -44,7 +56,10 @@ const styles = StyleSheet.create({
     },
     description:{
         fontSize:17,
-        marginRight:5,
+    },
+    description2:{
+        fontSize:17,
+        color:'#268BD2',
     },
 });
   
