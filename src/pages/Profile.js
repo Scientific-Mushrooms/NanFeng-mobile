@@ -4,7 +4,7 @@ import { Image,View,StyleSheet,TouchableOpacity,Text,Dimensions,ImageBackground 
 export default class Profile extends Component {
   render() {
     return (
-      <View style={{backgroundColor:'white'}}>
+      <View style={{flex:1,backgroundColor:'#F7F7F7'}}>
         <ImageBackground
         style={{height: 230, alignItems: 'center', backgroundColor: 'transparent',flexDirection:'row',}}
         source={require('../assets/bg.png')}
@@ -27,24 +27,20 @@ export default class Profile extends Component {
           <ProfileStaticCell
             title="统计"
             imageName={require('../assets/statistic.png')}
-            anima='fadeInLeft'
           />
           <ProfileStaticCell
             title="排名"
             imageName={require('../assets/ranking.png')}
-            anima='fadeInLeft'
             delay={50}
           />
           <ProfileStaticCell
             title="分享"
             imageName={require('../assets/upload.png')}
-            anima='fadeInLeft'
             delay={100}
           />
           <ProfileStaticCell
             title="重置"
             imageName={require('../assets/refresh.png')}
-            anima='fadeInLeft'
             delay={150}
             />
           </View>
@@ -58,11 +54,10 @@ const ProfileStaticCell = ({
   imageName,
   style,
   onPress,
-  anima,
   delay
 }) => {
   return (
-      <View animation={anima} delay={delay} useNativeDriver>
+      <View style={{marginTop:5}} delay={delay}>
       <TouchableOpacity
           activeOpacity={0.75}
           style={styles.staticCell}
@@ -92,7 +87,7 @@ const styles = StyleSheet.create({
   cellContainer: {
     borderColor: '#d9d9d9',
     marginTop: 15,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#F7F7F7'
   },
   staticCell: {
     flexDirection: 'row',
@@ -108,8 +103,6 @@ const styles = StyleSheet.create({
     paddingTop:15,
     paddingLeft:5,
     paddingBottom:15,
-    borderBottomWidth:1,
-    borderColor: '#d9d9d9',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

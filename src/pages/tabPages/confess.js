@@ -45,7 +45,7 @@ class Confess extends Component {
 
                 <View style={styles.header}>
                     <View style={styles.left}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.props.openDrawer}>
                             <Image source={require("../../assets/profile.png")} style={styles.icon}/>
                         </TouchableOpacity>
                     </View>
@@ -150,7 +150,7 @@ class Confess extends Component {
             }}>
                 <Text>{rowData}</Text>
             </View>*/
-            <View style={{marginTop:12}}>
+            <View style={{marginBottom:12}}>
                 <View3/>
             </View>
         )
@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
     icon:{
         marginLeft:15,
         marginRight:15,
-        width:Dimensions.get('window').height/12-30,
-        height:Dimensions.get('window').height/12-30
+        width:Dimensions.get('window').height/24,
+        height:Dimensions.get('window').height/24
     },
 
     //mb用样式
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     //头部
     header: {
         flexDirection: 'row',
-        height: Dimensions.get('window').height/12,
+        height: Dimensions.get('window').height/14,
         borderBottomWidth:2,
         borderColor:'rgb(230,230,230)',
         backgroundColor:'rgb(248,248,248)',
