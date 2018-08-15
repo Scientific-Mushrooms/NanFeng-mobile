@@ -12,10 +12,10 @@ import Splash from './src/pages/Splash'
 import ScrollView from './src/pages/subStackPages/ScrollView'
 import ImageView from './src/pages/subStackPages/ImageView';
 import Confess from './src/pages/tabPages/confess';
-import Search from './src/pages/tabPages/search';
-import NewPost from './src/pages/tabPages/newPost';
-import Notification from './src/pages/tabPages/notification';
-import Chat from './src/pages/tabPages/chat'
+import Search from './src/pages/subStackPages/search';
+import NewPost from './src/pages/subStackPages/newPost';
+import Notification from './src/pages/subStackPages/notification';
+import Chat from './src/pages/subStackPages/chat'
 
 import { StackNavigator } from 'react-navigation';
 
