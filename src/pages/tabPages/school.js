@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     //header
     header: {
       flexDirection: 'row',
-      height: Dimensions.get('window').height/14,
+      height: Dimensions.get('window').height/13,
       borderBottomWidth:2,
       borderColor:'rgb(230,230,230)',
       backgroundColor:'rgb(248,248,248)',
@@ -286,8 +286,8 @@ const styles = StyleSheet.create({
     icon:{
       marginLeft:15,
       marginRight:15,
-      width:Dimensions.get('window').height/24,
-      height:Dimensions.get('window').height/24
+      width:Dimensions.get('window').height/22,
+      height:Dimensions.get('window').height/22
     },
   });
 
