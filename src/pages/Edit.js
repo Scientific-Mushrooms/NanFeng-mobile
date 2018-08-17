@@ -9,6 +9,16 @@ export default class Edit extends Component {
     };
   }
 
+  static navigationOptions = {
+    headerTitle:
+    <View style={{flex: 1,flexDirection: 'column',alignItems: 'center'}}>
+        <Text style={{color: '#61135B',fontSize:20}}>写下见闻</Text>
+    </View>,
+    headerRight:<View style={{flex: 1}}/>,
+    headerStyle:{backgroundColor:'white'},
+    headerTintColor:'#61135B',
+  };
+
   _onContentSizeChange(event) {
     this.setState({
       height: event.nativeEvent.contentSize.height,
@@ -27,14 +37,14 @@ export default class Edit extends Component {
           </TouchableOpacity>
         </View>
         <TextInput
-        placeholder='故事标题'
+        placeholder='见闻标题'
         style={styles.title}>
         </TextInput>
         <TextInput
         multiline={true}
         onContentSizeChange={this._onContentSizeChange.bind(this)}
         style={[styles.content, {height: Math.max(70, this.state.height)}]}
-        placeholder='分享让您印象深刻的旅行故事，比如有趣的瞬间，新奇的发现，让人回味的体验。'>
+        placeholder='分享您的校园见闻，比如令人印象深刻的美景，人物或是活动。'>
         </TextInput>
         <TouchableOpacity
         activeOpacity={0.75}
