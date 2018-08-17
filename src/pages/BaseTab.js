@@ -115,7 +115,7 @@ class BaseTab extends Component {
     <DrawerLayout
     drawerWidth={Dimensions.get('window').width-120}
     ref={(drawer) => { return this.drawer = drawer  }}
-    renderNavigationView={()=><Profile />}
+    renderNavigationView={()=><Profile navigation={this.props.navigation}/>}
     >
     <TabNavigator tabBarStyle={{color:'white'}}>
       <TabNavigator.Item
@@ -137,7 +137,7 @@ class BaseTab extends Component {
         selected={this.state.selectedTab === 'Course'}
         selectedTitleStyle={styles.selectedTabText}  
       >
-        <Course navigation={this.props.navigation} />
+        <Course navigation={this.props.navigation} openDrawer={this._openDrawer}/>
       </TabNavigator.Item>
 
       <TabNavigator.Item
@@ -148,7 +148,7 @@ class BaseTab extends Component {
         selected={this.state.selectedTab === 'School'} 
         selectedTitleStyle={styles.selectedTabText}  
       >
-        <School navigation={this.props.navigation} />
+        <School navigation={this.props.navigation} openDrawer={this._openDrawer}/>
       </TabNavigator.Item>
     </TabNavigator>
     </DrawerLayout>

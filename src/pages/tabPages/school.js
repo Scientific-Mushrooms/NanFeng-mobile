@@ -100,8 +100,24 @@ class School extends Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <View style={{flex:1,backgroundColor:'white'}}>
+        <View style={styles.header}>
+          <View style={styles.left}>
+            <TouchableOpacity onPress={this.props.openDrawer}>
+              <Image source={require("../../assets/profile.png")} style={styles.icon}/>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.center}>
+            <Text style={{color: '#585858', fontSize: 20}}>南大校园</Text>
+          </View>
+          <View style={styles.right}>
+            <TouchableOpacity onPress={()=>{navigate('Search', { transition: 'forVertical' });}}>
+              <Image source={require("../../assets/ic_search.png")} style={styles.icon}/>
+            </TouchableOpacity>
+          </View>
+        </View>
         <UltimateListView
           ref={(ref) => this.listView = ref}             
           onFetch={this.onFetch} 
@@ -119,7 +135,7 @@ class School extends Component {
              //separator={this.renderSeparatorView}
           />
           <View style={styles.absolute}>
-            <TouchableOpacity activeOpacity={0.5} style={styles.button}>
+            <TouchableOpacity onPress={()=>navigate('Edit')} activeOpacity={0.5} style={styles.button}>
               <Image 
               style={{width:20,height:20,marginRight:10}} 
               source={require("../../assets/img_add.png")}/>
@@ -243,6 +259,35 @@ const styles = StyleSheet.create({
       alignItems:'flex-end',
       justifyContent: 'flex-end',
       backgroundColor: '#FFF',
+    },
+
+    //header
+    header: {
+      flexDirection: 'row',
+      height: Dimensions.get('window').height/14,
+      borderBottomWidth:2,
+      borderColor:'rgb(230,230,230)',
+      backgroundColor:'rgb(248,248,248)',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    center: {
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    left:{
+      flex:1,
+    },
+    right:{
+      flex:1,
+      flexDirection: 'row-reverse',
+    },
+    icon:{
+      marginLeft:15,
+      marginRight:15,
+      width:Dimensions.get('window').height/24,
+      height:Dimensions.get('window').height/24
     },
   });
 

@@ -39,7 +39,7 @@ export default class Edit extends Component {
         <TouchableOpacity
         activeOpacity={0.75}
         style={styles.button}>
-          <Image source={require('./src/resource/ic_my_setting.png')} style={{width:20,height:20,marginRight:5}}></Image>
+          <Image source={require('../assets/ic_my_setting.png')} style={{width:20,height:20,marginRight:5}}></Image>
           <Text style={{color:'white',fontSize:17}}>标注地点</Text>
         </TouchableOpacity>
       </View>

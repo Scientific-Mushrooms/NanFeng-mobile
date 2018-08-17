@@ -15,7 +15,6 @@ export default class Login extends Component {
 
   constructor(props) {
         super(props);
-        this.regist=this.regist.bind(this);
         navigation=this.props.navigation;
         this.state = {
             conceal:true,
@@ -23,6 +22,21 @@ export default class Login extends Component {
             password:"",
         };
     }
+
+  
+  static navigationOptions = {
+    headerRight:
+      <View style={{flex: 1,flexDirection: 'column',justifyContent:'center',alignItems: 'flex-end',marginRight:10}}>
+        <TouchableOpacity
+        onPress={()=>navigation.navigate("Register")}
+        activeOpacity={0.75}
+        style={{flexDirection:'row',alignItems: 'center'}}>
+          <Text style={{color: '#61135B',fontSize:20}}>注册</Text>
+        </TouchableOpacity>
+      </View>,
+    headerStyle:{backgroundColor:'white'},
+    headerTintColor:'#61135B',
+  };
 
   render() {
     return this._render_later();
@@ -35,7 +49,7 @@ export default class Login extends Component {
     <Text style={styles.tip}>请输入您的邮箱和密码。</Text>
       <View
         style={styles.inputBox}>
-        <Image source={require('./src/resource/icon_account.png')} style={styles.icon}/>
+        <Image source={require('../assets/icon_account.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
           placeholder='user@example.com'
@@ -45,7 +59,7 @@ export default class Login extends Component {
 
       <View
         style={styles.inputBox}>
-        <Image source={require('./src/resource/ic_my_photos.png')} style={styles.icon}/>
+        <Image source={require('../assets/ic_my_photos.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
           placeholder='password'
@@ -61,29 +75,26 @@ export default class Login extends Component {
           style={styles.btText}>登录</Text>
       </TouchableOpacity>
       <View style={styles.texts}>
-        <Text style={styles.add_line}>                             </Text>
-        <Text>使用社交账号登录</Text>
-        <Text style={styles.add_line}>                             </Text>
+        <Text style={{margin:5}}>使用社交账号登录</Text>
       </View>
       <View style={styles.icons}>
       <TouchableOpacity>
-        <Image source={require('./src/resource/ic_my_photos.png')}/>
+        <Image source={require('../assets/ic_my_photos.png')}/>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Image source={require('./src/resource/ic_my_photos.png')}/>
+        <Image source={require('../assets/ic_my_photos.png')}/>
       </TouchableOpacity>
       <TouchableOpacity>
         <Text style={styles.other}>Other...</Text>
       </TouchableOpacity>
+      </View> 
+      <View style={styles.texts}>
+        <Text style={styles.text3}>第一次使用南风？ </Text>
+        <TouchableOpacity onPress={()=>navigation.navigate("Register")}>
+          <Text style={styles.other}>创建账户</Text>
+        </TouchableOpacity>
       </View>
-      <View>
-        
-      </View>
-    <Toast ref="logininfo" position='top' opacity={0.6}/>
-    <Text>By signing up. I agree to Explain Everything's.</Text>
-    <TouchableOpacity>
-        <Text style={styles.text2}>Terms of Service and Pravicy Policy.</Text>
-    </TouchableOpacity>
+      <Toast ref="logininfo" position='top' opacity={0.6}/>
     </View>
     );
   }
@@ -133,10 +144,10 @@ const styles = StyleSheet.create({
     fontSize:20,
   },
   container: {
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    height:Dimensions.get('window').height,
   },
   input: {
     width: 200,

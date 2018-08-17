@@ -16,6 +16,9 @@ import Search from './src/pages/subStackPages/search';
 import NewPost from './src/pages/subStackPages/newPost';
 import Notification from './src/pages/subStackPages/notification';
 import Chat from './src/pages/subStackPages/chat'
+import Edit from './src/pages/Edit'
+import Login from './src/components/Login'
+import Register from './src/components/Register'
 
 import { StackNavigator } from 'react-navigation';
 
@@ -96,6 +99,9 @@ export const ProfileRoutes = StackNavigator({
     NewPost:{screen:NewPost},
     Notification:{screen:Notification},
     Chat:{screen:Chat},
+    Edit:{screen:Edit},
+    Login:{screen:Login},
+    Register:{screen:Register}
 }, {
     transitionConfig: TransitionConfiguration,
 });

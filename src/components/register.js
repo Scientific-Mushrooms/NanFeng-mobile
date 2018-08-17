@@ -24,6 +24,11 @@ export default class Login extends Component {
         };
   }
 
+  static navigationOptions = {
+    headerStyle:{backgroundColor:'white'},
+    headerTintColor:'#61135B',
+  };
+
   _conceal(){
     if(this.state.conceal){
       this.setState({show_or_hide:'hide'});
@@ -40,7 +45,7 @@ export default class Login extends Component {
     <Text style={styles.tip}>请输入您的邮箱和密码。</Text>
       <View
         style={styles.inputBox}>
-        <Image source={require('./src/resource/icon_account.png')} style={styles.icon}/>
+        <Image source={require('../assets/icon_account.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
           placeholder='user@example.com'
@@ -49,7 +54,7 @@ export default class Login extends Component {
       </View>
       <View
         style={styles.inputBox}>
-        <Image source={require('./src/resource/ic_my_photos.png')} style={styles.icon}/>
+        <Image source={require('../assets/ic_my_photos.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
           placeholder='password'
@@ -78,29 +83,22 @@ export default class Login extends Component {
       </View>
       <View style={styles.icons}>
       <TouchableOpacity>
-        <Image source={require('./src/resource/ic_my_photos.png')}/>
+        <Image source={require('../assets/ic_my_photos.png')}/>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Image source={require('./src/resource/ic_my_photos.png')}/>
+        <Image source={require('../assets/ic_my_photos.png')}/>
       </TouchableOpacity>
       <TouchableOpacity>
         <Text style={styles.other}>Other...</Text>
       </TouchableOpacity>
       </View>
-      <View>
-        
-      </View>
     <Toast ref="logininfo" position='top' opacity={0.6}/>
     <View style={styles.texts}>
       <Text style={styles.text3}>已拥有账号？ </Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>this.props.navigation.goBack()}>
         <Text style={styles.other}>登录</Text>
       </TouchableOpacity>
     </View>
-    <Text>By signing up. I agree to Explain Everything's.</Text>
-    <TouchableOpacity>
-        <Text style={styles.text2}>Terms of Service and Pravicy Policy.</Text>
-    </TouchableOpacity>
     </View>
     );
   }
@@ -176,10 +174,10 @@ const styles = StyleSheet.create({
     fontSize:20,
   },
   container: {
+    flex:1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    height:Dimensions.get('window').height,
   },
   input: {
     width: 195,

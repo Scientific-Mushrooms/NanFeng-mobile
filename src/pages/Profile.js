@@ -3,6 +3,7 @@ import { Image,View,StyleSheet,TouchableOpacity,Text,Dimensions,ImageBackground 
 
 export default class Profile extends Component {
   render() {
+    const {navigate}=this.props.navigation
     return (
       <View style={{flex:1,backgroundColor:'#F7F7F7'}}>
         <ImageBackground
@@ -10,6 +11,7 @@ export default class Profile extends Component {
         source={require('../assets/bg.png')}
         >
           <TouchableOpacity
+          onPress={()=>navigate("Login")}
           activeOpacity={0.75}
           style={styles.loginContainer}
           >
@@ -57,7 +59,7 @@ const ProfileStaticCell = ({
   delay
 }) => {
   return (
-      <View style={{marginTop:5}} delay={delay}>
+    <View style={{marginTop:5}} delay={delay}>
       <TouchableOpacity
           activeOpacity={0.75}
           style={styles.staticCell}
@@ -68,7 +70,7 @@ const ProfileStaticCell = ({
               <Image style={{width: 30, height: 30}} source={require('../assets/ic_my_right.png')}/>
           </View>
       </TouchableOpacity>
-      </View>
+    </View>
   )
 }
 
