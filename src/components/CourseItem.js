@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View,Image,} from 'react-native';
+import {StyleSheet, Text, View,Image,Dimensions} from 'react-native';
 
 export default class CourseItem extends Component{
     render(){
@@ -7,7 +7,7 @@ export default class CourseItem extends Component{
             <View style={styles.container}>
                 <Image source={this.props.img} style={{marginLeft:5}}/>
                 <View style={{margin:5}}>
-                    <Text style={styles.title}>{this.props.course_name}</Text>
+                    <Text style={styles.title}>{this.props.name}</Text>
                     <View style={{flexDirection:'row'}}>
                         <View style={{marginRight:15,alignItems:'center'}}>
                             <Text style={styles.description2}>编号</Text>
@@ -15,7 +15,7 @@ export default class CourseItem extends Component{
                         </View>
                         <View style={{marginRight:15,alignItems:'center'}}>
                             <Text style={styles.description2}>授课学院</Text>
-                            <Text style={styles.description}>{this.props.college}</Text>
+                            <Text style={styles.description}>{this.props.faculty}</Text>
                         </View>
                         <View style={{marginRight:15,alignItems:'center'}}>
                             <Text style={styles.description2}>类型</Text>
@@ -34,16 +34,12 @@ export default class CourseItem extends Component{
 
 const styles = StyleSheet.create({
     container: {
-      marginLeft:10,
-      marginRight:10,
-      marginTop:5,
-      marginBottom:5,
-      alignItems:'center',
-      flexDirection:'row',
-      elevation:5,
-      borderRadius:10,
-      borderWidth:1,
-      backgroundColor: '#FFFFFF',
+        elevation:3,
+        marginVertical:5,
+        marginHorizontal:4,
+        width:Dimensions.get('window').width-8,
+        borderRadius:5,
+        backgroundColor: '#FFFFFF',
     },
     imageContainer: {
       width:100,

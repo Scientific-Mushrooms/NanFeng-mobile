@@ -9,7 +9,7 @@ import {
     } from 'react-native';
 
 
-export default class CourseItem extends Component{
+export default class CourseDetail extends Component{
 
     render(){
         return(

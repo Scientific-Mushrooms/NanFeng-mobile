@@ -8,25 +8,55 @@ import {
   Image
 } from 'react-native';
 import { connect } from 'react-redux';
-import { increase, decrease, reset } from '../../redux/action';
+import BaseComponent from "../../components/BaseComponent"
+import CourseItem from '../../components/CourseItem'
+import {UltimateListView} from "react-native-ultimate-listview";
 
-class Course extends Component {
-  _onPressReset() {
-    this.props.dispatch(reset());
+class Course extends BaseComponent {
+  constructor(props) {
+    super(props)
+    navigation=this.props.navigation
+    this.state = {
+      name:"",
+      campus:"",
+      faculty:"",
+      type:"",
+      layout: 'grid',
+      courses:[],
+      refreshing: false,
+    }
   }
 
-  _onPressInc() {
-    this.props.dispatch(increase());
-  }
+  onFetch = async(page = 1, startFetch, abortFetch) => {
+    let form = new FormData();
+    form.append('name', this.state.name);
+    form.append('campus', this.state.campus);
+    form.append('faculty', this.state.faculty);
+    form.append('type', this.state.type);
+    var successAction = (result) => {
+        this.setState({ courses: result.detail})
+    }
 
-  _onPressDec() {
-    this.props.dispatch(decrease());
-  }
+    this.newPost('/api/course/search', form, successAction); 
+    startFetch(this.state.courses,10);
+  };
+
+  renderItem = (item, index, separator) => {
+    return(
+      <CourseItem
+      name={item.name}
+      id={item.id} 
+      faculty={item.faculty} 
+      type={item.type} 
+      credit={item.credit}
+      img={require("../../assets/at.png")}/>
+    );
+  };
 
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{flex: 1, backgroundColor: 'rgb(240,240,240)'}}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <View style={styles.header}>
           <View style={styles.left}>
             <TouchableOpacity onPress={this.props.openDrawer}>
@@ -42,15 +72,22 @@ class Course extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.container}>
-          <Text>courses</Text>
-          <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigate('Swiper')}>
-            <Text style={styles.btText}>点击进入新页面</Text>
-            <Text style={styles.btText}>以测试二级导航</Text>
-          </TouchableOpacity>
-        </View>
+        <UltimateListView
+          ref={(ref) => this.listView = ref}             
+          onFetch={this.onFetch} 
+          refreshableMode="basic" //basic or advanced
+          item={this.renderItem}  //this takes two params (item, index)
+          numColumns={1} //to use grid layout, simply set gridColumn > 1
+
+          //----Extra Config----
+          //header={this.renderHeaderView}
+          //paginationFetchingView={this.renderPaginationFetchingView}           
+          //paginationFetchingView={this.renderPaginationFetchingView}
+          //paginationAllLoadedView={this.renderPaginationAllLoadedView}
+          //paginationWaitingView={this.renderPaginationWaitingView}
+          //emptyView={this.renderEmptyView}
+          //separator={this.renderSeparatorView}
+          />
       </View>
     );
   }
