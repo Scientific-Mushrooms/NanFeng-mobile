@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View,Image,Dimensions} from 'react-native';
+import {StyleSheet, Text, View,Image,Dimensions,TouchableOpacity} from 'react-native';
 
 const lite=['全部','文学院', '历史学院', '法学院', '哲学系', '新闻传播学院', '政府管理学院', '信息管理学院', '社会学院', '商学院','外国语学院', '海外教育学院', '马克思主义学院', '大学外语教学部','*社会科学试验班', '*文科试验班（人文艺术传播类）'
 ]
@@ -10,39 +10,42 @@ export default class CourseItem extends Component{
     
     renderIcon(str){
         if(engi.indexOf(str)!=-1)
-            return  <Image style={styles.img} source={require('./src/engi.png')} style={styles.icon}/>
+            return  <Image source={require('./src/engi.png')} style={styles.icon}/>
         else if (lite.indexOf(str)!=-1)
-            return <Image style={styles.img} source={require('./src/lite.png')} style={styles.icon}/>
+            return <Image source={require('./src/lite.png')} style={styles.icon}/>
         else 
-            return <Image style={styles.img} source={require('./src/sci.png')} style={styles.icon}/>
+            return <Image source={require('./src/sci.png')} style={styles.icon}/>
     }
 
     render(){
         return(
-            <View style={styles.container}>
-                {this.renderIcon(this.props.faculty)}
-                <View style={{margin:5}}>
-                    <Text style={styles.title}>{this.props.name}</Text>
-                    <View style={{flexDirection:'row'}}>
-                        <View style={{marginRight:15,alignItems:'center'}}>
-                            <Text style={styles.description2}>编号</Text>
+            <TouchableOpacity
+            activeOpacity={0.75}
+            onPress={this.props.onPress}>
+                <View style={styles.container}>
+                    <View style={{flexDirection:'row',marginLeft:20,marginTop:5,alignItems:'center'}}>
+                        {this.renderIcon(this.props.faculty)}
+                        <View>
+                            <Text style={styles.title}>{this.props.name}</Text>
+                            <Text style={{fontSize:16,color:'#666666'}}>{this.props.faculty}</Text>
+                        </View>
+                    </View>
+                    <View style={{flexDirection:'row',width:Dimensions.get('window').width}}>
+                        <View style={{alignItems:'center',width:Dimensions.get('window').width/3}}>
+                            <Text style={styles.description2}>课程编号</Text>
                             <Text style={styles.description}>{this.props.id}</Text>
                         </View>
-                        <View style={{marginRight:15,alignItems:'center'}}>
-                            <Text style={styles.description2}>授课学院</Text>
-                            <Text style={styles.description}>{this.props.faculty}</Text>
-                        </View>
-                        <View style={{marginRight:15,alignItems:'center'}}>
+                        <View style={{alignItems:'center',width:Dimensions.get('window').width/3}}>
                             <Text style={styles.description2}>类型</Text>
                             <Text style={styles.description}>{this.props.type}</Text>
                         </View>
-                        <View style={{marginRight:15,alignItems:'center'}}>
+                        <View style={{alignItems:'center',width:Dimensions.get('window').width/3}}>
                             <Text style={styles.description2}>学分</Text>
                             <Text style={styles.description}>{this.props.credit}</Text>
                         </View>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -66,18 +69,19 @@ const styles = StyleSheet.create({
         fontSize:23,
     },
     description:{
-        fontSize:17,
+        fontSize:18,
+        color:'black',
     },
     description2:{
-        fontSize:17,
-        color:'#268BD2',
+        fontSize:16,
+        color:'#6A005F',
     },
     
     icon:{
         marginLeft:15,
         marginRight:15,
-        width:Dimensions.get('window').height/22,
-        height:Dimensions.get('window').height/22
+        width:Dimensions.get('window').height/15,
+        height:Dimensions.get('window').height/15
       },
 });
   
