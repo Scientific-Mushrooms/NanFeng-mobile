@@ -48,8 +48,7 @@ class Course extends BaseComponent {
       id={item.id} 
       faculty={item.faculty} 
       type={item.type} 
-      credit={item.credit}
-      img={require("../../assets/at.png")}/>
+      credit={item.credit}/>
     );
   };
 

@@ -10,11 +10,11 @@ export default class CourseItem extends Component{
     
     renderIcon(str){
         if(engi.indexOf(str)!=-1)
-            return  <Image style={styles.img} source={require('./src/engi.png')} alt='Engineering'/>
+            return  <Image style={styles.img} source={require('./src/engi.png')} style={styles.icon}/>
         else if (lite.indexOf(str)!=-1)
-            return <Image style={styles.img} source={require('./src/lite.png')} alt='Literature'/>
+            return <Image style={styles.img} source={require('./src/lite.png')} style={styles.icon}/>
         else 
-            return <Image style={styles.img} source={require('./src/sci.png')} alt='Science'/>
+            return <Image style={styles.img} source={require('./src/sci.png')} style={styles.icon}/>
     }
 
     render(){
@@ -72,5 +72,12 @@ const styles = StyleSheet.create({
         fontSize:17,
         color:'#268BD2',
     },
+    
+    icon:{
+        marginLeft:15,
+        marginRight:15,
+        width:Dimensions.get('window').height/22,
+        height:Dimensions.get('window').height/22
+      },
 });
   
