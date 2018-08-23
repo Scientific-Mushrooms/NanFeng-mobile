@@ -29,14 +29,14 @@ export default class Edit extends Component {
   render() {
     return (
       <View>
-        <View style={styles.Container}>
-          <TouchableOpacity
+        <TouchableOpacity
           activeOpacity={0.75}
-          style={{alignItems: 'center',}}>
+          style={{alignItems: 'center'}}>
+          <View style={styles.Container}>
             <Text style={{fontSize:50,color:'#4F2B79'}}>+</Text>
             <Text style={{fontSize:20,color:'#4F2B79'}}>添加照片</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
         <TextInput
         placeholder='见闻标题'
         style={styles.title}>
@@ -48,26 +48,30 @@ export default class Edit extends Component {
         placeholder='分享您的校园见闻，比如令人印象深刻的美景，人物或是活动。'>
         </TextInput>
         <View style={{flexDirection:'row',alignItems:'center',height:50}}>
+          <View style={{flex:1,alignItems:'flex-start'}}>
           <TouchableOpacity
           activeOpacity={0.75}
           style={styles.button}>
             <Image source={require('../assets/ic_my_setting.png')} style={{width:20,height:20,marginRight:5}}></Image>
             <Text style={{color:'white',fontSize:17}}>标注地点</Text>
           </TouchableOpacity>
-          <ModalDropdown 
-          defaultValue='类型' 
-          style={{marginLeft:120,backgroundColor:'#CCCCCC',borderRadius:25,height:35,width:80,alignItems:'center',justifyContent:'center'}} 
-          textStyle={{fontSize:20,color:'white'}} 
-          dropdownStyle={{width:80,alignItems:'center',justifyContent:'center'}} 
-          dropdownTextStyle={{fontSize:20}}
-          dropdownTextHighlightStyle={{fontSize:20,color:'#4F2B79'}}
-          options={['美景', '活动','人物']}
-          />
+          </View>
+          <View style={{flex:1,alignItems:'flex-end'}}>
+            <ModalDropdown 
+            defaultValue='见闻类型' 
+            style={styles.dropDown} 
+            textStyle={{fontSize:17,color:'white'}} 
+            dropdownStyle={{height:140,width:60,alignItems:'center',justifyContent:'center'}} 
+            dropdownTextStyle={{fontSize:17}}
+            dropdownTextHighlightStyle={{fontSize:17,color:'#4F2B79'}}
+            options={['美景', '活动','人物']}
+            />
+          </View>
         </View>
         <View style={{justifyContent:'center',alignItems:'center',marginTop:5}}>
           <TouchableOpacity
             activeOpacity={0.75}
-            style={{borderRadius:23,backgroundColor:'#4F2B79',width:'90%',justifyContent:'center',alignItems:'center'}}>
+            style={{borderRadius:23,backgroundColor:'#4F2B79',width:Dimensions.get('window').width-60,justifyContent:'center',alignItems:'center'}}>
               <Text style={{color:'white',fontSize:20,margin:10}}>发表</Text>
           </TouchableOpacity>
         </View>
@@ -79,8 +83,10 @@ export default class Edit extends Component {
 
 const styles = StyleSheet.create({
   Container: {
-    margin:30,
-    height:Dimensions.get('window').height/2,
+    marginHorizontal:30,
+    marginVertical:20,
+    height:Dimensions.get('window').height/2.5,
+    width:Dimensions.get('window').height/2.5,
     borderColor:'#CCCCCC',
     justifyContent: 'center',
     alignItems: 'center',
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
   },
   title:{
     marginLeft:30,
-    fontSize:40,
+    fontSize:25,
   },
   content:{
     textAlignVertical: 'top',
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
     fontSize:20,
   },
   button:{
-    margin:30,
+    marginLeft:30,
     width:120,
     alignItems: 'center',
     paddingLeft:10,
@@ -108,5 +114,14 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     borderRadius:25,
     backgroundColor:'#CCCCCC',
+  },
+  dropDown:{
+    marginRight:30,
+    backgroundColor:'#CCCCCC',
+    borderRadius:25,
+    height:35,
+    width:100,
+    alignItems:'center',
+    justifyContent:'center'
   }
 });

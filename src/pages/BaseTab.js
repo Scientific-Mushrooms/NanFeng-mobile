@@ -113,7 +113,7 @@ class BaseTab extends Component {
   render() {
     return (
     <DrawerLayout
-    drawerWidth={Dimensions.get('window').width-120}
+    drawerWidth={Dimensions.get('window').width-100}
     ref={(drawer) => { return this.drawer = drawer  }}
     renderNavigationView={()=><Profile navigation={this.props.navigation}/>}
     >

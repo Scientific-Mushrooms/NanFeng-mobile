@@ -16,12 +16,12 @@ export default class Profile extends Component {
           style={styles.loginContainer}
           >
             <Image
-              style={{width: 100, height: 100,margin:20,}}
+              style={{width: 90, height: 90,margin:20,}}
               source={require('../assets/my_avatar.png')}
             />
           </TouchableOpacity>
           <View>
-            <Text style={{color:'white',fontSize:30,}}>尚未登录</Text>
+            <Text style={{color:'white',fontSize:25,}}>尚未登录</Text>
             <Text style={{color:'white',}}>点击头像来登录</Text>
           </View>
         </ImageBackground>
