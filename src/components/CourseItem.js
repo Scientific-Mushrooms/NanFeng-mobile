@@ -13,8 +13,40 @@ export default class CourseItem extends Component{
             return  <Image source={require('./src/engi.png')} style={styles.icon}/>
         else if (lite.indexOf(str)!=-1)
             return <Image source={require('./src/lite.png')} style={styles.icon}/>
-        else 
+        else if(str=="")
+            return <Image source={require('./src/public.png')} style={styles.icon}/>
+        else
             return <Image source={require('./src/sci.png')} style={styles.icon}/>
+    }
+
+    renderFaculty(){
+        if(this.props.faculty==""&&(this.props.type=="公选"||this.props.type=="就业"))
+            return <Text style={{fontSize:10,color:'#666666'}}>公选、就业课暂无院系信息</Text>
+        else
+            return <Text style={{fontSize:12,color:'#666666'}}>{this.props.faculty}</Text>
+    }
+
+    handleName(str){
+        if(str.indexOf("【备注】")!=-1)
+            return(this.handleText(str.split("【备注】")[0]))
+        else
+            return(this.handleText(str))
+    }
+    
+    handleText(str){//返回固定长度的中英文混合字符串
+        var len = 0;  
+        var result="";  
+        for (var i=0; i<str.length; i++) {    
+            if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
+                 len += 2;    
+             } else {    
+                 len +=0.7;    
+             }
+            if(len>=25) 
+                return  result+="..."  
+            result+=str.charAt(i)
+         }    
+        return result;   
     }
 
     render(){
@@ -26,14 +58,14 @@ export default class CourseItem extends Component{
                     <View style={{flexDirection:'row',marginLeft:20,marginTop:5,alignItems:'center'}}>
                         {this.renderIcon(this.props.faculty)}
                         <View>
-                            <Text style={styles.title}>{this.props.name}</Text>
-                            <Text style={{fontSize:16,color:'#666666'}}>{this.props.faculty}</Text>
+                            <Text style={styles.title}>{this.handleName(this.props.name)}</Text>
+                            {this.renderFaculty()}
                         </View>
                     </View>
                     <View style={{flexDirection:'row',width:Dimensions.get('window').width}}>
                         <View style={{alignItems:'center',width:Dimensions.get('window').width/3}}>
                             <Text style={styles.description2}>课程编号</Text>
-                            <Text style={styles.description}>{this.props.id}</Text>
+                            <Text style={styles.description}>{this.props.code}</Text>
                         </View>
                         <View style={{alignItems:'center',width:Dimensions.get('window').width/3}}>
                             <Text style={styles.description2}>类型</Text>
@@ -66,14 +98,14 @@ const styles = StyleSheet.create({
     },
     title:{
         color:'black',
-        fontSize:23,
+        fontSize:17,
     },
     description:{
-        fontSize:18,
+        fontSize:15,
         color:'black',
     },
     description2:{
-        fontSize:16,
+        fontSize:12,
         color:'#6A005F',
     },
     
