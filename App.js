@@ -19,6 +19,7 @@ import Chat from './src/pages/subStackPages/chat'
 import Edit from './src/pages/Edit'
 import Login from './src/components/Login'
 import Register from './src/components/Register'
+import CourseDetail from './src/components/CourseDetail'
 
 import { StackNavigator } from 'react-navigation';
 
@@ -101,7 +102,8 @@ export const ProfileRoutes = StackNavigator({
     Chat:{screen:Chat},
     Edit:{screen:Edit},
     Login:{screen:Login},
-    Register:{screen:Register}
+    Register:{screen:Register},
+    CourseDetail:{screen:CourseDetail}
 }, {
     transitionConfig: TransitionConfiguration,
 });

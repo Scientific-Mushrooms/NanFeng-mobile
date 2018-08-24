@@ -46,13 +46,15 @@ class Course extends BaseComponent {
   };
 
   renderItem = (item, index, separator) => {
+    const {navigate} = this.props.navigation
     return(
       <CourseItem
       name={item.name}
       code={item.code} 
       faculty={item.faculty} 
       type={item.type} 
-      credit={item.credit}/>
+      credit={item.credit}
+      onPress={()=>navigate("CourseDetail",{courseId:item.courseId,headerTitle: 'Home' })}/>
     );
   };
 

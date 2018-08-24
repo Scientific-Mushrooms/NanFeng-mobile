@@ -40,7 +40,7 @@ export default class CourseItem extends Component{
             if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
                  len += 2;    
              } else {    
-                 len +=0.7;    
+                 len +=0.8;    
              }
             if(len>=25) 
                 return  result+="..."  
