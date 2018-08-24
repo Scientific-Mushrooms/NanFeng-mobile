@@ -25,7 +25,7 @@ class Confess extends Component {
         super();
         this.state = {
             currentTag: '全部动态',
-            Tags:['全部动态','TagA'],
+            Tags:['全部动态','失物招领'],
             isOpen: false,
             isDisabled: false,
             swipeToClose: true,
@@ -108,25 +108,34 @@ class Confess extends Component {
                         />
                     </View>
 
-                    <ActionButton buttonColor="rgba(231,76,60,1)" position='right' verticalOrientation='up'
-                                  offsetY={75}>
-                        <ActionButton.Item buttonColor='#9b59b6' title="发布"
-                                           onPress={() => {
-                                               navigate('NewPost');
-                                           }}>
+                    <ActionButton 
+                    buttonColor='#9b59b6' 
+                    position='right' 
+                    verticalOrientation='up'
+                    offsetY={75}>
+                        <ActionButton.Item 
+                        buttonColor='#9b59b6'
+                        title="发布"
+                        onPress={() => {
+                            navigate('NewPost');
+                        }}>
                             <Text style={styles.actionButtonIcon}>N</Text>
                         </ActionButton.Item>
-                        <ActionButton.Item buttonColor='#3498db' title="消息"
-                                           style={{justifyContent: 'center', alignItems: 'center'}}
-                                           onPress={() => {
-                                               navigate('Notification');
-                                           }}>
+                        <ActionButton.Item 
+                        buttonColor='#3498db' 
+                        title="消息"
+                        style={{justifyContent: 'center', alignItems: 'center'}}
+                        onPress={() => {
+                            navigate('Notification');
+                        }}>
                             <Text style={styles.actionButtonIcon}>P</Text>
                         </ActionButton.Item>
-                        <ActionButton.Item buttonColor='#1abc9c' title="设置"
-                                           style={{justifyContent: 'center', alignItems: 'center'}}
-                                           onPress={() => {
-                                           }}>
+                        <ActionButton.Item 
+                        buttonColor='#1abc9c' 
+                        title="设置"
+                        style={{justifyContent: 'center', alignItems: 'center'}}
+                        onPress={() => {
+                        }}>
                             <Text style={styles.actionButtonIcon}>S</Text>
                         </ActionButton.Item>
                     </ActionButton>
@@ -207,23 +216,20 @@ const styles = StyleSheet.create({
     },
 
     //mb用样式
-    btn: {
-        margin: 10,
-        backgroundColor: "#3B5998",
-        color: "white",
-        padding: 10
+    button: {
+        height: Dimensions.get('window').height/12,
     },
     modalBox: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 230,
+        height: Dimensions.get('window').height/6,
         backgroundColor: 'rgb(240,240,240)'
     },
     text: {
-        color: "black",
-        marginTop: 30,
-        marginBottom: 30,
-        fontSize: 22
+        color: "#585858",
+        marginTop: 10,
+        marginBottom: 10,
+        fontSize: 20
     },
 
     //头部
@@ -265,6 +271,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
     },
+
+    shadowStyle: {
+        shadowOpacity: 0.35,
+        shadowOffset: {
+          width: 0,
+          height: 5
+        },
+        shadowColor: "#000",
+        shadowRadius: 3,
+        elevation: 5
+    }
 });
 
 export default Confess;
