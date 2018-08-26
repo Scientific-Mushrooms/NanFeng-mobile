@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import BaseComponent from "../../components/BaseComponent"
 import CourseItem from '../../components/CourseItem'
 import {UltimateListView} from "react-native-ultimate-listview";
-import SearchHeader from 'react-native-search-header';
+import SearchHeader from '../../components/react-native-search-header/search-header';
 
 var savePageNum=0
 class Course extends BaseComponent {
