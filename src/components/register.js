@@ -7,11 +7,12 @@ import {
     TouchableOpacity,
     Text,
     AsyncStorage,
-    Dimensions
+    Alert,
+    Dimensions,
     } from 'react-native'
 import Toast, {DURATION} from 'react-native-easy-toast'
 
-export default class Login extends Component {
+export default class Register extends Component {
 
   constructor(props) {
         super(props);
@@ -37,6 +38,38 @@ export default class Login extends Component {
     }
     this.setState({conceal:!this.state.conceal});
   }
+
+  handleSubmit = () => {
+    if (this.state.name === '' ) {
+        Alert.alert('用户名不能为空');
+        return;
+    }else if(this.state.password === ''){
+        Alert.alert('密码不能为空');
+        return;
+    }else{
+      let form = new FormData();
+      form.append('email', this.state.name);
+      form.append('password', this.state.password);
+
+      var successAction = (result) => {
+        /*if (result.detail !== null) {
+            sessionStorage.setItem('userId', result.detail.userId);
+          }
+          if (result.more !== null) {
+            sessionStorage.setItem("instructorId", result.more.instructorId);
+          }
+          if (result.extra !== null) {
+            sessionStorage.setItem("studentId", result.extra.studentId);
+          }
+        
+          this.props.dispatch(login(result.detail, result.more, result.extra));
+
+          this.goBack()*/
+          Alert.alert(result.status);
+        }
+      this.newPost('/api/security/signIn', form, successAction);
+    } 
+  } 
 
   render() {
     return (
@@ -71,7 +104,7 @@ export default class Login extends Component {
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={this.regist}
+        onPress={this.handleSubmit}
         activeOpacity={0.75}>
         <Text
           style={styles.btText}>注册</Text>
