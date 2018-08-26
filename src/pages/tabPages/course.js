@@ -31,7 +31,7 @@ class Course extends BaseComponent {
     }
   }
 
-  onFetch = async(page = 1, startFetch, abortFetch) => {
+  onFetch = async(page = 1, startFetch, abortFetch) => {//judge if searching
     let form = new FormData();
     form.append('name', this.state.name);
     form.append('campus', this.state.campus);

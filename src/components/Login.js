@@ -8,7 +8,7 @@ import {
     Text,
     Alert
     } from 'react-native'
-import { BaseComponent } from '../component/BaseComponent'
+import { BaseComponent } from './BaseComponent'
 import {Toast} from 'native-base'
 
 export default class Login extends BaseComponent {

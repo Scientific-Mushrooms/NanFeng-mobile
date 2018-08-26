@@ -11,8 +11,9 @@ import {
     Dimensions,
     } from 'react-native'
 import Toast, {DURATION} from 'react-native-easy-toast'
+import { BaseComponent } from './BaseComponent'
 
-export default class Register extends Component {
+export default class Register extends BaseComponent {
 
   constructor(props) {
         super(props);
