@@ -18,14 +18,8 @@ export default class CourseDetail extends BaseComponent{
         //xxx是三项在创建区的boolean
         this.state = {
             course:{"name":""},
-            enjoy_bool:true,
-            easy_bool:true,
-            useful_bool:true,
             loading: true,
-            courseId: "Course ID",
-            userId: "User ID",
-            comment: null,
-            useful:false,
+            useful:false,//当前用户评论所选
             easy:false,
             enjoy:false,
             useful_tcNum:10000,
@@ -52,7 +46,7 @@ export default class CourseDetail extends BaseComponent{
     fetchCourseComments = () => {
 
         let form = new FormData();
-        form.append('courseId', this.state.courseId);
+        form.append('courseId', this.props.navigation.state.params.courseId);
 
         this.post('/api/courseComment/courseIdToCourseComments', form).then((result) => {
             if (result.status === 'success') {
@@ -157,9 +151,9 @@ export default class CourseDetail extends BaseComponent{
                     </View>
                 </View>
                 <View style={{flexDirection:'row',marginLeft:10,marginTop:5}}>
-                    {this.tag('实用',this.state.useful_bool)}
-                    {this.tag('简单',this.state.easy_bool)}
-                    {this.tag('推荐',this.state.enjoy_bool)}
+                    {this.tag('实用',comment.useful)}
+                    {this.tag('简单',comment.easy)}
+                    {this.tag('推荐',comment.enjoy)}
                 </View>
                 <Text style={{margin:15,fontSize:16,color:'black'}}>{comment.comment}</Text>
             </View>
