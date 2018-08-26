@@ -8,8 +8,8 @@ import {
     Text,
     Alert
     } from 'react-native'
-import { BaseComponent } from './BaseComponent'
-import {Toast} from 'native-base'
+import { BaseComponent } from '../component/BaseComponent'
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default class Login extends BaseComponent {
 
@@ -25,10 +25,10 @@ export default class Login extends BaseComponent {
 
     handleSubmit = () => {
           if (this.state.name === '' ) {
-            Toast.show({text: "用户名不能为空!",duration: 1500});
+            this.refs.logininfo.show("用户名不能为空！")
               return;
           }else if(this.state.password === ''){
-            Toast.show({text: "密码不能为空!",duration: 1500});
+            this.refs.logininfo.show("密码不能为空！")
               return;
           }else{
             let form = new FormData();
@@ -49,8 +49,16 @@ export default class Login extends BaseComponent {
               this.props.dispatch(login(result.detail, result.more, result.extra));
 
               this.goBack()*/
-              Toast.show({text: result.status,duration: 1500});
-            }
+              if(result.status=='success'){
+                this.refs.logininfo.show("登录成功")
+              }else if(result.description=='email not exist'){
+                  this.refs.logininfo.show("用户名不存在")
+              }else if(result.description=='wrong password'){
+                this.refs.logininfo.show("密码错误")
+              }else{
+                this.refs.logininfo.show("未知错误")
+              }
+        }
             this.newPost('/api/security/signIn', form, successAction);
       }
   }
@@ -88,44 +96,44 @@ export default class Login extends BaseComponent {
           onChangeText={(text) => this.setState({name:text})}/>
       </View>
 
-      <View
-        style={styles.inputBox}>
-        <Image source={require('../assets/ic_my_photos.png')} style={styles.icon}/>
+        <View
+          style={styles.inputBox}>
+          <Image source={require('../assets/ic_my_photos.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
           placeholder='password'
           secureTextEntry={this.state.conceal}
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({password:text})}/>
-      </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={this.handleSubmit}
-        activeOpacity={0.75}>
-        <Text
-          style={styles.btText}>登录</Text>
-      </TouchableOpacity>
-      <View style={styles.texts}>
-        <Text style={{margin:5}}>使用社交账号登录</Text>
-      </View>
-      <View style={styles.icons}>
-      <TouchableOpacity>
-        <Image source={require('../assets/ic_my_photos.png')}/>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Image source={require('../assets/ic_my_photos.png')}/>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.other}>Other...</Text>
-      </TouchableOpacity>
-      </View> 
-      <View style={styles.texts}>
-        <Text style={styles.text3}>第一次使用南风？ </Text>
-        <TouchableOpacity onPress={()=>navigation.navigate("Register")}>
-          <Text style={styles.other}>创建账户</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.handleSubmit}
+          activeOpacity={0.75}>
+          <Text
+            style={styles.btText}>登录</Text>
         </TouchableOpacity>
-      </View>
-      <Toast ref="logininfo" position='top' opacity={0.6}/>
+        <View style={styles.texts}>
+          <Text style={{margin:5}}>使用社交账号登录</Text>
+        </View>
+        <View style={styles.icons}>
+        <TouchableOpacity>
+          <Image source={require('../assets/ic_my_photos.png')}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={require('../assets/ic_my_photos.png')}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.other}>Other...</Text>
+        </TouchableOpacity>
+        </View> 
+        <View style={styles.texts}>
+          <Text style={styles.text3}>第一次使用南风？ </Text>
+          <TouchableOpacity onPress={()=>navigation.navigate("Register")}>
+            <Text style={styles.other}>创建账户</Text>
+          </TouchableOpacity>
+        </View>
+      <Toast ref="logininfo" position='top' positionValue={70} opacity={0.6}/>
     </View>
     );
   }
