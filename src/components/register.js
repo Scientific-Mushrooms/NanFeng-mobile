@@ -10,9 +10,10 @@ import {
     Alert,
     Dimensions,
     } from 'react-native'
-import Toast, {DURATION} from 'react-native-easy-toast'
+import {Toast} from 'native-base'
+import { BaseComponent } from './BaseComponent'
 
-export default class Register extends Component {
+export default class Register extends BaseComponent {
 
   constructor(props) {
         super(props);
@@ -41,11 +42,11 @@ export default class Register extends Component {
 
   handleSubmit = () => {
     if (this.state.name === '' ) {
-        Alert.alert('用户名不能为空');
-        return;
+      Toast.show({text: "用户名不能为空!",duration: 1500});
+      return;
     }else if(this.state.password === ''){
-        Alert.alert('密码不能为空');
-        return;
+      Toast.show({text: "密码不能为空!",duration: 1500});
+      return;
     }else{
       let form = new FormData();
       form.append('email', this.state.name);
@@ -65,7 +66,7 @@ export default class Register extends Component {
           this.props.dispatch(login(result.detail, result.more, result.extra));
 
           this.goBack()*/
-          Alert.alert(result.status);
+          Toast.show({text: result.status,duration: 1500});
         }
       this.newPost('/api/security/signIn', form, successAction);
     } 

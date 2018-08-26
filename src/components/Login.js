@@ -8,7 +8,7 @@ import {
     Text,
     Alert
     } from 'react-native'
-import { BaseComponent } from '../component/BaseComponent'
+import { BaseComponent } from './BaseComponent'
 import {Toast} from 'native-base'
 
 export default class Login extends BaseComponent {
@@ -25,10 +25,10 @@ export default class Login extends BaseComponent {
 
     handleSubmit = () => {
           if (this.state.name === '' ) {
-              alert('用户名不能为空');
+            Toast.show({text: "用户名不能为空!",duration: 1500});
               return;
           }else if(this.state.password === ''){
-              alert('密码不能为空');
+            Toast.show({text: "密码不能为空!",duration: 1500});
               return;
           }else{
             let form = new FormData();
@@ -49,7 +49,7 @@ export default class Login extends BaseComponent {
               this.props.dispatch(login(result.detail, result.more, result.extra));
 
               this.goBack()*/
-              alert(result.status);
+              Toast.show({text: result.status,duration: 1500});
             }
             this.newPost('/api/security/signIn', form, successAction);
       }
