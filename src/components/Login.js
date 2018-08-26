@@ -6,12 +6,12 @@ import {
     TextInput,
     TouchableOpacity,
     Text,
-    AsyncStorage,
-    Dimensions
+    Alert
     } from 'react-native'
-import Toast, {DURATION} from 'react-native-easy-toast'
+import { BaseComponent } from '../component/BaseComponent'
+import {Toast} from 'native-base'
 
-export default class Login extends Component {
+export default class Login extends BaseComponent {
 
   constructor(props) {
         super(props);
@@ -23,6 +23,37 @@ export default class Login extends Component {
         };
     }
 
+    handleSubmit = () => {
+          if (this.state.name === '' ) {
+              alert('用户名不能为空');
+              return;
+          }else if(this.state.password === ''){
+              alert('密码不能为空');
+              return;
+          }else{
+            let form = new FormData();
+            form.append('email', this.state.name);
+            form.append('password', this.state.password);
+
+            var successAction = (result) => {
+              /*if (result.detail !== null) {
+                  sessionStorage.setItem('userId', result.detail.userId);
+              }
+              if (result.more !== null) {
+                  sessionStorage.setItem("instructorId", result.more.instructorId);
+              }
+              if (result.extra !== null) {
+                  sessionStorage.setItem("studentId", result.extra.studentId);
+              }
+              
+              this.props.dispatch(login(result.detail, result.more, result.extra));
+
+              this.goBack()*/
+              alert(result.status);
+            }
+            this.newPost('/api/security/signIn', form, successAction);
+      }
+  }
   
   static navigationOptions = {
     headerRight:
@@ -69,7 +100,7 @@ export default class Login extends Component {
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={this.regist}
+        onPress={this.handleSubmit}
         activeOpacity={0.75}>
         <Text
           style={styles.btText}>登录</Text>
@@ -97,17 +128,6 @@ export default class Login extends Component {
       <Toast ref="logininfo" position='top' opacity={0.6}/>
     </View>
     );
-  }
-
-  regist() {
-    if ((this.state.name=="")){
-      this.refs.logininfo.show("请填写邮箱")
-    }else if(this.state.password==""){
-      this.refs.logininfo.show("请填写密码")
-    }
-    else{
-      this.refs.logininfo.show("登录成功")
-    }
   }
 }
 
