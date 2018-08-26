@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BaseComponent from '../component/BaseComponent';
 import { 
     Dimensions,
     Image,
@@ -13,21 +12,12 @@ import {
 import BaseComponent from '../components/BaseComponent'
 
 export default class CourseDetail extends BaseComponent{
-    static navigationOptions = {
-        headerTitle:
-        <View style={{flex: 1,flexDirection: 'column',alignItems: 'center'}}>
-            <Text style={{color: 'black',fontSize:20}}>课程详情</Text>
-        </View>,
-        headerRight:
-          <View style={{flex: 1}}/>
-    };
-
-export default class CourseDetail extends BaseComponent{
       constructor(props) {
         super(props);
         //xxx_bool是三项在已有评论区的boolean
         //xxx是三项在创建区的boolean
         this.state = {
+            course:{"name":""},
             enjoy_bool:true,
             easy_bool:true,
             useful_bool:true,
@@ -49,9 +39,15 @@ export default class CourseDetail extends BaseComponent{
         };
     }
 
-    componentWillMount = () => {
-        this.fetchCourseComments();
-    }
+    
+    static navigationOptions = {
+        headerTitle:
+        <View style={{flex: 1,flexDirection: 'column',alignItems: 'center'}}>
+            <Text style={{color: 'black',fontSize:20}}>课程详情</Text>
+        </View>,
+        headerRight:
+          <View style={{flex: 1}}/>
+    };
 
     fetchCourseComments = () => {
 
@@ -59,26 +55,12 @@ export default class CourseDetail extends BaseComponent{
         form.append('courseId', this.state.courseId);
 
         this.post('/api/courseComment/courseIdToCourseComments', form).then((result) => {
-
-            if (!result) {
-                this.pushNotification("danger", "Connection error", this.props.dispatch);
-
-            } else if (result.status === 'fail') {
-                this.pushNotification("danger", result.status, this.props.dispatch);
-
-            } else if (result.status === 'success') {
-
+            if (result.status === 'success') {
                 this.setState({ courseComments: result.detail, commentAuthors: result.more })
-                
-                this.pushNotification("success", "successfully fetch courses", this.props.dispatch);
-
-            } else {
-
-                this.pushNotification("danger", result.status, this.props.dispatch);
             }
-
         })
     }
+
     componentWillMount(){
         const courseId=this.props.navigation.state.params.courseId
         let form = new FormData();
@@ -86,11 +68,12 @@ export default class CourseDetail extends BaseComponent{
         this.post('/api/course/courseIdToCourse', form).then((result) => {
             this.setState({ course: result.detail, loading: false, courseComments: result.more })
         })
+        this.fetchCourseComments();
     }
     
     render(){
         return(
-            <ScrollView>
+            <ScrollView style={{backgroundColor:'#EEEEEE'}}>
                 <View style={styles.subContainer}>
                     <View style={{alignItems:'center',margin:10}}>
                         <Image source={this.props.course_img} style={{width:120,height:120}}/>
@@ -115,49 +98,11 @@ export default class CourseDetail extends BaseComponent{
                     <Text style={{marginLeft:15,marginTop:10,color:'black',fontSize:23}}>课程简介</Text>
                     <Text style={{marginLeft:15,marginTop:5,marginBottom:10,fontSize:18}}>{this.state.course.introduction}</Text>
                 </View>
-                <View style={{borderRadius:10,margin:2,elevation:5}}>
+                <View style={styles.subContainer}>
                     <Text style={{marginLeft:15,marginTop:10,marginBottom:10,color:'black',fontSize:23}}>课程评价</Text>
                     {this.renderRating("实用度", this.state.useful_tcNum * 100, this.state.useful_uNum * 100)}
                     {this.renderRating("难易度", this.state.easy_tcNum * 100, this.state.easy_uNum * 100)}
                     {this.renderRating("推荐度", this.state.enjoy_tcNum * 100, this.state.enjoy_uNum * 100)}
-                <View style={styles.subContainer}>
-                    <Text style={{marginLeft:15,marginTop:10,color:'black',fontSize:23}}>课程评价</Text>
-                    <View style={{marginLeft:15,marginTop:5,marginBottom:5,flexDirection:'row',alignItems:'center'}}>
-                        <Text style={styles.score}>有用？</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Image source={require('../assets/ic_feed_like.png')} style={{width:30,height:30}}/>
-                        </TouchableOpacity>
-                        <Text style={styles.score}>{this.props.score1}</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Image source={require('../assets/ic_feed_dislike.png')} style={{width:30,height:30}}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{marginLeft:15,marginTop:5,marginBottom:5,flexDirection:'row',alignItems:'center'}}>
-                        <Text style={styles.score}>简单？</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Image source={require('../assets/ic_feed_like.png')} style={{width:30,height:30}}/>
-                        </TouchableOpacity>
-                        <Text style={styles.score}>{this.props.score2}</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Image source={require('../assets/ic_feed_dislike.png')} style={{width:30,height:30}}/>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{marginLeft:15,marginTop:5,marginBottom:10,flexDirection:'row',alignItems:'center'}}>
-                        <Text style={styles.score}>享受？</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Image source={require('../assets/ic_feed_like.png')} style={{width:30,height:30}}/>
-                        </TouchableOpacity>
-                        <Text style={styles.score}>{this.props.score3}</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Image source={require('../assets/ic_feed_dislike.png')} style={{width:30,height:30}}/>
-                        </TouchableOpacity>
-                    </View>
                 </View>
                 <View style={styles.subContainer}>
                     <View style={{marginLeft:15,marginTop:5,marginBottom:10}}>
@@ -180,11 +125,11 @@ export default class CourseDetail extends BaseComponent{
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{borderRadius:10,margin:2,elevation:5,justifyContent:'center'}}>
+                <View style={styles.subContainer}>
                     {this.renderComments()}
                 </View>
-                <View style={{borderRadius:10,margin:2,elevation:5,justifyContent:'center'}}>
-                    <TextInput multiline={true} placeholder={'写下你的评论....'} style={{margin:12,borderRadius:10,backgroundColor:'#EEEEEE'}}/>
+                <View style={styles.subContainer}>
+                    <TextInput multiline={true} placeholder={'写下你的评论....'} style={{margin:12,borderRadius:10,backgroundColor:'white'}}/>
                     <View style={{flexDirection:'row',marginLeft:10,width:Dimensions.get('window').width}}>
                         {this.chooseBottom('实用',this.state.useful)}
                         {this.chooseBottom('简单',this.state.easy)}
