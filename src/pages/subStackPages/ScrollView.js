@@ -74,7 +74,7 @@ class ScrollView extends Component {
               <TouchableOpacity 
               key="parallax-header" 
               style={ styles.parallaxHeader }
-              onPress={()=>navigate('ImageView',{imgsrc:require("../../assets/upload1.jpg")})}>
+              onPress={()=>navigate('ImageView',{imgsrc:"../../assets/upload1.jpg",img:require("../../assets/upload1.jpg")})}>
                 {/*avatar here*/}
                 <Text style={ styles.sectionSpeakerText }>
                   Talks by Rich Hickey
