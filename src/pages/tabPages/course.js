@@ -40,10 +40,11 @@ class Course extends BaseComponent {
     var successAction = (result) => {
         this.setState({ courses: result.detail.content})
     }
-    this.newPost('/api/course/search', form, successAction); 
+    await(this.newPost('/api/course/search', form, successAction)); 
     this.state.page++;
     startFetch(this.state.courses,10);
   };
+
 
   renderItem = (item, index, separator) => {
     const {navigate} = this.props.navigation
@@ -72,7 +73,7 @@ class Course extends BaseComponent {
             <Text style={{color: '#585858', fontSize: 20}}>课程列表</Text>
           </View>
           <View style={styles.right}>
-            <TouchableOpacity onPress={()=>{navigate('Search', { transition: 'forVertical' });}}>
+            <TouchableOpacity onPress={()=>{navigate('CourseSearch', { transition: 'forVertical' });}}>
               <Image source={require("../../assets/ic_search.png")} style={styles.icon}/>
             </TouchableOpacity>
           </View>
