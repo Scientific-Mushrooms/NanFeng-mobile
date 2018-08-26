@@ -6,7 +6,7 @@ import {
 import SearchHeader from 'react-native-search-header';
 import BaseComponent from '../../components/BaseComponent'
 
-class Search extends BaseComponent{
+class CourseSearch extends BaseComponent{
     constructor(props) {
         super(props);
         this.state = {
@@ -76,4 +76,4 @@ class Search extends BaseComponent{
 }
 
 
-export default Search;
+export default CourseSearch;

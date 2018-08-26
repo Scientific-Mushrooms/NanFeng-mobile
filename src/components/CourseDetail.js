@@ -10,7 +10,17 @@ import {
     TouchableOpacity,
     Text,
     } from 'react-native';
+import BaseComponent from '../components/BaseComponent'
 
+export default class CourseDetail extends BaseComponent{
+    static navigationOptions = {
+        headerTitle:
+        <View style={{flex: 1,flexDirection: 'column',alignItems: 'center'}}>
+            <Text style={{color: 'black',fontSize:20}}>课程详情</Text>
+        </View>,
+        headerRight:
+          <View style={{flex: 1}}/>
+    };
 
 export default class CourseDetail extends BaseComponent{
       constructor(props) {
@@ -69,14 +79,22 @@ export default class CourseDetail extends BaseComponent{
 
         })
     }
-
+    componentWillMount(){
+        const courseId=this.props.navigation.state.params.courseId
+        let form = new FormData();
+        form.append("courseId", courseId);
+        this.post('/api/course/courseIdToCourse', form).then((result) => {
+            this.setState({ course: result.detail, loading: false, courseComments: result.more })
+        })
+    }
+    
     render(){
         return(
             <ScrollView>
-                <View style={{borderRadius:10,margin:2,elevation:5}}>
+                <View style={styles.subContainer}>
                     <View style={{alignItems:'center',margin:10}}>
                         <Image source={this.props.course_img} style={{width:120,height:120}}/>
-                        <Text style={styles.title}>{this.props.name}</Text>
+                        <Text style={styles.title}>{this.state.course.name}</Text>
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
                         <View style={{marginRight:15}}>
@@ -86,24 +104,62 @@ export default class CourseDetail extends BaseComponent{
                             <Text style={styles.description2}>学分：</Text>
                         </View>
                         <View style={{marginRight:15}}>
-                            <Text style={styles.description}>{this.props.code}</Text>
-                            <Text style={styles.description}>{this.props.faculty}</Text>
-                            <Text style={styles.description}>{this.props.type}</Text>
-                            <Text style={styles.description}>{this.props.credit}</Text>
+                            <Text style={styles.description}>{this.state.course.code}</Text>
+                            <Text style={styles.description}>{this.state.course.faculty}</Text>
+                            <Text style={styles.description}>{this.state.course.type}</Text>
+                            <Text style={styles.description}>{this.state.course.credit}</Text>
                         </View>
                     </View>
                 </View>
-                <View style={{borderRadius:10,margin:2,elevation:5}}>
+                <View style={styles.subContainer}>
                     <Text style={{marginLeft:15,marginTop:10,color:'black',fontSize:23}}>课程简介</Text>
-                    <Text style={{marginLeft:15,marginTop:5,marginBottom:10,fontSize:18}}>{this.props.introduction}</Text>
+                    <Text style={{marginLeft:15,marginTop:5,marginBottom:10,fontSize:18}}>{this.state.course.introduction}</Text>
                 </View>
                 <View style={{borderRadius:10,margin:2,elevation:5}}>
                     <Text style={{marginLeft:15,marginTop:10,marginBottom:10,color:'black',fontSize:23}}>课程评价</Text>
                     {this.renderRating("实用度", this.state.useful_tcNum * 100, this.state.useful_uNum * 100)}
                     {this.renderRating("难易度", this.state.easy_tcNum * 100, this.state.easy_uNum * 100)}
                     {this.renderRating("推荐度", this.state.enjoy_tcNum * 100, this.state.enjoy_uNum * 100)}
+                <View style={styles.subContainer}>
+                    <Text style={{marginLeft:15,marginTop:10,color:'black',fontSize:23}}>课程评价</Text>
+                    <View style={{marginLeft:15,marginTop:5,marginBottom:5,flexDirection:'row',alignItems:'center'}}>
+                        <Text style={styles.score}>有用？</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.75}>
+                            <Image source={require('../assets/ic_feed_like.png')} style={{width:30,height:30}}/>
+                        </TouchableOpacity>
+                        <Text style={styles.score}>{this.props.score1}</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.75}>
+                            <Image source={require('../assets/ic_feed_dislike.png')} style={{width:30,height:30}}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{marginLeft:15,marginTop:5,marginBottom:5,flexDirection:'row',alignItems:'center'}}>
+                        <Text style={styles.score}>简单？</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.75}>
+                            <Image source={require('../assets/ic_feed_like.png')} style={{width:30,height:30}}/>
+                        </TouchableOpacity>
+                        <Text style={styles.score}>{this.props.score2}</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.75}>
+                            <Image source={require('../assets/ic_feed_dislike.png')} style={{width:30,height:30}}/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{marginLeft:15,marginTop:5,marginBottom:10,flexDirection:'row',alignItems:'center'}}>
+                        <Text style={styles.score}>享受？</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.75}>
+                            <Image source={require('../assets/ic_feed_like.png')} style={{width:30,height:30}}/>
+                        </TouchableOpacity>
+                        <Text style={styles.score}>{this.props.score3}</Text>
+                        <TouchableOpacity
+                            activeOpacity={0.75}>
+                            <Image source={require('../assets/ic_feed_dislike.png')} style={{width:30,height:30}}/>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={{borderRadius:10,margin:2,elevation:5}}>
+                <View style={styles.subContainer}>
                     <View style={{marginLeft:15,marginTop:5,marginBottom:10}}>
                         <Text style={{marginTop:10,color:'black',fontSize:23}}>教师</Text>
                         <View style={{flexDirection:'row',alignItems:'center',marginTop:10,marginBottom:10}}>
@@ -236,7 +292,13 @@ const styles = StyleSheet.create({
       elevation:5,
       borderRadius:10,
       borderWidth:1,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: 'white',
+    },
+    subContainer:{
+        borderRadius:10,
+        margin:2,
+        elevation:5,
+        backgroundColor:'white'
     },
     imageContainer: {
       width:100,

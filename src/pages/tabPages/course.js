@@ -24,6 +24,8 @@ class Course extends BaseComponent {
       layout: 'grid',
       courses:[],
       refreshing: false,
+      page:Math.floor(Math.random()*100),
+      size:10,
     }
   }
 
@@ -33,22 +35,27 @@ class Course extends BaseComponent {
     form.append('campus', this.state.campus);
     form.append('faculty', this.state.faculty);
     form.append('type', this.state.type);
+    form.append('page', this.state.page);
+    form.append('size', this.state.size);
     var successAction = (result) => {
-        this.setState({ courses: result.detail})
+        this.setState({ courses: result.detail.content})
     }
-
-    this.newPost('/api/course/search', form, successAction); 
+    await(this.newPost('/api/course/search', form, successAction)); 
+    this.state.page++;
     startFetch(this.state.courses,10);
   };
 
+
   renderItem = (item, index, separator) => {
+    const {navigate} = this.props.navigation
     return(
       <CourseItem
       name={item.name}
-      id={item.id} 
+      code={item.code} 
       faculty={item.faculty} 
       type={item.type} 
-      credit={item.credit}/>
+      credit={item.credit}
+      onPress={()=>navigate("CourseDetail",{courseId:item.courseId,headerTitle: 'Home' })}/>
     );
   };
 
@@ -66,7 +73,7 @@ class Course extends BaseComponent {
             <Text style={{color: '#585858', fontSize: 20}}>课程列表</Text>
           </View>
           <View style={styles.right}>
-            <TouchableOpacity onPress={()=>{navigate('Search', { transition: 'forVertical' });}}>
+            <TouchableOpacity onPress={()=>{navigate('CourseSearch', { transition: 'forVertical' });}}>
               <Image source={require("../../assets/ic_search.png")} style={styles.icon}/>
             </TouchableOpacity>
           </View>

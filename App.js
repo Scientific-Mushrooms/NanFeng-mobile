@@ -19,6 +19,8 @@ import Chat from './src/pages/subStackPages/chat'
 import Edit from './src/pages/Edit'
 import Login from './src/components/Login'
 import Register from './src/components/Register'
+import CourseDetail from './src/components/CourseDetail'
+import CourseSearch from './src/pages/subStackPages/CourseSearch'
 
 import { StackNavigator } from 'react-navigation';
 
@@ -96,12 +98,14 @@ export const ProfileRoutes = StackNavigator({
     ImageView:{ screen: ImageView},
     Confess:{screen:Confess},
     Search:{screen:Search},
+    CourseSearch:{screen:CourseSearch},
     NewPost:{screen:NewPost},
     Notification:{screen:Notification},
     Chat:{screen:Chat},
     Edit:{screen:Edit},
     Login:{screen:Login},
-    Register:{screen:Register}
+    Register:{screen:Register},
+    CourseDetail:{screen:CourseDetail}
 }, {
     transitionConfig: TransitionConfiguration,
 });
