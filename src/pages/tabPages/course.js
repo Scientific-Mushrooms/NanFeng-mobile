@@ -13,6 +13,7 @@ import CourseItem from '../../components/CourseItem'
 import {UltimateListView} from "react-native-ultimate-listview";
 import SearchHeader from 'react-native-search-header';
 
+var savePageNum=0
 class Course extends BaseComponent {
   constructor(props) {
     super(props)
@@ -98,8 +99,14 @@ class Course extends BaseComponent {
           />
         <SearchHeader
             onSearch={(event) => {
+              savePageNum=this.state.page
               this.state.name=event.nativeEvent.text.split("...")[0]+""
               this.state.page=0
+              this.listView.refresh()
+            }}
+            onHide={()=>{
+              this.state.name=""
+              this.state.page=savePageNum
               this.listView.refresh()
             }}
             style = {{header:{borderBottomWidth:2,borderColor:'rgb(230,230,230)',}}}
