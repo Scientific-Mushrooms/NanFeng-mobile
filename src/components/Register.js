@@ -40,6 +40,7 @@ export default class Register extends BaseComponent {
     this.setState({conceal:!this.state.conceal});
   }
 
+
   handleSubmit = () => {
     if (this.state.name === '' ) {
       this.refs.logininfo.show("用户名不能为空！")
