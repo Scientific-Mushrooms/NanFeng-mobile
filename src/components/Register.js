@@ -7,11 +7,13 @@ import {
     TouchableOpacity,
     Text,
     AsyncStorage,
-    Dimensions
+    Alert,
+    Dimensions,
     } from 'react-native'
 import Toast, {DURATION} from 'react-native-easy-toast'
+import { BaseComponent } from './BaseComponent'
 
-export default class Login extends Component {
+export default class Register extends BaseComponent {
 
   constructor(props) {
         super(props);
@@ -37,6 +39,44 @@ export default class Login extends Component {
     }
     this.setState({conceal:!this.state.conceal});
   }
+
+  handleSubmit = () => {
+    if (this.state.name === '' ) {
+      this.refs.logininfo.show("用户名不能为空！")
+      return;
+    }else if(this.state.password === ''){
+      this.refs.logininfo.show("密码不能为空！")
+      return;
+    }else{
+      let form = new FormData();
+      form.append('email', this.state.name);
+      form.append('password', this.state.password);
+
+      var successAction = (result) => {
+        /*if (result.detail !== null) {
+            sessionStorage.setItem('userId', result.detail.userId);
+          }
+          if (result.more !== null) {
+            sessionStorage.setItem("instructorId", result.more.instructorId);
+          }
+          if (result.extra !== null) {
+            sessionStorage.setItem("studentId", result.extra.studentId);
+          }
+        
+          this.props.dispatch(login(result.detail, result.more, result.extra));
+
+          this.goBack()*/
+          if(result.status=='success'){
+            this.refs.logininfo.show("注册成功")
+          }else if(result.description=='duplicate email'){
+            this.refs.logininfo.show("此名称已被注册")
+          }else{
+            this.refs.logininfo.show("未知错误")
+          }
+        }
+      this.newPost('/api/security/signup', form, successAction);
+    } 
+  } 
 
   render() {
     return (
@@ -71,7 +111,7 @@ export default class Login extends Component {
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={this.regist}
+        onPress={this.handleSubmit}
         activeOpacity={0.75}>
         <Text
           style={styles.btText}>注册</Text>
@@ -99,6 +139,7 @@ export default class Login extends Component {
         <Text style={styles.other}>登录</Text>
       </TouchableOpacity>
     </View>
+      <Toast ref="logininfo" position='top' positionValue={70} opacity={0.6}/>
     </View>
     );
   }
