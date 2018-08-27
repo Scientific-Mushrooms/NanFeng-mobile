@@ -12,10 +12,14 @@ import {
 import Modal from 'react-native-modalbox';
 import ActionButton from 'react-native-action-button';
 import View3 from '../../components/View3'
+import BaseComponent from '../../components/BaseComponent'
+import moment from 'moment';
+import 'moment/locale/zh-cn'
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+var today=new Date();
 
-class Confess extends Component {
+class Confess extends BaseComponent{
 
     static navigationOptions = {
         header: null,
@@ -23,6 +27,7 @@ class Confess extends Component {
 
     constructor() {
         super();
+        this._data=[];
         this.state = {
             currentTag: '全部动态',
             Tags:['全部动态','失物招领'],
@@ -30,11 +35,28 @@ class Confess extends Component {
             isDisabled: false,
             swipeToClose: true,
             sliderValue: 0.3,//mb初始设置
-            dataSource: ds.cloneWithRows(['内容1', '内容2', '内容3', '内容4', '内容5']),//ListView数据来源
+            dataSource: ds.cloneWithRows(this._data),//ListView数据来源
             isRefreshing: false,//刷新
             loadingMore:false,
-            isLoadAll:false
+            isLoadAll:false,
+            confess:{"userId":"initial","anonymous":false,"content":"initial",}
         };
+        this._data=this._data.concat(this.state.confess);
+    }
+
+    componentWillMount(){
+        /*let createForm=new FormData();
+        createForm.append("userId","a");
+        createForm.append("anonymous",true);
+        createForm.append("content","Test");
+        createForm.append("type","失物招领");
+        this.post('/api/confess/create',createForm);*/
+        let form = new FormData();
+        form.append("test","");
+        this.post('/api/confess/all', form).then((newData) => {
+            this._data=this._data.concat(newData.detail)
+            this.setState({dataSource: ds.cloneWithRows(this._data)});
+        })
     }
 
     render() {
@@ -148,31 +170,52 @@ class Confess extends Component {
     }
 
     _renderRow(rowData) {
+        var _date=new String(rowData.date);
+        _date=moment(rowData.date).calendar();
+        /*var yyyy=_date.slice(0,4);
+        var mm=_date.slice(5,7);
+        var dd=_date.slice(8,10);
+        var h=_date.slice(11,13);
+        var m=_date.slice(14,16);
+        var d="";
+        if (!today.getFullYear()==yyyy){
+            d=yyyy+"-"+mm+"-"+dd;
+        } else if (today.getMonth()+1==mm&&today.getDate()==dd){
+            d="今天 "+h+":"+m;
+        } else if (today.getMonth()+1==mm&&today.getDate()-1==dd){
+            d="昨天 "+h+":"+m;
+        }else if (today.getMonth()+1==mm&&today.getDate()-2==dd){
+            d="前天 "+h+":"+m;
+        }else {
+            d=mm+"-"+dd+" "+h+":"+m;
+        }*/
         return (
-            // 实例化Item
-            /*<View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                height: 100,
-                marginTop: 15
-            }}>
-                <Text>{rowData}</Text>
-            </View>*/
             <View style={{marginBottom:12}}>
-                <View3/>
+                <View3
+                    userId={rowData.anonymous?"匿名用户":rowData.userId}
+                    content={rowData.content}
+                    time={_date}
+                />
             </View>
         )
     }
 
     _onRefresh = () => {
         this.setState({isRefreshing: true});
-        setTimeout(() => {
+        /*setTimeout(() => {
             this.setState({
                 isRefreshing: false,
-                dataSource: ds.cloneWithRows(['内容0', '内容1', '内容2', '内容3', '内容4', '内容5', '内容6']),
             });
-        }, 3000);
+        }, 3000);*/
+        let form = new FormData();
+        form.append("test","");
+        this.post('/api/confess/all', form).then((newData) => {
+            this._data=this._data.concat(newData.detail)
+            this.setState({dataSource: ds.cloneWithRows(this._data)});
+        })
+        this.setState({
+            isRefreshing: false,
+        });
     }
     _onEndReached = () => {
         if (this.state.loadingMore || this.state.isLoadAll || this.state.isRefreshing) {
@@ -182,7 +225,6 @@ class Confess extends Component {
         setTimeout(() => {
             this.setState({
                 loadingMore: false,
-                dataSource: ds.cloneWithRows([ '内容1', '内容2', '内容3', '内容4', '内容5', '内容6', '内容7']),
                 isLoadAll: true
             });
         }, 2000);
