@@ -27,23 +27,20 @@ export default class Profile extends Component {
         </ImageBackground>
         <View style={styles.cellContainer}>
           <ProfileStaticCell
-            title="统计"
+            title="我的课堂"
             imageName={require('../assets/statistic.png')}
           />
           <ProfileStaticCell
-            title="排名"
+            title="个人信息"
             imageName={require('../assets/ranking.png')}
-            delay={50}
           />
           <ProfileStaticCell
             title="分享"
             imageName={require('../assets/upload.png')}
-            delay={100}
           />
           <ProfileStaticCell
-            title="重置"
+            title="注销账户"
             imageName={require('../assets/refresh.png')}
-            delay={150}
             />
           </View>
       </View>
@@ -59,7 +56,7 @@ const ProfileStaticCell = ({
   delay
 }) => {
   return (
-    <View style={{marginTop:5}} delay={delay}>
+    <View style={{marginTop:3}} delay={delay}>
       <TouchableOpacity
           activeOpacity={0.75}
           style={styles.staticCell}
