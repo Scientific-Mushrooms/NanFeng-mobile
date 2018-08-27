@@ -13,11 +13,14 @@ import Modal from 'react-native-modalbox';
 import ActionButton from 'react-native-action-button';
 import View3 from '../../components/View3'
 import BaseComponent from '../../components/BaseComponent'
+import {UltimateListView} from "react-native-ultimate-listview";
 import moment from 'moment';
 import 'moment/locale/zh-cn'
+import SearchHeader from '../../components/react-native-search-header/search-header';
 
-var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+//var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 var today=new Date();
+var savePageNum=0;
 
 class Confess extends BaseComponent{
 
@@ -35,29 +38,76 @@ class Confess extends BaseComponent{
             isDisabled: false,
             swipeToClose: true,
             sliderValue: 0.3,//mb初始设置
-            dataSource: ds.cloneWithRows(this._data),//ListView数据来源
+            /*dataSource: ds.cloneWithRows(this._data),//ListView数据来源
             isRefreshing: false,//刷新
             loadingMore:false,
-            isLoadAll:false,
-            confess:{"userId":"initial","anonymous":false,"content":"initial",}
+            isLoadAll:false,*/
+            confess:{"userId":"initial","anonymous":false,"content":"initial",},
+            name:"",
+            data:[],
+            page:0,
+            searchTag:""
         };
         this._data=this._data.concat(this.state.confess);
     }
 
-    componentWillMount(){
-        /*let createForm=new FormData();
+    /*componentWillMount(){
+        let createForm=new FormData();
         createForm.append("userId","a");
         createForm.append("anonymous",true);
         createForm.append("content","Test");
         createForm.append("type","失物招领");
-        this.post('/api/confess/create',createForm);*/
+        this.post('/api/confess/create',createForm);
         let form = new FormData();
         form.append("test","");
         this.post('/api/confess/all', form).then((newData) => {
             this._data=this._data.concat(newData.detail)
             this.setState({dataSource: ds.cloneWithRows(this._data)});
         })
-    }
+    }*/
+
+    onFetch = async(page = 1,startFetch, abortFetch) => {//judge if searching
+        let address="/api/confess/all"
+        if (this.state.searchTag!=""){
+            address="/api/confess/searchByContent?content="+this.state.searchTag
+        }
+        let form = new FormData();
+        form.append("test","");
+        await(this.post(address, form).then((newData) => {
+            this.setState({ data: newData.detail})
+        }));
+        this.state.page++;
+        startFetch(this.state.data,10);
+    };
+
+    renderItem = (item, index, separator) => {
+        var _date=new String(item.date);
+        _date=moment(item.date).calendar();
+        if (this.state.currentTag=='全部动态'){
+            return (
+                <View style={{marginBottom:12}}>
+                    <View3
+                        userId={item.anonymous?"匿名用户":item.userId}
+                        content={item.content}
+                        time={_date}
+                    />
+                </View>
+            )
+        } else {
+            if (this.state.currentTag==item.type){
+                return (
+                    <View style={{marginBottom:12}}>
+                        <View3
+                            userId={item.anonymous?"匿名用户":item.userId}
+                            content={item.content}
+                            time={_date}
+                        />
+                    </View>
+                )
+            }
+            else {return null}
+        }
+    };
 
     render() {
         const {navigate} = this.props.navigation;
@@ -77,7 +127,7 @@ class Confess extends BaseComponent{
                         >{this.state.currentTag}</Text>
                     </View>
                     <View style={styles.right}>
-                        <TouchableOpacity onPress={()=>{navigate('Search', { transition: 'forVertical' });}}>
+                        <TouchableOpacity onPress={()=>this.searchHeader.show()}>
                             <Image source={require("../../assets/ic_search.png")} style={styles.icon}/>
                         </TouchableOpacity>
                     </View>
@@ -93,14 +143,14 @@ class Confess extends BaseComponent{
                     >
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => {this.setState({currentTag:'全部动态',dataSource: ds.cloneWithRows(['内容1', '内容2', '内容3', '内容4', '内容5', '内容6'])});
+                            onPress={() => {this.setState({currentTag:this.state.Tags[0]});
                                 this.refs.modalBox.close();//关闭modalBox
                             }}>
                             <Text style={[styles.text, {color: "black"}]}>{this.state.Tags[0]}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => {this.setState({currentTag:'TagA',dataSource: ds.cloneWithRows(['内容2', '内容4', '内容6'])});
+                            onPress={() => {this.setState({currentTag:this.state.Tags[1]});
                                 this.refs.modalBox.close();//关闭modalBox
                             }}>
                             <Text style={[styles.text, {color: "black"}]}>{this.state.Tags[1]}</Text>
@@ -109,24 +159,22 @@ class Confess extends BaseComponent{
 
 
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                        <ListView
-                            dataSource={this.state.dataSource}
-                            renderRow={this._renderRow.bind(this)}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={this.state.isRefreshing}
-                                    onRefresh={this._onRefresh}
-                                    colors={['#ff0000', '#00ff00', '#0000ff']}
-                                    progressBackgroundColor="#ffffff"
-                                />
-                            }
-                            onEndReached={this._onEndReached}
-                            renderFooter={()=>{return(
-                                <View style={styles.footer}>
-                                    <Text style={styles.footerTitle}>{ this.state.isLoadAll?'已加载全部':'正在加载更多……'}</Text>
-                                </View>
-                            )}}
-                            //renderFooter={this._renderFooter().bind(this)}
+
+                        <UltimateListView
+                            ref={(ref) => this.listView = ref}
+                            onFetch={this.onFetch}
+                            refreshableMode="basic" //basic or advanced
+                            item={this.renderItem}  //this takes two params (item, index)
+                            numColumns={1} //to use grid layout, simply set gridColumn > 1
+
+                            //----Extra Config----
+                            //header={this.renderHeaderView}
+                            //paginationFetchingView={this.renderPaginationFetchingView}
+                            //paginationFetchingView={this.renderPaginationFetchingView}
+                            //paginationAllLoadedView={this.renderPaginationAllLoadedView}
+                            //paginationWaitingView={this.renderPaginationWaitingView}
+                            //emptyView={this.renderEmptyView}
+                            //separator={this.renderSeparatorView}
                         />
                     </View>
 
@@ -164,49 +212,102 @@ class Confess extends BaseComponent{
 
                 </View>
 
+                <SearchHeader
+                    onSearch={(event) => {
+                        savePageNum=this.state.page
+                        this.state.searchTag=event.nativeEvent.text.split("...")[0]+""
+                        this.state.page=0
+                        this.listView.refresh()
+                    }}
+                    onHide={()=>{
+                        this.state.searchTag=""
+                        this.state.page=savePageNum
+                        this.listView.refresh()
+                    }}
+                    style = {{header:{borderBottomWidth:2,borderColor:'rgb(230,230,230)',}}}
+                    headerHeight={Dimensions.get('window').height/13}
+                    ref = {(searchHeader) => {
+                        this.searchHeader = searchHeader;
+                    }}
+                    dropShadowed
+                    topOffset={0}
+                    visibleInitially={false}
+                    //persistent={true}
+                    onClear = {() => {
+                        console.log(`Clearing input!`);
+                    }}
+                    entryAnimation="from-right-side"
+                    onGetAutocompletions = {async (text) => {
+                        if(text!=""){
+                            var _result=[]
+                            var form = new FormData();
+                            form.append("test","");
+                            await (this.post('/api/confess/autoCompleteByContent?content='+text, form).then((result) => {
+                                _result=result.detail
+                                for(var i=0;i<_result.length;i++)
+                                    _result[i]=this.handleText(_result[i])
+                            }))
+                            if(_result==[])
+                                _result=["未找到结果"]
+                            return _result
+                        }else{
+                            return []
+                        }
+                    }
+                    }
+                />
             </View>
 
         );
+
     }
 
-    _renderRow(rowData) {
+    handleText(str){//返回固定长度的中英文混合字符串
+        var len = 0;
+        var result="";
+        for (var i=0; i<str.length; i++) {
+            if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {
+                len += 2;
+            } else {
+                len +=0.8;
+            }
+            if(len>=25)
+                return  result+="..."
+            result+=str.charAt(i)
+        }
+        return result;
+    }
+    /*_renderRow(rowData) {
         var _date=new String(rowData.date);
         _date=moment(rowData.date).calendar();
-        /*var yyyy=_date.slice(0,4);
-        var mm=_date.slice(5,7);
-        var dd=_date.slice(8,10);
-        var h=_date.slice(11,13);
-        var m=_date.slice(14,16);
-        var d="";
-        if (!today.getFullYear()==yyyy){
-            d=yyyy+"-"+mm+"-"+dd;
-        } else if (today.getMonth()+1==mm&&today.getDate()==dd){
-            d="今天 "+h+":"+m;
-        } else if (today.getMonth()+1==mm&&today.getDate()-1==dd){
-            d="昨天 "+h+":"+m;
-        }else if (today.getMonth()+1==mm&&today.getDate()-2==dd){
-            d="前天 "+h+":"+m;
-        }else {
-            d=mm+"-"+dd+" "+h+":"+m;
-        }*/
-        return (
-            <View style={{marginBottom:12}}>
-                <View3
-                    userId={rowData.anonymous?"匿名用户":rowData.userId}
-                    content={rowData.content}
-                    time={_date}
-                />
-            </View>
-        )
+        if (this.state.currentTag=='全部动态'){
+            return (
+                <View style={{marginBottom:12}}>
+                    <View3
+                        userId={rowData.anonymous?"匿名用户":rowData.userId}
+                        content={rowData.content}
+                        time={_date}
+                    />
+                </View>
+            )
+        } else {
+            if (this.state.currentTag==rowData.type){
+                return (
+                    <View style={{marginBottom:12}}>
+                        <View3
+                            userId={rowData.anonymous?"匿名用户":rowData.userId}
+                            content={rowData.content}
+                            time={_date}
+                        />
+                    </View>
+                )
+            }
+            else {return null}
+        }
     }
 
     _onRefresh = () => {
         this.setState({isRefreshing: true});
-        /*setTimeout(() => {
-            this.setState({
-                isRefreshing: false,
-            });
-        }, 3000);*/
         let form = new FormData();
         form.append("test","");
         this.post('/api/confess/all', form).then((newData) => {
@@ -228,7 +329,7 @@ class Confess extends BaseComponent{
                 isLoadAll: true
             });
         }, 2000);
-    }
+    }*/
 }
 
 
