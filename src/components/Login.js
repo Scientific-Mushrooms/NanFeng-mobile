@@ -8,7 +8,7 @@ import {
     Text,
     Alert
     } from 'react-native'
-import { BaseComponent } from '../component/BaseComponent'
+import { BaseComponent } from './BaseComponent'
 import Toast, {DURATION} from 'react-native-easy-toast'
 
 export default class Login extends BaseComponent {
