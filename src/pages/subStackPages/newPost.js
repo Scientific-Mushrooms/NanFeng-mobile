@@ -7,13 +7,22 @@ import {
     Image,
     TouchableOpacity,
     Dimensions,} from 'react-native';
+import BaseComponent from '../../components/BaseComponent'
 
-class NewPost extends Component{
+class NewPost extends BaseComponent{
 
     static navigationOptions = {
         header: null,
     };
 
+    constructor(){
+        super();
+        this.state={
+            content:"",
+            userId:"User",
+            anonymous:false,
+        }
+    }
     render(){
         const {goBack} = this.props.navigation;
 
@@ -29,7 +38,15 @@ class NewPost extends Component{
                         <Text style={{color: '#585858', fontSize: 20}}>新动态</Text>
                     </View>
                     <View style={styles.right}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            let createForm=new FormData();
+                            createForm.append("userId",this.state.userId);
+                            createForm.append("anonymous",this.state.anonymous);
+                            createForm.append("content",this.state.content);
+                            createForm.append("type","失物招领");
+                            this.post('/api/confess/create',createForm);
+                            goBack();
+                        }}>
                             <Text>发表</Text>
                         </TouchableOpacity>
                     </View>
@@ -41,6 +58,9 @@ class NewPost extends Component{
                         placeholder='分享新鲜事...'
                         blurOnSubmit={false}
                         multiline={true}
+                        onChangeText={(Text)=>{
+                            this.setState({content:Text});
+                        }}
                     />
                 </View>
                 <View style={{backgroundColor:'#fff',flexDirection: 'row',

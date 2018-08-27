@@ -12,17 +12,18 @@ import {
 
 export default class View3 extends Component {
 
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.container2}>
                     <Image source={require('../assets/profile_lemon.jpg')} style={styles.picture}/>
                     <View>
-                        <Text style={styles.username}>匿名用户</Text>
-                        <Text style={styles.time}>今天 13:20</Text>
+                        <Text style={styles.username}>{this.props.userId}</Text>
+                        <Text style={styles.time}>{this.props.time}</Text>
                     </View>
                 </View>
-                <Text style={styles.content}>请问今晚的东亚海域史作业的要求是什么？什么时候交呢。</Text>
+                <Text style={styles.content}>{this.props.content}</Text>
                 <View style={styles.container3}>
                     <TouchableOpacity
                         activeOpacity={0.75}
