@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import SearchHeader from 'react-native-search-header';
 import BaseComponent from '../../components/BaseComponent'
-
+//now use in pages directly
 class CourseSearch extends BaseComponent{
     constructor(props) {
         super(props);
@@ -35,11 +35,8 @@ class CourseSearch extends BaseComponent{
     }
 
     render(){
-        const {goBack} = this.props.navigation;
-
         return(
-            <View  style={{flex: 1, backgroundColor: 'rgb(240,240,240)'}}>
-                <SearchHeader
+            <SearchHeader
                 style={{height:Dimensions.get("window").height}}
                 ref = {(searchHeader) => {
                     this.searchHeader = searchHeader;
@@ -68,8 +65,7 @@ class CourseSearch extends BaseComponent{
                         return []
                     }
                 }}
-                />
-            </View>
+            />
         );
     }
 
