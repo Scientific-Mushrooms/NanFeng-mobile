@@ -42,11 +42,11 @@ export default class Register extends BaseComponent {
 
   handleSubmit = () => {
     if (this.state.name === '' ) {
-        Alert.alert('用户名不能为空');
-        return;
+      this.refs.logininfo.show("用户名不能为空！")
+      return;
     }else if(this.state.password === ''){
-        Alert.alert('密码不能为空');
-        return;
+      this.refs.logininfo.show("密码不能为空！")
+      return;
     }else{
       let form = new FormData();
       form.append('email', this.state.name);
@@ -66,9 +66,15 @@ export default class Register extends BaseComponent {
           this.props.dispatch(login(result.detail, result.more, result.extra));
 
           this.goBack()*/
-          Alert.alert(result.status);
+          if(result.status=='success'){
+            this.refs.logininfo.show("注册成功")
+          }else if(result.description=='duplicate email'){
+            this.refs.logininfo.show("此名称已被注册")
+          }else{
+            this.refs.logininfo.show("未知错误")
+          }
         }
-      this.newPost('/api/security/signIn', form, successAction);
+      this.newPost('/api/security/signup', form, successAction);
     } 
   } 
 
@@ -133,6 +139,7 @@ export default class Register extends BaseComponent {
         <Text style={styles.other}>登录</Text>
       </TouchableOpacity>
     </View>
+      <Toast ref="logininfo" position='top' positionValue={70} opacity={0.6}/>
     </View>
     );
   }
