@@ -17,6 +17,7 @@
     "react-native-baidu-map": "^0.6.0",
     "react-native-button": "^2.3.0",
     "react-native-circular-progress": "^0.2.0",
+    "react-native-collapsable-view": "^0.1.2",
     "react-native-deprecated-custom-components": "^0.1.2",
     "react-native-drawer": "^2.5.0",
     "react-native-drawer-layout": "^2.0.0",

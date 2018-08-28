@@ -1,0 +1,47 @@
+{
+  "_from": "react-native-collapsable-view",
+  "_id": "react-native-collapsable-view@0.1.2",
+  "_inBundle": false,
+  "_integrity": "sha1-jOiWzYEJFaHkZC3APQbxspDhaBI=",
+  "_location": "/react-native-collapsable-view",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-collapsable-view",
+    "name": "react-native-collapsable-view",
+    "escapedName": "react-native-collapsable-view",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/react-native-collapsable-view/download/react-native-collapsable-view-0.1.2.tgz",
+  "_shasum": "8ce896cd810915a1e4642dc03d06f1b290e16812",
+  "_spec": "react-native-collapsable-view",
+  "_where": "C:\\Users\\wenha\\NF",
+  "author": {
+    "name": "poberwong"
+  },
+  "bugs": {
+    "url": "https://github.com/Bob1993/react-native-collapsable-view/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "a expandable and collapsable view that can be controlled with a handler",
+  "homepage": "https://github.com/Bob1993/react-native-collapsable-view#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-collapsable-view",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bob1993/react-native-collapsable-view.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.2"
+}
