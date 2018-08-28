@@ -66,10 +66,10 @@ class NewPost extends BaseComponent{
                 <View style={{backgroundColor:'#fff',flexDirection: 'row',
                     height: 30,alignItems: 'center', justifyContent: 'center',}}>
                     <View style={styles.left}>
-                        <TouchableOpacity style={{backgroundColor:'rgb(248,248,248)',flexDirection: 'row',width:95,borderRadius:10,borderWidth:1,
+                        <TouchableOpacity style={{backgroundColor:'rgb(248,248,248)',flexDirection: 'row',width:90,borderRadius:10,borderWidth:1,
                             borderColor:'rgb(230,230,230)',}}>
-                            <Image source={require("../../assets/ic_locate.png")} style={styles.icon}/>
-                            <Text> 你在哪里？</Text>
+                            <Image source={require("../../assets/ic_sharp.png")} style={styles.icon}/>
+                            <Text> 失物招领</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.right}>
@@ -89,7 +89,7 @@ class NewPost extends BaseComponent{
                         <Image source={require("../../assets/ic_at.png")} style={styles.icon2}/>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <Image source={require("../../assets/ic_sharp.png")} style={styles.icon2}/>
+                        <Image source={require("../../assets/ic_locate.png")} style={styles.icon2}/>
                     </TouchableOpacity>
                     <TouchableOpacity style={{marginRight:15}}>
                         <Image source={require("../../assets/ic_face.png")} style={styles.icon2}/>
