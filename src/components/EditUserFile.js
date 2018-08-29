@@ -9,11 +9,27 @@ import {
     TouchableOpacity,
     Text,
     } from 'react-native'
+import { connect } from 'react-redux';
+import BaseComponent from './BaseComponent'
+import Toast, {DURATION} from 'react-native-easy-toast'
+import {update} from '../redux/action';
 
-export default class Register extends Component {
+class EditUserFile extends BaseComponent {   
+    static navigationOptions = {
+        headerTitle:
+        <View style={{flex: 1,flexDirection: 'column',alignItems: 'center'}}>
+            <Text style={{color:'#61135B',margin:10,fontSize:20}}>个人信息</Text>
+        </View>,
+        headerRight:
+          <View style={{flex: 1,flexDirection: 'column',alignItems: 'flex-end'}}/>,
+        headerStyle:{backgroundColor:'white'},
+        headerTintColor:'#61135B',
+        };
+
     constructor(props) {
         super(props);
         this.state = {
+            userId:this.props.identityReducer.user.userId,
             name:"",
             email:"",
             password:"",
@@ -23,28 +39,67 @@ export default class Register extends Component {
             name_teacher:"",
             code_student:"",
             code_teacher:"",
-
         };
     }
 
-    handleChange = name => (value) => {
-        this.setState({[name]:value})
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    handleUserInformation=()=>{
+        var {userId,name,email}=this.state
+        let form = new FormData();
+        form.append("userId", userId);
+        form.append("nickName", name);
+        form.append("email", email);
+        var successAction = (result) => {
+            this.props.dispatch(update(result.detail))
+            alert(result.detail.nickName)
+            this.refs.logininfo.show("成功更新信息")
+        }
+
+        this.newPost('/api/user/update', form, successAction);
+    }
+
+    handleUserInformation=()=>{
+        var {userId,name,email}=this.state
+        let form = new FormData();
+        form.append("userId", userId);
+        form.append("nickName", name);
+        form.append("email", email);
+        var successAction = (result) => {
+            //this.props.dispatch(update(result.detail))
+            //alert(result.detail.nickName)
+            this.refs.logininfo.show("成功更新信息")
+        }
+
+        this.newPost('/api/user/update', form, successAction);
+    }
+
+    handleUserPassword=()=>{
+        this.refs.logininfo.show("授权失败")
     }
 
     render(){
         return( 
-        <ScrollView>
-            <Text style={{color:'#61135B',margin:10,fontSize:25}}>个人信息</Text>
+        <View style={{flex:1}}>
+        <ScrollView style={{backgroundColor:"white"}}>
             <View style={{borderRadius:10,margin:2,elevation:5,justifyContent:'center'}}>
                 <Text style={styles.title}>修改头像</Text>
                 <View style={styles.container}>
                     <TouchableOpacity
+                        onPress={()=>this.refs.logininfo.show("由于服务器问题，暂停图片上传")}
                         activeOpacity={0.75}>
-                        <Image style={{width:70,height:70}} source={this.props.avatar}/>
+                        <Image 
+                        style={{width:70,height:70}} 
+                        source={{uri:"http://www.clavier.moe:8080/api/image/"+this.props.identityReducer.user.avatarId}}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.button}
-                        activeOpacity={0.75}>
+                        activeOpacity={0.75}
+                        onPress={()=>this.refs.logininfo.show("由于服务器问题，暂停图片上传")}>
                         <Text style={styles.btText}>提交</Text>
                     </TouchableOpacity>
                 </View>
@@ -69,6 +124,7 @@ export default class Register extends Component {
                 </View>
                 <View style={styles.container}>
                     <TouchableOpacity
+                    onPress={this.handleUserInformation}
                     style={styles.button}
                     activeOpacity={0.75}>
                         <Text style={styles.btText}>提交</Text>
@@ -103,6 +159,7 @@ export default class Register extends Component {
                 </View>
                 <View style={styles.container}>
                     <TouchableOpacity
+                    onPress={this.handleUserPassword}
                     style={styles.button}
                     activeOpacity={0.75}>
                         <Text style={styles.btText}>提交</Text>
@@ -130,7 +187,8 @@ export default class Register extends Component {
                 <View style={styles.container}>
                     <TouchableOpacity
                     style={styles.button}
-                    activeOpacity={0.75}>
+                    activeOpacity={0.75}
+                    onPress={()=>this.refs.logininfo.show("信息库认证失败")}>
                         <Text style={styles.btText}>提交</Text>
                     </TouchableOpacity>
                 </View>
@@ -156,17 +214,25 @@ export default class Register extends Component {
                 <View style={styles.container}>
                     <TouchableOpacity
                     style={styles.button}
-                    activeOpacity={0.75}>
+                    activeOpacity={0.75}
+                    onPress={()=>this.refs.logininfo.show("信息库认证失败")}>
                         <Text style={styles.btText}>提交</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </ScrollView>
+        <Toast ref="logininfo" position='top' opacity={0.6}/>
+        </View>
         );
     }
 };
 
-
+const mapStateToProps = state => ({
+    identityReducer: state.identityReducer
+  })
+  
+  
+export default connect(mapStateToProps)(EditUserFile)
 
 const styles = StyleSheet.create({
     title:{
@@ -196,8 +262,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     container2:{
-        borderColor:'#AAAAAA',
-        borderBottomWidth:1,
         marginLeft:10,
         marginRight:10,
         alignItems:'center',
