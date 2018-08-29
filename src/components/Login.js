@@ -55,7 +55,6 @@ class Login extends BaseComponent {
               if(result.status=='success'){
                 this.refs.logininfo.show("登录成功")
                 this.props.dispatch(login(result.detail, result.more, result.extra))
-                alert(this.props.identityReducer.user.email)
                 this.timer = setTimeout(() => {
                   this.props.navigation.replace("BaseTab",{open:true});
                 }, 1000)

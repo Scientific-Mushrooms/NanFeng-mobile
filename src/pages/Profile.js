@@ -40,7 +40,6 @@ class Profile extends BaseComponent {
         source={require('../assets/bg.png')}
         >
           <TouchableOpacity
-          onPress={()=>navigate("Login")}
           activeOpacity={0.75}
           style={styles.loginContainer}
           >
@@ -139,6 +138,7 @@ const ProfileStaticCell = ({
       <TouchableOpacity
           activeOpacity={0.75}
           style={styles.staticCell}
+          onPress={onPress}
       >
           <Image style={{width: 30, height: 30, marginHorizontal: 15}} source={imageName}/>
           <View style={[styles.cellStyle, style || style]}>
