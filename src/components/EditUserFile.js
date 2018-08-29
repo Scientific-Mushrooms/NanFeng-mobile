@@ -52,9 +52,9 @@ export default class Register extends Component {
             <View style={{borderRadius:10,margin:2,elevation:5,justifyContent:'center'}}>
                 <Text style={styles.title}>个人信息</Text>
                 <View style={styles.container2}>
-                    <Text style={styles.subtitle}>用户名</Text>
+                    <Text style={styles.subtitle}>昵称</Text>
                     <TextInput 
-                    placeholder="输入新的用户名"
+                    placeholder="填写昵称"
                     onChange={(value)=> this.handleChange("name")(value)}
                     secureTextEntry={false}
                     style={styles.inputBox}/>
@@ -63,7 +63,7 @@ export default class Register extends Component {
                     <Text style={styles.subtitle}>邮箱</Text>
                     <TextInput
                     onChange={(value)=> this.handleChange("email")(value)}
-                    placeholder="填写邮箱"
+                    placeholder="更换用户名"
                     secureTextEntry={false}
                     style={styles.inputBox}/>
                 </View>

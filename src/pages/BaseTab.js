@@ -86,7 +86,8 @@ import DrawerLayout from 'react-native-drawer-layout'
   );  */
 
 const mapStateToProps = state => ({
-  ifFirst: state.ifFirst
+  ifFirst: state.ifFirst,
+  identityReducer: state.identityReducer
 })
 
 class BaseTab extends Component {
@@ -104,6 +105,11 @@ class BaseTab extends Component {
   componentWillMount(){
     this.props.dispatch(notFirst());
     //使用redux
+  }
+
+  componentDidMount(){
+    if(this.props.navigation.state.params!=undefined)
+      this._openDrawer()
   }
 
   _openDrawer = () => {
