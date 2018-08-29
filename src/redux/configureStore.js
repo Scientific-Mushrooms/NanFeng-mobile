@@ -11,7 +11,12 @@ const preloadedState = {
     },
     ifFirst:{
         first:true
-    }
+    },
+    identityReducer: {
+        user: null,
+        instructor: null,
+        student: null,
+    },
 }
 
 const persistConfig = {

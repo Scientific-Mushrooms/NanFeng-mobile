@@ -21,6 +21,7 @@ import Login from './src/components/Login'
 import Register from './src/components/Register'
 import CourseDetail from './src/components/CourseDetail'
 import CourseSearch from './src/pages/subStackPages/CourseSearch'
+import EditUserProfile from './src/components/EditUserFile'
 
 import { StackNavigator } from 'react-navigation';
 
@@ -105,7 +106,8 @@ export const ProfileRoutes = StackNavigator({
     Edit:{screen:Edit},
     Login:{screen:Login},
     Register:{screen:Register},
-    CourseDetail:{screen:CourseDetail}
+    CourseDetail:{screen:CourseDetail},
+    EditUserProfile:{screen:EditUserProfile}
 }, {
     transitionConfig: TransitionConfiguration,
 });
