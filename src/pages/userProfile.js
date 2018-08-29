@@ -9,10 +9,27 @@ import {
     TouchableOpacity,
     Text,
     } from 'react-native'
-import { Button, Input } from 'native-base';
 
 export default class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name:"",
+            email:"",
+            password:"",
+            newpassword:"",
+            renewpassword:"",
+            name_student:"",
+            name_teacher:"",
+            code_student:"",
+            code_teacher:"",
 
+        };
+    }
+
+    handleChange = name => (value) => {
+        this.setState({[name]:value})
+    }
 
     render(){
         return( 
@@ -38,12 +55,14 @@ export default class Register extends Component {
                     <Text style={styles.subtitle}>用户名</Text>
                     <TextInput 
                     placeholder="输入新的用户名"
+                    onChange={(value)=> this.handleChange("name")(value)}
                     secureTextEntry={false}
                     style={styles.inputBox}/>
                 </View>
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>邮箱</Text>
-                    <TextInput 
+                    <TextInput
+                    onChange={(value)=> this.handleChange("email")(value)}
                     placeholder="填写邮箱"
                     secureTextEntry={false}
                     style={styles.inputBox}/>
@@ -61,6 +80,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>原密码</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("password")(value)}
                     placeholder="输入原密码"
                     secureTextEntry={true}
                     style={styles.inputBox}/>
@@ -68,6 +88,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>新密码</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("newpassword")(value)}
                     placeholder="输入新密码"
                     secureTextEntry={true}
                     style={styles.inputBox}/>
@@ -75,6 +96,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>重复新密码</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("renewpassword")(value)}
                     placeholder="再次输入新密码"
                     secureTextEntry={true}
                     style={styles.inputBox}/>
@@ -92,6 +114,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>姓名</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("name_teacher")(value)}
                     placeholder="请输入您的姓名"
                     secureTextEntry={false}
                     style={styles.inputBox}/>
@@ -99,6 +122,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>学工号</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("code_teacher")(value)}
                     placeholder="请输入您的学工号"
                     secureTextEntry={false}
                     style={styles.inputBox}/>
@@ -116,6 +140,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>姓名</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("name_student")(value)}
                     placeholder="请输入您的姓名"
                     secureTextEntry={false}
                     style={styles.inputBox}/>
@@ -123,6 +148,7 @@ export default class Register extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.subtitle}>学号</Text>
                     <TextInput 
+                    onChange={(value)=> this.handleChange("code_student")(value)}
                     placeholder="请输入您的学号"
                     secureTextEntry={false}
                     style={styles.inputBox}/>
