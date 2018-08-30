@@ -38,7 +38,7 @@ class Splash extends Component {
             if(this.props.ifFirst.first)
                 this.props.navigation.navigate('Swiper');
             else
-                this.props.navigation.navigate('BaseTab');
+                this.props.navigation.replace('BaseTab');
         }, 2000)
     }
 
