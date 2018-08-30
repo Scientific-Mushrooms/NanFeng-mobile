@@ -16,10 +16,12 @@ export default class ListItem extends Component {
     let kind='分享'
     if(this.props.kind!=null)
       kind=this.props.kind
+      let img=require("../assets/upload1.jpg")
+      if (this.props.img!=null) img=this.props.img
     return (
       <View style={styles.container}>
         <TouchableOpacity activeOpacity={0.6} onPress={this.props.onPress}>
-          <ImageBackground style={styles.imageContainer} source={require('../assets/upload1.jpg')} resizeMode="cover">
+          <ImageBackground style={styles.imageContainer} source={img} resizeMode="cover">
             <Text style={styles.text_on_image}>{kind}</Text>
           </ImageBackground>
         </TouchableOpacity>

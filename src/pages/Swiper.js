@@ -26,7 +26,7 @@ export default class _Swiper extends Component {
   };
 
   render(){
-    const { navigate } = this.props.navigation;
+    const { replace } = this.props.navigation;
     /*return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -48,19 +48,21 @@ export default class _Swiper extends Component {
             activeDot={<View style={{backgroundColor:'white', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
             <ImageBackground
                 style={{flex:1}}
-                source={require('../assets/Splash.png')}
+                source={require('../assets/Back_changed.png')}
                 resizeMode="cover">
                 <View animation="fadeInLeft" style={styles.center} useNativeDriver>
                     <Text style={styles.text}>课程查询</Text>
                     <Text style={styles.text}>开启你的选课之旅</Text>
-                    <View animation="fadeInUp" useNativeDriver>
-                        <Image style={{height:(thisWidth-100)*1.2}} source={require('../assets/show_phone.png')} resizeMode="contain"/>
+                    <View>
+                        <View animation="fadeInUp" useNativeDriver>
+                            <Image style={{height:(thisWidth-100)*1.2,width:thisWidth*0.9}} source={require('../assets/show_course.png')} resizeMode="contain"/>
+                        </View>
                     </View>
                 </View>
             </ImageBackground>
             <ImageBackground
                 style={{flex:1}}
-                source={require('../assets/Splash.png')}
+                source={require('../assets/Back_changed.png')}
                 resizeMode="cover">
                 <View animation="fadeInLeft" style={styles.center} useNativeDriver>
                     <Text style={styles.text}>网页端/移动端</Text>
@@ -72,13 +74,16 @@ export default class _Swiper extends Component {
             </ImageBackground>
             <ImageBackground
                 style={{flex:1}}
-                source={require('../assets/Splash.png')}
+                source={require('../assets/Back_changed.png')}
                 resizeMode="cover">
 
                 <View style={styles.center}>
+                    <View animation="fadeInUp" useNativeDriver>
+                        <Image style={{height:(thisWidth-100)*1.2,width:thisWidth*0.9}} source={require('../assets/show_enter.png')} resizeMode="contain"/>
+                    </View>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigate('BaseTab')}>
+                        onPress={() => replace('BaseTab')}>
                         <Text style={styles.btText}>进入南风</Text>
                     </TouchableOpacity>
                 </View>

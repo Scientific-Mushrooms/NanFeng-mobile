@@ -50,7 +50,7 @@ export default class View3 extends Component {
                     <Text style={styles.comment}>2条评论回复</Text>
                 </View>
                 <FlatList
-                    data={[{name:'用户AB',content:'AJKSLDAHJKD..'},{name:'用户BCD',content:'JKAIS。'},{name:'用户CRFG',content:'IOUJK。。'},{name:'用户DJKL',content:'UIO。'},]}
+                    data={[{name:'Jäger',content:'问问宿管阿姨？'},{name:'匿名用户',content:'我捡到了！私聊告诉我宿舍'},]}
                     renderItem={({item}) =>
                         <View style={styles.container2}>
                             <Text style={styles.username_friends}>{item.name+':'}</Text>
