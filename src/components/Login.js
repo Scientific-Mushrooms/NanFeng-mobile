@@ -8,10 +8,13 @@ import {
     Text,
     Alert
     } from 'react-native'
+    
+import { connect } from 'react-redux';
 import { BaseComponent } from './BaseComponent'
 import Toast, {DURATION} from 'react-native-easy-toast'
+import {login} from '../redux/action';
 
-export default class Login extends BaseComponent {
+class Login extends BaseComponent {
 
   constructor(props) {
         super(props);
@@ -51,14 +54,18 @@ export default class Login extends BaseComponent {
               this.goBack()*/
               if(result.status=='success'){
                 this.refs.logininfo.show("登录成功")
+                this.props.dispatch(login(result.detail, result.more, result.extra))
+                this.timer = setTimeout(() => {
+                  this.props.navigation.replace("BaseTab",{open:true});
+                }, 1000)
               }else if(result.description=='email not exist'){
-                  this.refs.logininfo.show("用户名不存在")
+                this.refs.logininfo.show("用户名不存在")
               }else if(result.description=='wrong password'){
                 this.refs.logininfo.show("密码错误")
               }else{
                 this.refs.logininfo.show("未知错误")
               }
-        }
+            }
             this.newPost('/api/security/signIn', form, successAction);
       }
   }
@@ -85,13 +92,13 @@ export default class Login extends BaseComponent {
     return (
     <View style={styles.container}>
     <Text style={styles.welcome}>登录南风</Text>
-    <Text style={styles.tip}>请输入您的邮箱和密码。</Text>
+    <Text style={styles.tip}>请输入您的用户名和密码。</Text>
       <View
         style={styles.inputBox}>
         <Image source={require('../assets/icon_account.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
-          placeholder='user@example.com'
+          placeholder='用户名'
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({name:text})}/>
       </View>
@@ -101,7 +108,7 @@ export default class Login extends BaseComponent {
           <Image source={require('../assets/ic_my_photos.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
-          placeholder='password'
+          placeholder='密码'
           secureTextEntry={this.state.conceal}
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({password:text})}/>
@@ -139,6 +146,12 @@ export default class Login extends BaseComponent {
   }
 }
 
+const mapStateToProps = state => ({
+  identityReducer: state.identityReducer
+})
+
+
+export default connect(mapStateToProps)(Login)
 
 const styles = StyleSheet.create({
   add_line:{

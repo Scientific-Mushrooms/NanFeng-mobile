@@ -12,8 +12,10 @@ import {
     } from 'react-native'
 import Toast, {DURATION} from 'react-native-easy-toast'
 import { BaseComponent } from './BaseComponent'
+import { connect } from 'react-redux';
+import { login} from '../redux/action';
 
-export default class Register extends BaseComponent {
+class Register extends BaseComponent {
 
   constructor(props) {
         super(props);
@@ -69,6 +71,10 @@ export default class Register extends BaseComponent {
           this.goBack()*/
           if(result.status=='success'){
             this.refs.logininfo.show("注册成功")
+            this.props.dispatch(login(result.detail, result.more, result.extra));
+            this.timer = setTimeout(() => {
+              this.props.navigation.replace("BaseTab",{open:true});
+            }, 1000)
           }else if(result.description=='duplicate email'){
             this.refs.logininfo.show("此名称已被注册")
           }else{
@@ -89,7 +95,7 @@ export default class Register extends BaseComponent {
         <Image source={require('../assets/icon_account.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
-          placeholder='user@example.com'
+          placeholder='用户名'
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({name:text})}/>
       </View>
@@ -98,7 +104,7 @@ export default class Register extends BaseComponent {
         <Image source={require('../assets/ic_my_photos.png')} style={styles.icon}/>
         <TextInput
           style={styles.input}
-          placeholder='password'
+          placeholder='密码'
           secureTextEntry={this.state.conceal}
           underlineColorAndroid={'transparent'}
           onChangeText={(text) => this.setState({password:text})}/>
@@ -182,6 +188,13 @@ export default class Register extends BaseComponent {
     }
   }
 }
+
+const mapStateToProps = state => ({
+  identityReducer: state.identityReducer
+})
+
+
+export default connect(mapStateToProps)(Register)
 
 
 const styles = StyleSheet.create({

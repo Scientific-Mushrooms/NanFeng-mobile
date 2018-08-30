@@ -18,8 +18,7 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 import SearchHeader from '../../components/react-native-search-header/search-header';
 
-//var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-var today=new Date();
+
 var savePageNum=0;
 
 class Confess extends BaseComponent{
@@ -38,10 +37,6 @@ class Confess extends BaseComponent{
             isDisabled: false,
             swipeToClose: true,
             sliderValue: 0.3,//mb初始设置
-            /*dataSource: ds.cloneWithRows(this._data),//ListView数据来源
-            isRefreshing: false,//刷新
-            loadingMore:false,
-            isLoadAll:false,*/
             confess:{"userId":"initial","anonymous":false,"content":"initial",},
             name:"",
             data:[],

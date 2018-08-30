@@ -10,6 +10,7 @@ import {
     Text,
     } from 'react-native';
 import BaseComponent from '../components/BaseComponent'
+import Panel from '../components/react-native-collapsable-view'
 
 export default class CourseDetail extends BaseComponent{
       constructor(props) {
@@ -17,7 +18,7 @@ export default class CourseDetail extends BaseComponent{
         //xxx_bool是三项在已有评论区的boolean
         //xxx是三项在创建区的boolean
         this.state = {
-            course:{"name":""},
+            course:{"name":"","introduction":""},
             loading: true,
             useful:false,//当前用户评论所选
             easy:false,
@@ -64,8 +65,23 @@ export default class CourseDetail extends BaseComponent{
         })
         this.fetchCourseComments();
     }
+
+    renderIntro=(str)=>{
+        return(
+            <Text style={{marginLeft:15,marginTop:5,marginBottom:10,fontSize:18}}>{str}</Text>
+        )
+    }
     
+    handleText(str){
+        if(str==null||str=="")
+            return "暂无信息"
+        else
+            return str
+    }
     render(){
+        var introduction=this.state.course.introduction+""
+        introduction=introduction.replace("\r\n","")
+        var introductions=introduction.split("<br />")
         return(
             <ScrollView style={{backgroundColor:'#EEEEEE'}}>
                 <View style={styles.subContainer}>
@@ -81,16 +97,17 @@ export default class CourseDetail extends BaseComponent{
                             <Text style={styles.description2}>学分：</Text>
                         </View>
                         <View style={{marginRight:15}}>
-                            <Text style={styles.description}>{this.state.course.code}</Text>
-                            <Text style={styles.description}>{this.state.course.faculty}</Text>
-                            <Text style={styles.description}>{this.state.course.type}</Text>
-                            <Text style={styles.description}>{this.state.course.credit}</Text>
+                            <Text style={styles.description}>{this.handleText(this.state.course.code)}</Text>
+                            <Text style={styles.description}>{this.handleText(this.state.course.faculty)}</Text>
+                            <Text style={styles.description}>{this.handleText(this.state.course.type)}</Text>
+                            <Text style={styles.description}>{this.handleText(this.state.course.credit)}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.subContainer}>
-                    <Text style={{marginLeft:15,marginTop:10,color:'black',fontSize:23}}>课程简介</Text>
-                    <Text style={{marginLeft:15,marginTop:5,marginBottom:10,fontSize:18}}>{this.state.course.introduction}</Text>
+                    <Panel expanded title='课程简介'>
+                        {introductions.map(this.renderIntro)}
+                    </Panel>
                 </View>
                 <View style={styles.subContainer}>
                     <Text style={{marginLeft:15,marginTop:10,marginBottom:10,color:'black',fontSize:23}}>课程评价</Text>
