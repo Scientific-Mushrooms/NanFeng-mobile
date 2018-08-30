@@ -35,10 +35,10 @@ class Splash extends Component {
     componentDidMount() {
         const { navigation } = this.props
         this.timer = setTimeout(() => {
-            if(this.props.ifFirst.first)
+            //if(this.props.ifFirst.first)
                 this.props.navigation.navigate('Swiper');
-            else
-                this.props.navigation.replace('BaseTab');
+            //else
+             //   this.props.navigation.replace('BaseTab');
         }, 2000)
     }
 
@@ -55,8 +55,8 @@ class Splash extends Component {
                 resizeMode="cover">
                 <View animation='fadeIn' delay={300} duration={1500} style={styles.center} useNativeDriver>
                 <Image
-                style={{flex:1}}
-                source={require('../assets/title.png')}
+                style={{flex:1,width:Dimensions.get('window').width*0.6,}}
+                source={require('../assets/logo.png')}
                 resizeMode="contain"/>
                 </View>
             </ImageBackground>

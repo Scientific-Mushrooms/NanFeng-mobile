@@ -44,17 +44,17 @@ export default class _Swiper extends Component {
             autoplay={false}
             autoplayTimeout={2.4}
             loop={false}
-            scrollEnabled={false}
+            scrollEnabled={true}
             activeDot={<View style={{backgroundColor:'white', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
             <ImageBackground
                 style={{flex:1}}
                 source={require('../assets/Splash.png')}
                 resizeMode="cover">
                 <View animation="fadeInLeft" style={styles.center} useNativeDriver>
-                    <Text style={styles.text}>番茄工作法</Text>
-                    <Text style={styles.text}>规划你的时间</Text>
+                    <Text style={styles.text}>课程查询</Text>
+                    <Text style={styles.text}>开启你的选课之旅</Text>
                     <View animation="fadeInUp" useNativeDriver>
-                        <Image style={{height:(thisWidth-100)*1.8}} source={require('../assets/ic_at.png')} resizeMode="contain"/>
+                        <Image style={{height:(thisWidth-100)*1.2}} source={require('../assets/show_phone.png')} resizeMode="contain"/>
                     </View>
                 </View>
             </ImageBackground>
@@ -62,17 +62,24 @@ export default class _Swiper extends Component {
                 style={{flex:1}}
                 source={require('../assets/Splash.png')}
                 resizeMode="cover">
-                <View style={styles.center}>
-                    <Text style={styles.text_large}>时墨</Text>
-                    <Text style={styles.text}></Text>
-                    <Text style={styles.text}>让世界看到</Text>
-                    <Text style={styles.text}>你的专注</Text>
+                <View animation="fadeInLeft" style={styles.center} useNativeDriver>
+                    <Text style={styles.text}>网页端/移动端</Text>
+                    <Text style={styles.text}>方便你的使用</Text>
+                    <View animation="fadeInUp" useNativeDriver>
+                        <Image style={{height:(thisWidth-100)*1.2,width:thisWidth*0.9}} source={require('../assets/show_web.png')} resizeMode="contain"/>
+                    </View>
                 </View>
+            </ImageBackground>
+            <ImageBackground
+                style={{flex:1}}
+                source={require('../assets/Splash.png')}
+                resizeMode="cover">
+
                 <View style={styles.center}>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => navigate('BaseTab')}>
-                        <Text style={styles.btText}>体验离线功能</Text>
+                        <Text style={styles.btText}>进入南风</Text>
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
@@ -111,6 +118,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',    
         marginBottom: 8,
         opacity:0.9,
+        width:thisWidth*0.5,
+        height:thisWidth*0.2
     },  
     center:{
         alignItems:'center',
