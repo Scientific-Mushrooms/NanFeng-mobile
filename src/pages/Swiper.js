@@ -78,13 +78,14 @@ export default class _Swiper extends Component {
                 resizeMode="cover">
 
                 <View style={styles.center}>
+                    <Text style={styles.text}>南风知我意</Text>
                     <View animation="fadeInUp" useNativeDriver>
-                        <Image style={{height:(thisWidth-100)*1.2,width:thisWidth*0.9}} source={require('../assets/show_enter.png')} resizeMode="contain"/>
+                        <Image style={{height:(thisWidth-100)*1.2,width:thisWidth}} source={require('../assets/show_enter.png')} resizeMode="contain"/>
                     </View>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => replace('BaseTab')}>
-                        <Text style={styles.btText}>进入南风</Text>
+                        <Text style={styles.btText}>开启全新南大生活</Text>
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
@@ -119,12 +120,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 8,
+        borderRadius: 30,
         backgroundColor: 'white',    
         marginBottom: 8,
         opacity:0.9,
-        width:thisWidth*0.5,
-        height:thisWidth*0.2
+        width:thisWidth*0.4,
+        height:thisWidth*0.15
     },  
     center:{
         alignItems:'center',
