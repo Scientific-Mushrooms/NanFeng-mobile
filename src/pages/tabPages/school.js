@@ -107,9 +107,6 @@ class School extends Component {
       });   
   };
 
-  handlePress(){
-    navigation.navigate("ScrollView")
-  }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -181,8 +178,7 @@ class School extends Component {
 
   renderItem = (item, index, separator) => {
     return(
-      <ListItem 
-      onPress={this.handlePress}
+      <ListItem
       like={index+2}
       com={index+1}
       text={item.content} 
