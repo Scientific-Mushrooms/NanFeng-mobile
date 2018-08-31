@@ -29,7 +29,7 @@ class ImageView extends Component {
   };
 
   saveImage=()=>{
-    var promise = CameraRoll.saveToCameraRoll(this.props.navigation.state.params.imgsrc)
+    var promise = CameraRoll.saveToCameraRoll(this.props.navigation.state.params.image)
     promise.then(function(result){
       alert(result);
     }, function(err) {
@@ -47,10 +47,9 @@ class ImageView extends Component {
         <Image
           onTransformGestureReleased={(object)=>this.handleScale(object)}
           style={{width: Dimensions.get('window').width,height:Dimensions.get('window').height*18/20}}
-          source={this.props.navigation.state.params.img}
+          source={this.props.navigation.state.params.image}
         />
           <TouchableOpacity
-          onPress={this.saveImage}
           style={styles.absolute}
           activeOpacity={0.75}>
             <View style={{borderWidth:1,borderColor:'#686868',paddingHorizontal:8,paddingVertical:5}}>

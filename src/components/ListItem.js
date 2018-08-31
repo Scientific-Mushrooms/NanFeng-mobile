@@ -12,6 +12,10 @@ export default class ListItem extends Component {
     }
   }
 
+    handlePress=()=>{
+        navigation.navigate("ImageView",{image:this.props.img})
+    }
+
   render() {
     let kind='分享'
     if(this.props.kind!=null)
@@ -20,7 +24,7 @@ export default class ListItem extends Component {
       if (this.props.img!=null) img=this.props.img
     return (
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.6} onPress={this.props.onPress}>
+        <TouchableOpacity activeOpacity={0.6} onPress={this.handlePress}>
           <ImageBackground style={styles.imageContainer} source={img} resizeMode="cover">
             <Text style={styles.text_on_image}>{kind}</Text>
           </ImageBackground>
