@@ -26,8 +26,8 @@ export default class _Swiper extends Component {
   };
 
   render(){
-    const { navigate } = this.props.navigation;
-    return (
+    const { replace } = this.props.navigation;
+    /*return (
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
@@ -37,6 +37,59 @@ export default class _Swiper extends Component {
             <Text style={styles.btText}>点击进入下一级导航</Text>
         </TouchableOpacity>   
       </View>
+    );*/
+    return(
+        <Swiper
+            style={styles.wrapper}
+            autoplay={false}
+            autoplayTimeout={2.4}
+            loop={false}
+            scrollEnabled={true}
+            activeDot={<View style={{backgroundColor:'white', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
+            <ImageBackground
+                style={{flex:1}}
+                source={require('../assets/Back_changed.png')}
+                resizeMode="cover">
+                <View animation="fadeInLeft" style={styles.center} useNativeDriver>
+                    <Text style={styles.text}>课程查询</Text>
+                    <Text style={styles.text}>开启你的选课之旅</Text>
+                    <View>
+                        <View animation="fadeInUp" useNativeDriver>
+                            <Image style={{height:(thisWidth-100)*1.2,width:thisWidth*0.9}} source={require('../assets/show_course.png')} resizeMode="contain"/>
+                        </View>
+                    </View>
+                </View>
+            </ImageBackground>
+            <ImageBackground
+                style={{flex:1}}
+                source={require('../assets/Back_changed.png')}
+                resizeMode="cover">
+                <View animation="fadeInLeft" style={styles.center} useNativeDriver>
+                    <Text style={styles.text}>网页端/移动端</Text>
+                    <Text style={styles.text}>方便你的使用</Text>
+                    <View animation="fadeInUp" useNativeDriver>
+                        <Image style={{height:(thisWidth-100)*1.2,width:thisWidth*0.9}} source={require('../assets/show_web.png')} resizeMode="contain"/>
+                    </View>
+                </View>
+            </ImageBackground>
+            <ImageBackground
+                style={{flex:1}}
+                source={require('../assets/Back_changed.png')}
+                resizeMode="cover">
+
+                <View style={styles.center}>
+                    <Text style={styles.text}>南风知我意</Text>
+                    <View animation="fadeInUp" useNativeDriver>
+                        <Image style={{height:(thisWidth-100)*1.2,width:thisWidth}} source={require('../assets/show_enter.png')} resizeMode="contain"/>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => replace('BaseTab')}>
+                        <Text style={styles.btText}>开启全新南大生活</Text>
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
+        </Swiper>
     );
   }
 
@@ -67,10 +120,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 8,
+        borderRadius: 30,
         backgroundColor: 'white',    
         marginBottom: 8,
         opacity:0.9,
+        width:thisWidth*0.4,
+        height:thisWidth*0.15
     },  
     center:{
         alignItems:'center',

@@ -17,6 +17,18 @@ import ListItem from "../../components/ListItem"
 import HorizonItem from "../../components/HorizontalListItem"
 
 const { width, height } = Dimensions.get('window')
+const data=[{"content":"体育馆一角","img":require("../../assets/img/01.jpg")},
+    {"content":"南小黄","img":require("../../assets/img/02.jpg")},
+    {"content":"古朴校楼","img":require("../../assets/img/03.jpg")},
+    {"content":"夕阳下的图书馆","img":require("../../assets/img/04.jpg")},
+    {"content":"夕阳远景","img":require("../../assets/img/05.jpg")},
+    {"content":"天文台的星空","img":require("../../assets/img/06.jpg")},
+    {"content":"手绘大活","img":require("../../assets/img/07.jpg")},
+    {"content":"手绘宿舍楼","img":require("../../assets/img/08.jpg")},
+    {"content":"校园雪景","img":require("../../assets/img/09.jpg")},
+    {"content":"校门","img":require("../../assets/img/10.jpg")},
+]
+
 class School extends Component {
 
   constructor(props) {
@@ -85,7 +97,7 @@ class School extends Component {
             gridData: json,
           });
           let rowData =this.state.gridData
-          startFetch(rowData, pageLimit);
+          startFetch(data, pageLimit);
         })
         .catch((error) => {
           if (error) {
@@ -171,10 +183,11 @@ class School extends Component {
     return(
       <ListItem 
       onPress={this.handlePress}
-      like={index} 
-      com={index-1} 
+      like={index+2}
+      com={index+1}
       text={item.content} 
-      kind="美景"/>
+      kind="美景"
+      img={item.img}/>
     );
   };
 

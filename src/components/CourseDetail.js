@@ -12,6 +12,18 @@ import {
 import BaseComponent from '../components/BaseComponent'
 import Panel from '../components/react-native-collapsable-view'
 
+const teachers = [
+
+    {
+        realName:'暂无信息',
+        faculty:'暂无信息',
+        courses:[
+            {courseName:"暂无教师课程信息",courseId:"1"},
+            {courseName:"暂无教师课程信息",courseId:"2"}
+        ]
+    },
+]
+
 export default class CourseDetail extends BaseComponent{
       constructor(props) {
         super(props);
@@ -31,6 +43,7 @@ export default class CourseDetail extends BaseComponent{
             enjoy_uNum:40,
             commentAuthors: null,
             courseComments: null,
+            teachers:[],
         };
     }
 
@@ -56,6 +69,36 @@ export default class CourseDetail extends BaseComponent{
         })
     }
 
+    fetchTeacher=()=>{
+
+        let form = new FormData();
+        form.append("courseId", this.props.navigation.state.params.courseId);
+
+        this.post('/api/section/courseIdToSections', form).then((result) => {
+            if (result.status === 'success') {
+                result.detail.map(this.fetchInstructor)
+            }
+        })
+    }
+
+    fetchInstructor=(section)=>{
+        const instructorId=section.instructorId
+        var form = new FormData();
+        form.append('instructorId', instructorId);
+
+        this.post('/api/instructor/instructorIdToInstructor', form).then((result) => {
+            if (result.status === 'success') {
+                var teacher=this.state.teachers.concat(result.detail)
+                this.setState({teachers:teacher})
+            }
+        })
+    }
+
+    renderInstructor = (teacher) => {
+        return (
+            <Text style={{marginLeft:15,marginTop:5,marginBottom:10,fontSize:18}}>{teacher.realName}</Text>
+        )
+    }
     componentWillMount(){
         const courseId=this.props.navigation.state.params.courseId
         let form = new FormData();
@@ -63,6 +106,7 @@ export default class CourseDetail extends BaseComponent{
         this.post('/api/course/courseIdToCourse', form).then((result) => {
             this.setState({ course: result.detail, loading: false, courseComments: result.more })
         })
+        this.fetchTeacher();
         this.fetchCourseComments();
     }
 
@@ -118,22 +162,7 @@ export default class CourseDetail extends BaseComponent{
                 <View style={styles.subContainer}>
                     <View style={{marginLeft:15,marginTop:5,marginBottom:10}}>
                         <Text style={{marginTop:10,color:'black',fontSize:23}}>教师</Text>
-                        <View style={{flexDirection:'row',alignItems:'center',marginTop:10,marginBottom:10}}>
-                            <Image style={{width:50,height:50}} source={this.props.user_img} />
-                            <View>
-                                <Text style={{marginLeft:5,color:'black',fontSize:23,}}>{this.props.username}</Text>
-                                <Text style={{marginLeft:5,fontSize:17}}>{this.props.teacher_college}</Text>
-                            </View>
-                        </View>
-                        <Text style={styles.description2}>同时教授</Text>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Text style={{margin:5,fontSize:20,color:'#268BD2'}}>{this.props.extra1}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            activeOpacity={0.75}>
-                            <Text style={{margin:5,fontSize:20,color:'#268BD2'}}>{this.props.extra2}</Text>
-                        </TouchableOpacity>
+                        {this.state.teachers.map(this.renderInstructor)}
                     </View>
                 </View>
                 <View style={styles.subContainer}>

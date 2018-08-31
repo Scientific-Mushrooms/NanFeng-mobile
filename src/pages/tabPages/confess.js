@@ -7,7 +7,7 @@ import {
     ListView,
     RefreshControl,
     Image,
-    Dimensions
+    Dimensions,
 } from 'react-native';
 import Modal from 'react-native-modalbox';
 import ActionButton from 'react-native-action-button';
@@ -15,11 +15,10 @@ import View3 from '../../components/View3'
 import BaseComponent from '../../components/BaseComponent'
 import {UltimateListView} from "react-native-ultimate-listview";
 import moment from 'moment';
-import 'moment/locale/zh-cn'
+import 'moment/locale/zh-cn';
 import SearchHeader from '../../components/react-native-search-header/search-header';
 
-//var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-var today=new Date();
+
 var savePageNum=0;
 
 class Confess extends BaseComponent{
@@ -38,17 +37,12 @@ class Confess extends BaseComponent{
             isDisabled: false,
             swipeToClose: true,
             sliderValue: 0.3,//mb初始设置
-            /*dataSource: ds.cloneWithRows(this._data),//ListView数据来源
-            isRefreshing: false,//刷新
-            loadingMore:false,
-            isLoadAll:false,*/
             confess:{"userId":"initial","anonymous":false,"content":"initial",},
             name:"",
             data:[],
             page:0,
             searchTag:""
         };
-        this._data=this._data.concat(this.state.confess);
     }
 
     /*componentWillMount(){
@@ -65,6 +59,10 @@ class Confess extends BaseComponent{
             this.setState({dataSource: ds.cloneWithRows(this._data)});
         })
     }*/
+
+    onBackClicked = () => {
+        return true;
+    }
 
     onFetch = async(page = 1,startFetch, abortFetch) => {//judge if searching
         let address="/api/confess/all"
@@ -111,6 +109,7 @@ class Confess extends BaseComponent{
 
     render() {
         const {navigate} = this.props.navigation;
+
         return (
 
             <View style={{flex: 1, backgroundColor: 'rgb(240,240,240)'}}>
@@ -184,7 +183,7 @@ class Confess extends BaseComponent{
                     verticalOrientation='up'
                     offsetY={75}>
                         <ActionButton.Item 
-                        buttonColor='#9b59b6'
+                        buttonColor='#4d0099'
                         title="发布"
                         onPress={() => {
                             navigate('NewPost');
