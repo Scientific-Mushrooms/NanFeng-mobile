@@ -3,10 +3,7 @@ import {
     Image,
     StyleSheet,
     AsyncStorage,
-    Dimensions,
-    BackHandler,
-    Platform,
-    Alert
+    Dimensions
 } from 'react-native';
 import Drawer from 'react-native-drawer';
 
@@ -38,7 +35,6 @@ import DrawerLayout from 'react-native-drawer-layout'
       )
     }),
     },
-
     Course:{
       screen:Course,
       navigationOptions:({navigation}) => ({
@@ -53,7 +49,6 @@ import DrawerLayout from 'react-native-drawer-layout'
         )
       }),
     },
-
     School:{
       screen:School,
       navigationOptions:({navigation}) => ({
@@ -89,14 +84,15 @@ import DrawerLayout from 'react-native-drawer-layout'
   );  */
 
 const mapStateToProps = state => ({
-    ifFirst: state.ifFirst
+    ifFirst: state.ifFirst,
+    identityReducer: state.identityReducer
 })
 
 class BaseTab extends Component {
     constructor(props){
         super(props);
         this.state = {
-            selectedTab:'Confess',
+            selectedTab:'Course',
         };
     }
 
@@ -107,17 +103,11 @@ class BaseTab extends Component {
     componentWillMount(){
         this.props.dispatch(notFirst());
         //使用redux
-        /*if(Platform.OS === 'android'){
-            BackHandler.addEventListener('hardwareBackPress', this.handleBack);
-        }*/
     }
 
-    handleBack=()=>{
-      Alert.alert(this.props.navigation.state.routeName);
-        if (this.props.navigation.state.routeName==='Confess'){
-            return true;
-        }
-        else return false;
+    componentDidMount(){
+        if(this.props.navigation.state.params!=undefined)
+            this._openDrawer()
     }
 
     _openDrawer = () => {

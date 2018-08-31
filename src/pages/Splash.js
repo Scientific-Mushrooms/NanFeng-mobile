@@ -35,10 +35,10 @@ class Splash extends Component {
     componentDidMount() {
         const { navigation } = this.props
         this.timer = setTimeout(() => {
-            //if(this.props.ifFirst.first)
+            if(this.props.ifFirst.first)
                 this.props.navigation.replace('Swiper');
-            //else
-             //   this.props.navigation.replace('BaseTab');
+            else
+               this.props.navigation.replace('BaseTab');
         }, 2000)
     }
 
